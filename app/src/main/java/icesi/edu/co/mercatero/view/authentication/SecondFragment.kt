@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentSecondBinding
 
 /**

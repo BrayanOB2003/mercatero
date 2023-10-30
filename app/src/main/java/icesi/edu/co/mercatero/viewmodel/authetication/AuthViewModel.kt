@@ -3,6 +3,7 @@ package icesi.edu.co.mercatero.viewmodel.authetication
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -48,7 +49,9 @@ class AuthViewModel: ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = Firebase.auth.signInWithEmailAndPassword(email, pass).await()
-                withContext(Dispatchers.Main){authStateLV.value = AuthState(result.user?.uid, true)}
+                withContext(Dispatchers.Main){
+                    authStateLV.value = AuthState(result.user?.uid, true)
+                }
             } catch (e: FirebaseAuthException) {
                 withContext(Dispatchers.Main){errorLV.value =
                     ErrorMessage.WRONG_AUTHENTICATION.toString()
@@ -57,6 +60,19 @@ class AuthViewModel: ViewModel() {
         }
 
     }
+
+    fun signInValidation(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val result  = FirebaseAuth.getInstance().currentUser
+            withContext(Dispatchers.Main){
+                result?.let {
+                    authStateLV.value = AuthState(result.uid, true)
+                }
+            }
+        }
+    }
+
+
 }
 
 data class AuthState(
