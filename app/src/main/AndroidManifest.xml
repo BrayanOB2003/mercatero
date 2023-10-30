@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Mercatero"
         tools:targetApi="31">
         <activity
-            android:name=".view.authetication.AuthActivity"
+            android:name=".view.authentication.AuthActivity"
             android:exported="false"
             android:label="@string/title_activity_auth"
             android:theme="@style/Theme.Mercatero" />

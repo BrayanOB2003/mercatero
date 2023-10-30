@@ -1,9 +1,8 @@
-package icesi.edu.co.mercatero.view.authetication
+package icesi.edu.co.mercatero.view.authentication
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp

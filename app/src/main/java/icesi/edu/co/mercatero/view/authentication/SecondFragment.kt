@@ -1,4 +1,4 @@
-package icesi.edu.co.mercatero.view.authetication
+package icesi.edu.co.mercatero.view.authentication
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
