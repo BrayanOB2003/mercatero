@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "349758262767",
+    "project_id": "mercatero",
+    "storage_bucket": "mercatero.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349758262767:android:8a8a7702de4b0e16fa3a1a",
+        "android_client_info": {
+          "package_name": "icesi.edu.co.mercatero"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFjZ87Gbwq4U7nsH6DdRtRtIF_3gtIjDk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
