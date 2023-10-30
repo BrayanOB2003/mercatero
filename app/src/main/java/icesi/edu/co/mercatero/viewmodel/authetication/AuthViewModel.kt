@@ -17,7 +17,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class AuthViewModel: ViewModel() {
-    val authStateLV = MutableLiveData<Client>()
+    val authStateLV = MutableLiveData<AuthState>()
     val errorLV = MutableLiveData<String>()
 
     fun signupClient(email: String, password: String, name: String, lastName: String, CC: Long,
@@ -26,7 +26,7 @@ class AuthViewModel: ViewModel() {
             try {
                 val result = Firebase.auth.createUserWithEmailAndPassword(email, password).await()
                 withContext(Dispatchers.Main){
-                    authStateLV.value = Client(result.user.uid, name, lastName, CC, address, number_phone, email)
+                    authStateLV.value = AuthState(result.user?.uid, true)
                 }
             }catch (e: FirebaseAuthInvalidCredentialsException) {
                 withContext(Dispatchers.Main){errorLV.value =
@@ -44,16 +44,22 @@ class AuthViewModel: ViewModel() {
         }
     }
 
-    fun signin(email: String, pass: String) {
+    fun signInClient(email: String, pass: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = Firebase.auth.signInWithEmailAndPassword(email, pass).await()
                 withContext(Dispatchers.Main){authStateLV.value = AuthState(result.user?.uid, true)}
             } catch (e: FirebaseAuthException) {
-                withContext(Dispatchers.Main){errorLV.value = ErrorMessage("Error de autenticación")}
+                withContext(Dispatchers.Main){errorLV.value =
+                    ErrorMessage.WRONG_AUTHENTICATION.toString()
+                }
             }
         }
 
     }
 }
-}
+
+data class AuthState(
+    var userID: String? = null,
+    var isAuth: Boolean
+)
