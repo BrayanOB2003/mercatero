@@ -12,16 +12,16 @@
 
         <action
             android:id="@+id/action_EntryFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/SignInFragment" />
         <action
             android:id="@+id/action_EntryFragment_to_HomeActivity"
             app:destination="@id/homeActivity" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="icesi.edu.co.mercatero.view.authentication.SecondFragment"
+        android:id="@+id/SignInFragment"
+        android:name="icesi.edu.co.mercatero.view.authentication.SignInFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_signin">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"

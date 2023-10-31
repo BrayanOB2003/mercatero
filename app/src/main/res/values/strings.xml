@@ -20,6 +20,16 @@
     <!-- Strings used for image description -->
     <string name="logo_description">Logo de mercatero</string>
 
+    <!-- Strings used for signIn screen -->
+    <string name="login_statement">Inicia sesión</string>
+    <string name="login_email_statement">Correo</string>
+    <string name="login_password_statement">Contraseña</string>
+    <string name="login_forget_password_statement">¿Olvidaste tu contraseña?</string>
+    <string name="login_final_statement">O continuar con</string>
+    <string name="login_create_account_statement">¿No tienes cuenta? Crear cuenta</string>
+    <string name="login_facebook">Facebook</string>
+    <string name="login_google">Google</string>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
