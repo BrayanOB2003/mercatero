@@ -6,5 +6,5 @@
         android:width="2dp"
         />
     <corners android:radius="15dp" />
-    <padding android:left="15dp"/>
+    <padding android:left="100dp"/>
 </shape>
