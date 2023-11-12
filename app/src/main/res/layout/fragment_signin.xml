@@ -126,7 +126,7 @@
                 android:textSize="16sp"/>
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/txtCreateAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/login_create_account_statement"

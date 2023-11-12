@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace 'icesi.edu.co.mercatero'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "icesi.edu.co.mercatero"

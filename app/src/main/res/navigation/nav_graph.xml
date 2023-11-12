@@ -14,7 +14,7 @@
             android:id="@+id/action_EntryFragment_to_SecondFragment"
             app:destination="@id/SignInFragment" />
         <action
-            android:id="@+id/action_EntryFragment_to_HomeActivity"
+            android:id="@+id/action_EntryFragment_to_homeActivity"
             app:destination="@id/homeActivity" />
     </fragment>
     <fragment
@@ -22,14 +22,29 @@
         android:name="icesi.edu.co.mercatero.view.authentication.SignInFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_signin">
-
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/EntryFragment" />
+            android:id="@+id/action_SignInFragment_to_homeActivity"
+            app:destination="@id/homeActivity" />
+        <action
+            android:id="@+id/action_SignInFragment_to_signUpTypeFragment"
+            app:destination="@id/signUpTypeFragment" />
     </fragment>
     <activity
         android:id="@+id/homeActivity"
         android:name="icesi.edu.co.mercatero.view.home.HomeActivity"
         android:label="activity_home"
         tools:layout="@layout/activity_home" />
+    <fragment
+        android:id="@+id/signUpTypeFragment"
+        android:name="icesi.edu.co.mercatero.view.authentication.SignUpTypeFragment"
+        android:label="SignUpTypeFragment" >
+        <action
+            android:id="@+id/action_signUpTypeFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="icesi.edu.co.mercatero.view.authentication.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" />
 </navigation>

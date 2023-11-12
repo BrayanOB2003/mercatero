@@ -24,7 +24,7 @@ class EntryFragment : Fragment() {
         authViewModel.signInValidation()
 
         if(authViewModel.authStateLV.value?.isAuth == true){
-            findNavController().navigate(R.id.action_EntryFragment_to_HomeActivity)
+            findNavController().navigate(R.id.action_EntryFragment_to_homeActivity)
         } else {
             findNavController().navigate(R.id.action_EntryFragment_to_SecondFragment)
         }

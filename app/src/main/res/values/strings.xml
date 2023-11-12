@@ -37,6 +37,10 @@
     <string name="signIn_statement_shop">Tienda</string>
     <string name="signIn_next_button">Siguiente</string>
 
+    <!-- Strings used for signUp screen -->
+    <string name="signUp_statement">Regístrate</string>
+    <string name="signUp_account_statement">¿Ya tienes una cuenta?</string>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
