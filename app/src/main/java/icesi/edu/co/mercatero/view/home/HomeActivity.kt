@@ -8,6 +8,8 @@ import icesi.edu.co.mercatero.databinding.ActivityAuthBinding
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAuthBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)

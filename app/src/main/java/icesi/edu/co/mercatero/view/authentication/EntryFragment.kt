@@ -6,15 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import icesi.edu.co.mercatero.MainActivity
 import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentEntryBinding
+import icesi.edu.co.mercatero.databinding.FragmentMyProfileBinding
 import icesi.edu.co.mercatero.viewmodel.authetication.AuthViewModel
 
 class EntryFragment : Fragment() {
 
     private lateinit var binding: FragmentEntryBinding
+    private lateinit var mainActivity: MainActivity
     private val authViewModel = AuthViewModel()
-
+    private lateinit var signUpFragment: SignUpFragment
+    private lateinit var signInFragment: SignInFragment
+    private lateinit var signUpTypeFragment: SignUpTypeFragment
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,8 +42,10 @@ class EntryFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): EntryFragment {
-            return EntryFragment()
+        @JvmStatic
+        fun newInstance(mainActivity: MainActivity) = EntryFragment().apply {
+            this.mainActivity = mainActivity
+        }
+
         }
     }
-}
