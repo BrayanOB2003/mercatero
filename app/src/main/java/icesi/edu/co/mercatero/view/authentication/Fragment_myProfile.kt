@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import icesi.edu.co.mercatero.MainActivity
 import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentMyProfileBinding
+
 class Fragment_myProfile : Fragment() {
     // TODO: Rename and change types of parameters
 
@@ -40,9 +41,9 @@ class Fragment_myProfile : Fragment() {
 
         //binding.pfpImageView.setOnClickListener {
 
-          //  val intent = Intent(Intent.ACTION_GET_CONTENT)
-            //intent.type = "image/*"
-            //galLauncher.launch(intent)
+        //  val intent = Intent(Intent.ACTION_GET_CONTENT)
+        //intent.type = "image/*"
+        //galLauncher.launch(intent)
 
         //}
 
@@ -52,7 +53,7 @@ class Fragment_myProfile : Fragment() {
     }
 
 
-   companion object {
+    companion object {
         @JvmStatic
         fun newInstance(mainActivity: MainActivity) = Fragment_myProfile().apply {
             //   this.mainActivity = mainActivity
@@ -80,10 +81,15 @@ class Fragment_myProfile : Fragment() {
 
         }
     }
-   /* fun newInstance():Fragment_myProfile{
 
-        return Fragment_myProfile()
+    /*fun newInstance(mainActivity: MainActivity):Fragment_myProfile{
+
+        return Fragment_myProfile().apply {
+            this.mainActivity = mainActivity
+        }
     }
-    
-    */
+
+
+     */
+
 }

@@ -13,6 +13,11 @@
         android:theme="@style/Theme.Mercatero"
         tools:targetApi="31">
         <activity
+            android:name=".test"
+            android:exported="false"
+            android:label="@string/title_activity_test"
+            android:theme="@style/Theme.Mercatero" />
+        <activity
             android:name=".view.home.HomeActivity"
             android:exported="false" />
         <activity
@@ -25,6 +30,9 @@
             android:exported="false"
             android:label="@string/title_activity_login" />
         <activity
+            android:name=".view.authentication.myProfile"
+            />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -32,6 +40,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 

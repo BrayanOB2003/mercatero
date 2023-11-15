@@ -41,13 +41,13 @@
                     android:text="MI PERFIL"
                     android:textSize="34sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/imageView6"
+                    app:layout_constraintBottom_toTopOf="@+id/pfpIV"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageView6"
+                    android:id="@+id/pfpIV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
@@ -68,7 +68,7 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/textViewEmail"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                    app:layout_constraintTop_toBottomOf="@+id/pfpIV" />
 
                 <TextView
                     android:id="@+id/textViewEmail"
