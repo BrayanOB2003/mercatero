@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="10dp"
+    android:onClick="pickImage">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,9 +26,11 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imageView17"
+                    android:id="@+id/mainImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:visibility="visible"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/background" />
 
@@ -46,15 +49,15 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/pfpIV"
-                    android:layout_width="285dp"
-                    android:layout_height="126dp"
+                    android:layout_width="174dp"
+                    android:layout_height="144dp"
                     android:layout_marginTop="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
-                    app:srcCompat="@drawable/pfp" />
+                    tools:src="@drawable/pfp" />
 
                 <TextView
                     android:id="@+id/textViewNombre"
@@ -99,10 +102,12 @@
                     app:layout_constraintTop_toBottomOf="@+id/textViewEmail">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/aboutMeCL"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/background_bttn_green"
+                        android:clickable="true"
                         android:elevation="3dp">
 
                         <ImageView

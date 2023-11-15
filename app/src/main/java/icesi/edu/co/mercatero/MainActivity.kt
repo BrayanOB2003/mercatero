@@ -6,15 +6,12 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import icesi.edu.co.mercatero.databinding.ActivityMainBinding
 import icesi.edu.co.mercatero.view.authentication.EntryFragment
-import icesi.edu.co.mercatero.view.authentication.Fragment_myProfile
 import icesi.edu.co.mercatero.view.authentication.SignUpFragment
-import icesi.edu.co.mercatero.view.authentication.SignUpTypeFragment
 import icesi.edu.co.mercatero.view.authentication.myProfile
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var entryFragment: EntryFragment
-    lateinit var fragmentMyprofile: Fragment_myProfile
     lateinit var signUpFragment: SignUpFragment
     val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)

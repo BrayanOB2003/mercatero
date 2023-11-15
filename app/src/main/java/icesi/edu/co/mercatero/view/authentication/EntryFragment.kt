@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import icesi.edu.co.mercatero.MainActivity
 import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentEntryBinding
-import icesi.edu.co.mercatero.databinding.FragmentMyProfileBinding
 import icesi.edu.co.mercatero.viewmodel.authetication.AuthViewModel
 
 class EntryFragment : Fragment() {
