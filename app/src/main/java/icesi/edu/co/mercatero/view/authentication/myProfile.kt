@@ -26,10 +26,9 @@ class myProfile: AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult(), ::onGalleryResult
 
         )
-
-       val intent = Intent(Intent.ACTION_GET_CONTENT)
-       intent.type = "image/*"
-       galLauncher.launch(intent)
+    //   val intent = Intent(Intent.ACTION_GET_CONTENT)
+     //  intent.type = "image/*"
+     //  galLauncher.launch(intent)
        binding.pfpIV.setOnClickListener{
             Log.d("Test","Hace click")
             val intent = Intent(Intent.ACTION_GET_CONTENT)
