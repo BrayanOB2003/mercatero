@@ -60,7 +60,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textViewNombre"
+                    android:id="@+id/nameTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
@@ -70,11 +70,11 @@
                     android:textAllCaps="false"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/textViewEmail"
+                    app:layout_constraintBottom_toTopOf="@+id/emailTV"
                     app:layout_constraintTop_toBottomOf="@+id/pfpIV" />
 
                 <TextView
-                    android:id="@+id/textViewEmail"
+                    android:id="@+id/emailTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
@@ -86,7 +86,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewNombre" />
+                    app:layout_constraintTop_toBottomOf="@+id/nameTV" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -99,7 +99,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewEmail">
+                    app:layout_constraintTop_toBottomOf="@+id/emailTV">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/aboutMeCL"

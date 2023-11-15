@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.MyProfileBinding
+import icesi.edu.co.mercatero.viewmodel.authetication.ProfileViewModel
 
 class myProfile: AppCompatActivity() {
 
@@ -18,6 +19,7 @@ class myProfile: AppCompatActivity() {
     }
 
     private lateinit var mainImageUri: Uri
+    private lateinit var myProfileViewModel: ProfileViewModel
     override fun onCreate(savedInstanceState: Bundle?){
 
         super.onCreate(savedInstanceState)
@@ -26,6 +28,17 @@ class myProfile: AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult(), ::onGalleryResult
 
         )
+        myProfileViewModel = ProfileViewModel()
+        myProfileViewModel.getProfileData("2Xu2YvWmxLGrInFK8wPf")
+        myProfileViewModel.client.observe(this){
+
+            Log.d("Test",it.nombre)
+            Log.d("Test",it.email)
+
+            binding.nameTV.text = it.nombre
+            binding.emailTV.text = it.email
+
+        }
     //   val intent = Intent(Intent.ACTION_GET_CONTENT)
      //  intent.type = "image/*"
      //  galLauncher.launch(intent)
@@ -68,6 +81,7 @@ class myProfile: AppCompatActivity() {
 
         }
     }
+
 
 
 }
