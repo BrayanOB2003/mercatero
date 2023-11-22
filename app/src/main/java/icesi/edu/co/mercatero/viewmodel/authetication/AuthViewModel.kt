@@ -50,7 +50,9 @@ class AuthViewModel: ViewModel() {
             try {
                 val result = Firebase.auth.signInWithEmailAndPassword(email, pass).await()
                 withContext(Dispatchers.Main){
-                    authStateLV.value = AuthState(result.user?.uid, true)
+                    result.let {
+                        authStateLV.value = AuthState(result.user?.uid, true)
+                    }
                 }
             } catch (e: FirebaseAuthException) {
                 withContext(Dispatchers.Main){errorLV.value =
@@ -66,7 +68,7 @@ class AuthViewModel: ViewModel() {
             val result  = FirebaseAuth.getInstance().currentUser
             withContext(Dispatchers.Main){
                 result?.let {
-                    authStateLV.value = AuthState(result.uid, true)
+                    authStateLV.value = AuthState(result.uid, false)
                 }
             }
         }

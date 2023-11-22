@@ -11,7 +11,7 @@
         android:label="@string/first_fragment_label">
 
         <action
-            android:id="@+id/action_EntryFragment_to_SecondFragment"
+            android:id="@+id/action_EntryFragment_to_SignInFragment"
             app:destination="@id/SignInFragment" />
         <action
             android:id="@+id/action_EntryFragment_to_homeActivity"
