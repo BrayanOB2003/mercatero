@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import icesi.edu.co.mercatero.R
+import icesi.edu.co.mercatero.databinding.ActivityAuthBinding
+import icesi.edu.co.mercatero.databinding.FragmentEntryBinding
+import icesi.edu.co.mercatero.databinding.FragmentSignUpTypeBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,24 +23,29 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class SignUpTypeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var binding: FragmentSignUpTypeBinding
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_up_type, container, false)
+        binding = FragmentSignUpTypeBinding.inflate(inflater, container, false)
+        navController = findNavController()
+
+        return binding.root
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.backButton.setOnClickListener {
+            navController.navigate(R.id.action_signUpTypeFragment_to_SignInFragment)
+        }
     }
 
     companion object {

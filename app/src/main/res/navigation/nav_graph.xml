@@ -41,10 +41,17 @@
         <action
             android:id="@+id/action_signUpTypeFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signUpTypeFragment_to_SignInFragment"
+            app:destination="@id/SignInFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
         android:name="icesi.edu.co.mercatero.view.authentication.SignUpFragment"
         android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" />
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_SignInFragment"
+            app:destination="@id/SignInFragment" />
+    </fragment>
 </navigation>

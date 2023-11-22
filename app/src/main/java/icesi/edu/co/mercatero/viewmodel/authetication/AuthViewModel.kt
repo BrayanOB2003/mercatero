@@ -68,7 +68,7 @@ class AuthViewModel: ViewModel() {
             val result  = FirebaseAuth.getInstance().currentUser
             withContext(Dispatchers.Main){
                 result?.let {
-                    authStateLV.value = AuthState(result.uid, false)
+                    authStateLV.value = AuthState(result.uid, true)
                 }
             }
         }
@@ -79,5 +79,5 @@ class AuthViewModel: ViewModel() {
 
 data class AuthState(
     var userID: String? = null,
-    var isAuth: Boolean
+    var isAuth: Boolean = false
 )

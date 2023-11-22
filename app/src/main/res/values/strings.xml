@@ -29,6 +29,7 @@
     <string name="login_create_account_statement">¿No tienes cuenta? Crear cuenta</string>
     <string name="login_facebook">Facebook</string>
     <string name="login_google">Google</string>
+    <string name="error_text_field">El correo o contraseña es incorrecto</string>
 
     <!-- Strings used for signUpType screen -->
     <string name="signIn_statement">Registrarse como:</string>
@@ -40,6 +41,9 @@
     <!-- Strings used for signUp screen -->
     <string name="signUp_statement">Regístrate</string>
     <string name="signUp_account_statement">¿Ya tienes una cuenta?</string>
+    <string name="signUp_name_input">Nombres</string>
+    <string name="signUp_last_name_input">Apellidos</string>
+    <string name="signUp_number_phone">Número de celular</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
