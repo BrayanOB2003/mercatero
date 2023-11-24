@@ -1,5 +1,6 @@
 package icesi.edu.co.mercatero.viewmodel.authetication
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,7 +20,6 @@ import kotlinx.coroutines.withContext
 
 class AuthViewModel: ViewModel() {
     val authStateLV = MutableLiveData<AuthState>()
-    val errorLV = MutableLiveData<String>()
 
     fun signupClient(email: String, password: String, name: String, lastName: String, CC: Long,
                      address: String, number_phone: String) {
@@ -29,7 +29,11 @@ class AuthViewModel: ViewModel() {
                 withContext(Dispatchers.Main){
                     authStateLV.value = AuthState(result.user?.uid, true)
                 }
-            }catch (e: FirebaseAuthInvalidCredentialsException) {
+            } catch (e: Exception){
+
+            }
+            /*
+            catch (e: FirebaseAuthInvalidCredentialsException) {
                 withContext(Dispatchers.Main){errorLV.value =
                     ErrorMessage.WRONG_FORMAT_PASSWORD.toString()
                 }
@@ -42,6 +46,7 @@ class AuthViewModel: ViewModel() {
                     ErrorMessage.WEAK_PASSWORD.toString()
                 }
             }
+             */
         }
     }
 
@@ -49,35 +54,43 @@ class AuthViewModel: ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = Firebase.auth.signInWithEmailAndPassword(email, pass).await()
-                withContext(Dispatchers.Main){
-                    result.let {
-                        authStateLV.value = AuthState(result.user?.uid, true)
-                    }
-                }
-            } catch (e: FirebaseAuthException) {
-                withContext(Dispatchers.Main){errorLV.value =
-                    ErrorMessage.WRONG_AUTHENTICATION.toString()
-                }
+                withContext(Dispatchers.Main){authStateLV.value = AuthState(result.user?.uid, true)}
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main){authStateLV.value = AuthState(null, false)}
             }
         }
+        /*
+        Firebase.auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener{ task ->
+            if(task.isSuccessful) {
+                authStateLV.value = AuthState(task.result.user?.uid, true)
+            } else {
 
+            }
+        }
+        */
+    }
+
+    fun reloadState(){
+        authStateLV.value?.isAuth = null
     }
 
     fun signInValidation(){
         viewModelScope.launch(Dispatchers.IO) {
             val result  = FirebaseAuth.getInstance().currentUser
             withContext(Dispatchers.Main){
-                result?.let {
+                if(result != null) {
                     authStateLV.value = AuthState(result.uid, true)
+                } else {
+                    authStateLV.value = AuthState(null, false)
+                    Log.e("CCCC","dsf")
                 }
             }
         }
     }
 
-
 }
 
 data class AuthState(
     var userID: String? = null,
-    var isAuth: Boolean = false
+    var isAuth: Boolean?
 )
