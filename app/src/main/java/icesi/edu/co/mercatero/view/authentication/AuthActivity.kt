@@ -32,6 +32,10 @@ class AuthActivity : AppCompatActivity() {
         SignUpTypeFragment.newInstance()
     }
 
+    val signUpPasswordFragment by lazy {
+        SignUpPasswordFragment.newInstance()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)

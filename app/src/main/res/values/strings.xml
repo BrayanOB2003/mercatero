@@ -45,6 +45,7 @@
     <string name="signUp_name_input">Nombres</string>
     <string name="signUp_last_name_input">Apellidos</string>
     <string name="signUp_number_phone">Número de celular</string>
+    <string name="signUp_error_email">Correo electrónico en uso</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

@@ -19,9 +19,16 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class AuthViewModel: ViewModel() {
+    val authClient = MutableLiveData<Client>()
     val authStateLV = MutableLiveData<AuthState>()
 
-    fun signupClient(email: String, password: String, name: String, lastName: String, CC: Long,
+
+    fun signUpPrimaryData(names: String, lastNames: String, email: String, phoneNumber: String){
+        authClient.value = Client(name = names,lastName = lastNames, email = email, number_phone = phoneNumber,
+        CC = null, address = null, client_id = null)
+    }
+
+    fun signupClient(email: String, password: String, name: String, lastName: String, cc: Long,
                      address: String, number_phone: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -30,23 +37,10 @@ class AuthViewModel: ViewModel() {
                     authStateLV.value = AuthState(result.user?.uid, true)
                 }
             } catch (e: Exception){
-
-            }
-            /*
-            catch (e: FirebaseAuthInvalidCredentialsException) {
-                withContext(Dispatchers.Main){errorLV.value =
-                    ErrorMessage.WRONG_FORMAT_PASSWORD.toString()
-                }
-            } catch (e: FirebaseAuthUserCollisionException) {
-                withContext(Dispatchers.Main){errorLV.value =
-                    ErrorMessage.DUPLICATED_EMAIL.toString()
-                }
-            } catch (e: FirebaseAuthWeakPasswordException) {
-                withContext(Dispatchers.Main){errorLV.value =
-                    ErrorMessage.WEAK_PASSWORD.toString()
+                withContext(Dispatchers.Main){
+                    authStateLV.value = AuthState(null, false)
                 }
             }
-             */
         }
     }
 
@@ -59,15 +53,6 @@ class AuthViewModel: ViewModel() {
                 withContext(Dispatchers.Main){authStateLV.value = AuthState(null, false)}
             }
         }
-        /*
-        Firebase.auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener{ task ->
-            if(task.isSuccessful) {
-                authStateLV.value = AuthState(task.result.user?.uid, true)
-            } else {
-
-            }
-        }
-        */
     }
 
     fun reloadState(){

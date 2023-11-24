@@ -45,7 +45,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/login_email_statement" />
+                android:hint="@string/signUp_name_input" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,10 +98,10 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/signUpNextButton"
             android:layout_width="160dp"
             android:layout_height="55dp"
-            android:text="@string/login_statement"
+            android:text="@string/signIn_next_button"
             android:background="@drawable/login_button"
             android:textColor="@color/white"
             android:layout_gravity="center"
