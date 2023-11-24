@@ -114,7 +114,7 @@
             android:id="@+id/txtCreateAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login_create_account_statement"
+            android:text="@string/signUp_account_statement"
             android:textAlignment="center"
             android:textColor="@color/link_blue"/>
 

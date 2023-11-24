@@ -48,7 +48,7 @@
 
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/singUpClientButton"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
@@ -65,7 +65,7 @@
             android:textColor="@color/text_button_dark"/>
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/singUpDeliverButton"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:background="@drawable/sign_up_type_button_background"
@@ -82,7 +82,7 @@
             android:textColor="@color/text_button_dark"/>
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/singUpShopButton"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:background="@drawable/sign_up_type_button_background"

@@ -25,20 +25,11 @@ private const val ARG_PARAM2 = "param2"
 class SignUpTypeFragment : Fragment() {
 
     private lateinit var binding: FragmentSignUpTypeBinding
-    private lateinit var navController: NavController
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSignUpTypeBinding.inflate(inflater, container, false)
-        navController = findNavController()
-
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,6 +37,19 @@ class SignUpTypeFragment : Fragment() {
         binding.backButton.setOnClickListener {
             val authActivity = activity as AuthActivity
             authActivity.loadFragment(authActivity.signInFragment)
+        }
+
+        binding.singUpClientButton.setOnClickListener {
+            val authActivity = activity as AuthActivity
+            authActivity.loadFragment(authActivity.signUpFragment)
+        }
+
+        binding.singUpDeliverButton.setOnClickListener {
+
+        }
+
+        binding.singUpShopButton.setOnClickListener {
+
         }
     }
 
