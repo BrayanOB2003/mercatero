@@ -75,7 +75,7 @@ class SignInFragment : Fragment() {
         val loadingMessage = loadingScreen.findViewById<TextView>(R.id.loadingMessage)
 
         // Configura el mensaje de carga según sea necesario
-        loadingMessage.text = "Iniciando sesión..."
+        loadingMessage.text = getText(R.string.singin_message)
 
         // Muestra la pantalla de carga
         loadingDialog = AlertDialog.Builder(requireContext())

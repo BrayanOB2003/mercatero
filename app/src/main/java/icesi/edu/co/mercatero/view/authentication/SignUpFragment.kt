@@ -49,17 +49,6 @@ class SignUpFragment : Fragment() {
         authActivity.loadFragment(authActivity.signUpPasswordFragment)
     }
 
-    private fun signUpObserve(){
-        authViewModel.authStateLV.observe(viewLifecycleOwner) { state ->
-            if(state.isAuth == true){
-                startActivity(Intent(requireContext(), HomeActivity::class.java))
-                requireActivity().finish()
-            } else if(state.isAuth == false) {
-                binding.emailTextInput.editText?.error = getText(R.string.signUp_error_email)
-            }
-        }
-    }
-
     private fun signUpFieldsValidation(){
         var nameField = binding.nameTextInput.editText?.text
         var lastNameField = binding.lastNameTextInput.editText?.text

@@ -31,6 +31,7 @@
     <string name="login_google">Google</string>
     <string name="error_text_field">El correo o contraseña es incorrecto</string>
     <string name="error_empty_field">Campo vacío</string>
+    <string name="singin_message">Iniciando sesión...</string>
 
     <!-- Strings used for signUpType screen -->
     <string name="signIn_statement">Registrarse como:</string>
@@ -46,6 +47,17 @@
     <string name="signUp_last_name_input">Apellidos</string>
     <string name="signUp_number_phone">Número de celular</string>
     <string name="signUp_error_email">Correo electrónico en uso</string>
+
+    <!-- Strings used for signUpPassword screen -->
+    <string name="set_password_statement">Establece tu contraseña</string>
+    <string name="set_password_warning">La contraseña debe incluir letras y números y debe ser igual o mayor a 8 caraceres.</string>
+    <string name="password_statement">Contraseña</string>
+    <string name="password_confirm_statement">Confirmar contraseña</string>
+    <string name="privacy_conditions">Estoy de acuerdo con la política de privacidad y el uso de los datos solicitados.</string>
+    <string name="email_allows">Envíame correos sobre ofertas especiales.</string>
+    <string name="create_account_statement">Crear cuenta</string>
+    <string name="error_password_differents">Las contraseñas no corresponden.</string>
+    <string name="singup_message">Creando cuenta...</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

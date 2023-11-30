@@ -19,26 +19,41 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class AuthViewModel: ViewModel() {
-    val authClient = MutableLiveData<Client>()
+    private val authClient = MutableLiveData<Client>()
     val authStateLV = MutableLiveData<AuthState>()
 
 
-    fun signUpPrimaryData(names: String, lastNames: String, email: String, phoneNumber: String){
-        authClient.value = Client(name = names,lastName = lastNames, email = email, number_phone = phoneNumber,
-        CC = null, address = null, client_id = null)
+    fun signUpPrimaryData(names: String, lastNames: String, email: String, phoneNumber: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            authClient.value = Client(
+                name = names,
+                lastName = lastNames,
+                email = email,
+                number_phone = phoneNumber,
+                CC = null,
+                address = null,
+                client_id = null
+            )
+        }
     }
 
-    fun signupClient(email: String, password: String, name: String, lastName: String, cc: Long,
-                     address: String, number_phone: String) {
+    fun signupClient(password: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val result = Firebase.auth.createUserWithEmailAndPassword(email, password).await()
-                withContext(Dispatchers.Main){
-                    authStateLV.value = AuthState(result.user?.uid, true)
+            val client = authClient.value
+            if(client != null){
+                try {
+                    val result = Firebase.auth.createUserWithEmailAndPassword(authClient.value?.email.toString(), password).await()
+                    withContext(Dispatchers.Main){
+                        authStateLV.value = AuthState(result.user?.uid, true)
+                    }
+                } catch (e: Exception){
+                    withContext(Dispatchers.Main) {
+                        authStateLV.value = AuthState(null, false)
+                    }
                 }
-            } catch (e: Exception){
+            } else {
                 withContext(Dispatchers.Main){
-                    authStateLV.value = AuthState(null, false)
+                    authStateLV.value = AuthState(null, null)
                 }
             }
         }
