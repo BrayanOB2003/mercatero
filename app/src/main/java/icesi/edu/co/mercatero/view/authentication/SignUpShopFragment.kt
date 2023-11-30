@@ -38,7 +38,7 @@ class SignUpShopFragment : Fragment() {
     }
 
     private fun signUpPrimaryData(names: String, lastNames: String, email: String, phoneNumber: String){
-        authViewModel.signUpPrimaryData(names, lastNames, email, phoneNumber)
+        authViewModel.signUpPrimaryDataShop(names, lastNames, email, phoneNumber)
         val authActivity = activity as AuthActivity
         authActivity.loadFragment(authActivity.signUpShopPasswordFragment)
     }

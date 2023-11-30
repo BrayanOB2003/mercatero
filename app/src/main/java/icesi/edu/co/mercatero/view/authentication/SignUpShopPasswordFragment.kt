@@ -50,7 +50,7 @@ class SignUpShopPasswordFragment : Fragment() {
                 requireActivity().finish()
             } else if(state.isAuth == false) {
                 val authActivity = activity as AuthActivity
-                authActivity.loadFragment(authActivity.signUpFragment)
+                authActivity.loadFragment(authActivity.signUpShopFragment)
                 loadingDialog.dismiss()
             }
         }
