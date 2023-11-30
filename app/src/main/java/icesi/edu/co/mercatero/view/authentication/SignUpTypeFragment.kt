@@ -44,12 +44,11 @@ class SignUpTypeFragment : Fragment() {
             authActivity.loadFragment(authActivity.signUpFragment)
         }
 
-        binding.singUpDeliverButton.setOnClickListener {
-
-        }
+        binding.singUpDeliverButton.isEnabled = false
 
         binding.singUpShopButton.setOnClickListener {
-
+            val authActivity = activity as AuthActivity
+            authActivity.loadFragment(authActivity.signUpShopFragment)
         }
     }
 

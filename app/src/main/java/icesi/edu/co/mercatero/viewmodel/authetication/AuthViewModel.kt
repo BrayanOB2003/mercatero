@@ -12,7 +12,9 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.mercatero.model.enumeration.ErrorMessage
+import icesi.edu.co.mercatero.model.shop.Shop
 import icesi.edu.co.mercatero.model.user.Client
+import icesi.edu.co.mercatero.model.user.ShopKeeper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -22,6 +24,7 @@ class AuthViewModel: ViewModel() {
     private val authClient = MutableLiveData<Client>()
     val authStateLV = MutableLiveData<AuthState>()
     val emailValidState = MutableLiveData<Boolean>()
+    private val authShop = MutableLiveData<Shop>()
 
     fun signUpPrimaryData(names: String, lastNames: String, email: String, phoneNumber: String) {
         viewModelScope.launch(Dispatchers.Main) {
@@ -37,6 +40,37 @@ class AuthViewModel: ViewModel() {
         }
     }
 
+    fun signUpPrimaryDataShop(name: String, address: String, email: String,phone: String){
+        viewModelScope.launch(Dispatchers.Main) {
+            authShop.value = Shop(
+                name = name,
+                address = address,
+                email = email,
+                phone = phone
+            )
+        }
+    }
+    fun signupShop(password: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val shop = authShop.value
+            if(shop != null){
+                try {
+                    val result = Firebase.auth.createUserWithEmailAndPassword(authShop.value?.email.toString(), password).await()
+                    withContext(Dispatchers.Main){
+                        authStateLV.value = AuthState(result.user?.uid, true)
+                    }
+                } catch (e: Exception){
+                    withContext(Dispatchers.Main) {
+                        authStateLV.value = AuthState(null, false)
+                    }
+                }
+            } else {
+                withContext(Dispatchers.Main){
+                    authStateLV.value = AuthState(null, null)
+                }
+            }
+        }
+    }
     fun signupClient(password: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val client = authClient.value
@@ -82,7 +116,6 @@ class AuthViewModel: ViewModel() {
                     authStateLV.value = AuthState(result.uid, true)
                 } else {
                     authStateLV.value = AuthState(null, false)
-                    Log.e("CCCC","dsf")
                 }
             }
         }

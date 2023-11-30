@@ -60,6 +60,14 @@
     <string name="error_password_differents">Las contraseñas no corresponden.</string>
     <string name="singup_message">Creando cuenta...</string>
 
+    <!-- Strings used for signUpShop screen -->
+    <string name="signup_shop_statement">¡Comienza aquí!</string>
+    <string name="signup_shop_name">Nombre de la tienda o restaurante</string>
+    <string name="signup_shop_address">Dirección del establecimiento</string>
+    <string name="signup_shop_email">Correo electrónico del sueño</string>
+    <string name="signup_shop_phone">Número de celular</string>
+    <string name="signup_shop_privacy">Al continuar, acepto que Mercatero entre en contacto conmigo por mail o teléfono (incluyendo mensajes automáticos para fines comerciales)</string>
+    
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
