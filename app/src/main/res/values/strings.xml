@@ -47,6 +47,7 @@
     <string name="signUp_last_name_input">Apellidos</string>
     <string name="signUp_number_phone">Número de celular</string>
     <string name="signUp_error_email">Correo electrónico en uso</string>
+    <string name="singUp_invalid_email">Formato incorrecto</string>
 
     <!-- Strings used for signUpPassword screen -->
     <string name="set_password_statement">Establece tu contraseña</string>

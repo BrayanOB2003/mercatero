@@ -2,6 +2,7 @@ package icesi.edu.co.mercatero.view.authentication
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -54,6 +55,10 @@ class SignUpFragment : Fragment() {
         var lastNameField = binding.lastNameTextInput.editText?.text
         var email = binding.emailTextInput.editText?.text
         var numberPhone = binding.phoneTextInput.editText?.text
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(email?.toString()).matches()) {
+            binding.emailTextInput.editText?.error = getText(R.string.singUp_invalid_email)
+        }
 
         if(nameField?.isEmpty() == true){
             binding.nameTextInput.editText?.error = getText(R.string.error_empty_field)

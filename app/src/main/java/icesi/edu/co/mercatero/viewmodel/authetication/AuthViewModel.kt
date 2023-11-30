@@ -21,7 +21,7 @@ import kotlinx.coroutines.withContext
 class AuthViewModel: ViewModel() {
     private val authClient = MutableLiveData<Client>()
     val authStateLV = MutableLiveData<AuthState>()
-
+    val emailValidState = MutableLiveData<Boolean>()
 
     fun signUpPrimaryData(names: String, lastNames: String, email: String, phoneNumber: String) {
         viewModelScope.launch(Dispatchers.Main) {
