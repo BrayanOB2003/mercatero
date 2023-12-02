@@ -6,14 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".view.home.HomeActivity">
 
-    <TextView
-        android:id="@+id/txt1"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="179dp"
-        android:layout_marginTop="321dp"
-        android:text="It's home!"
-        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        app:menu="@menu/bottom_navigation_menu"
+        app:itemBackground="@drawable/home_button_background"
+        app:itemIconTint="@color/primary"
+        app:itemTextColor="@color/primary"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

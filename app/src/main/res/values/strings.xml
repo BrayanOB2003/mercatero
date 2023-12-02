@@ -67,7 +67,13 @@
     <string name="signup_shop_email">Correo electrónico del sueño</string>
     <string name="signup_shop_phone">Número de celular</string>
     <string name="signup_shop_privacy">Al continuar, acepto que Mercatero entre en contacto conmigo por mail o teléfono (incluyendo mensajes automáticos para fines comerciales)</string>
-    
+
+    <!-- Strings used for home navigation bar -->
+    <string name="navigaton_home">Incio</string>
+    <string name="navigation_orders">Pedidos</string>
+    <string name="navigation_favorites">Favoritos</string>
+    <string name="navigation_profile">Perfil</string>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
