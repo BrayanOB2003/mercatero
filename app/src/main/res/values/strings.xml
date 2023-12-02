@@ -41,6 +41,14 @@
     <string name="signUp_statement">Regístrate</string>
     <string name="signUp_account_statement">¿Ya tienes una cuenta?</string>
 
+    <!-- Strings used for myprofile screen -->
+    <string name="my_profile_statement">Mi perfil</string>
+    <string name="about_me">Sobre mí</string>
+    <string name="addresses">Mis direcciones</string>
+    <string name="pay_methods">Mis métodos de pago</string>
+    <string name="settings">Ajustes</string>
+    <string name="sign_off">Cerrar sesión</string>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

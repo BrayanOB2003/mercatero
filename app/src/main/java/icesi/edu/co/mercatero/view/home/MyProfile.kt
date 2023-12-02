@@ -1,4 +1,4 @@
-package icesi.edu.co.mercatero.view.authentication
+package icesi.edu.co.mercatero.view.home
 
 import android.content.Intent
 import android.net.Uri
@@ -12,7 +12,7 @@ import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.MyProfileBinding
 import icesi.edu.co.mercatero.viewmodel.authetication.ProfileViewModel
 
-class myProfile: AppCompatActivity() {
+class MyProfile: AppCompatActivity() {
 
     val binding: MyProfileBinding by lazy {
         MyProfileBinding.inflate(layoutInflater)

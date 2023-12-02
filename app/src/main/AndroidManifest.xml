@@ -26,11 +26,7 @@
             android:label="@string/title_activity_auth"
             android:theme="@style/Theme.Mercatero" />
         <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
-        <activity
-            android:name=".view.authentication.myProfile"
+            android:name=".view.home.MyProfile"
             />
         <activity
             android:name=".MainActivity"

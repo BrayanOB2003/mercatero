@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import icesi.edu.co.mercatero.databinding.ActivityMainBinding
 import icesi.edu.co.mercatero.view.authentication.EntryFragment
 import icesi.edu.co.mercatero.view.authentication.SignUpFragment
-import icesi.edu.co.mercatero.view.authentication.myProfile
+import icesi.edu.co.mercatero.view.home.MyProfile
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,10 +19,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        startActivity(Intent(binding.root.context, myProfile::class.java))
-
-
-
+        startActivity(Intent(binding.root.context, MyProfile::class.java))
     }
 
     fun showFragment(fragment: Fragment) {

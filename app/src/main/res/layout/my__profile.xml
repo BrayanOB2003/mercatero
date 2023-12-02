@@ -3,9 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="10dp"
-    android:onClick="pickImage">
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/mainImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background"
+        android:scaleType="centerCrop"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/pfpIV"
                     android:layout_width="174dp"
                     android:layout_height="144dp"
@@ -35,15 +43,6 @@
                     tools:ignore="SpeakableTextPresentCheck"
                     tools:src="@drawable/pfp" />
 
-                <ImageView
-                    android:id="@+id/mainImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:visibility="visible"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/background" />
-
                 <TextView
                     android:id="@+id/textViewTitle"
                     android:layout_width="match_parent"
@@ -51,7 +50,7 @@
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="25dp"
                     android:layout_marginEnd="25dp"
-                    android:text="MI PERFIL"
+                    android:text="@string/my_profile_statement"
                     android:textSize="34sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/pfpIV"
@@ -101,240 +100,37 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/emailTV">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/aboutMeCL"
+                    <Button
+                        android:id="@+id/aboutMeButton"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/background_bttn_green"
-                        android:clickable="true"
-                        android:elevation="3dp">
+                        android:layout_height="wrap_content"
+                        android:text="@string/about_me"/>
 
-                        <ImageView
-                            android:id="@+id/ivIcon1"
-                            android:layout_width="51dp"
-                            android:layout_height="45dp"
-                            android:layout_marginStart="8dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/person_icon" />
-
-                        <TextView
-                            android:id="@+id/textViewSobreMi"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:text="Sobre mi"
-                            android:textColor="@color/white"
-                            android:textSize="18dp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/ivIcon1"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/imageView12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="120dp"
-                            android:rotation="180"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/textViewSobreMi"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="?attr/homeAsUpIndicator" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <Button
+                        android:id="@+id/addressesButton"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/background_bttn_green"
-                        android:elevation="3dp">
+                        android:layout_height="wrap_content"
+                        android:text="@string/addresses"/>
 
-                        <ImageView
-                            android:id="@+id/imageView13"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="70dp"
-                            android:rotation="180"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/tvMisDirecciones"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="?attr/homeAsUpIndicator" />
-
-                        <ImageView
-                            android:id="@+id/ivIcon2"
-                            android:layout_width="51dp"
-                            android:layout_height="45dp"
-                            android:layout_marginStart="8dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@android:drawable/ic_menu_mylocation" />
-
-                        <TextView
-                            android:id="@+id/tvMisDirecciones"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:text="Mis direcciones"
-                            android:textColor="@color/white"
-                            android:textSize="18dp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/ivIcon2"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <Button
+                        android:id="@+id/payMethodsButton"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/background_bttn_green"
-                        android:elevation="3dp">
+                        android:layout_height="wrap_content"
+                        android:text="@string/pay_methods"/>
 
-                        <ImageView
-                            android:id="@+id/imageView14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:rotation="180"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/tvMetodosPago"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="?attr/homeAsUpIndicator" />
-
-                        <ImageView
-                            android:id="@+id/ivIcon3"
-                            android:layout_width="51dp"
-                            android:layout_height="45dp"
-                            android:layout_marginStart="8dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/card" />
-
-                        <TextView
-                            android:id="@+id/tvMetodosPago"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:text="Mis métodos de pago"
-                            android:textColor="@color/white"
-                            android:textSize="18dp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/ivIcon3"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <Button
+                        android:id="@+id/settingsButton"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/background_bttn_green"
-                        android:elevation="3dp">
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings"/>
 
-                        <ImageView
-                            android:id="@+id/imageView15"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="90dp"
-                            android:rotation="180"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/tvSettings"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="?attr/homeAsUpIndicator" />
-
-                        <ImageView
-                            android:id="@+id/ivSettings"
-                            android:layout_width="51dp"
-                            android:layout_height="45dp"
-                            android:layout_marginStart="8dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@android:drawable/ic_menu_manage" />
-
-                        <TextView
-                            android:id="@+id/tvSettings"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:text="Ajustes"
-                            android:textColor="@color/white"
-                            android:textSize="18dp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/ivSettings"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.52" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <Button
+                        android:id="@+id/signOffButton"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/background_bttn_green"
-                        android:elevation="3dp">
-
-                        <ImageView
-                            android:id="@+id/imageView16"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="90dp"
-                            android:rotation="180"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/tvSignOut"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="?attr/homeAsUpIndicator" />
-
-                        <TextView
-                            android:id="@+id/tvSignOut"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:text="Cerrar sesión"
-                            android:textColor="@color/white"
-                            android:textSize="18dp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/ivSignOut"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.476" />
-
-                        <ImageView
-                            android:id="@+id/ivSignOut"
-                            android:layout_width="51dp"
-                            android:layout_height="45dp"
-                            android:layout_marginStart="8dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@android:drawable/ic_lock_power_off" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:layout_height="wrap_content"
+                        android:text="@string/sign_off"/>
 
                 </LinearLayout>
-
-                <Button
-                    android:id="@+id/buttonBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="24dp"
-                    android:text="Regresar"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:background="@drawable/background_bttn_green" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
