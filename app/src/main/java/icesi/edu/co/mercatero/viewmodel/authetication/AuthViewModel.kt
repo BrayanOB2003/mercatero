@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.mercatero.model.enumeration.ErrorMessage
 import icesi.edu.co.mercatero.model.shop.Shop
@@ -25,6 +26,7 @@ class AuthViewModel: ViewModel() {
     val authStateLV = MutableLiveData<AuthState>()
     val emailValidState = MutableLiveData<Boolean>()
     private val authShop = MutableLiveData<Shop>()
+    private val db = Firebase.firestore
 
     fun signUpPrimaryData(names: String, lastNames: String, email: String, phoneNumber: String) {
         viewModelScope.launch(Dispatchers.Main) {
@@ -43,6 +45,7 @@ class AuthViewModel: ViewModel() {
     fun signUpPrimaryDataShop(name: String, address: String, email: String,phone: String){
         viewModelScope.launch(Dispatchers.Main) {
             authShop.value = Shop(
+                shop_id = null,
                 name = name,
                 address = address,
                 email = email,
@@ -58,6 +61,12 @@ class AuthViewModel: ViewModel() {
                     val result = Firebase.auth.createUserWithEmailAndPassword(authShop.value?.email.toString(), password).await()
                     withContext(Dispatchers.Main){
                         authStateLV.value = AuthState(result.user?.uid, true)
+                        authShop.value?.shop_id = result.user?.uid
+                        authShop.value?.shop_id?.let { authShop.value?.let { it1 ->
+                            db.collection("tienda").document(it).set(
+                                it1
+                            )
+                        } }
                     }
                 } catch (e: Exception){
                     withContext(Dispatchers.Main) {
@@ -79,6 +88,13 @@ class AuthViewModel: ViewModel() {
                     val result = Firebase.auth.createUserWithEmailAndPassword(authClient.value?.email.toString(), password).await()
                     withContext(Dispatchers.Main){
                         authStateLV.value = AuthState(result.user?.uid, true)
+                        authClient.value?.client_id = result.user?.uid
+
+                        client.client_id?.let { authClient.value?.let { it1 ->
+                            db.collection("cliente").document(it).set(
+                                it1
+                            )
+                        } }
                     }
                 } catch (e: Exception){
                     withContext(Dispatchers.Main) {
