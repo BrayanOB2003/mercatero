@@ -1,6 +1,7 @@
 package icesi.edu.co.mercatero.view.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -52,17 +53,23 @@ class HomeFragment : Fragment() {
             Pair("gs://mercatero.appspot.com/shop/shop_test.png", "Tiendita la esquinita"),
             Pair("gs://mercatero.appspot.com/shop/shop_test2.png", "Tienda los semanales")
         )
-
+        viewModel.getProductList()
+        viewModel.getStoreList()
         viewModel.products.observe(viewLifecycleOwner){
 
            // binding.productsRecyclerView.adapter
-
+           // Log.d("Test", "Esto llega al observe " + it.toString())
             binding.productsRecyclerView.adapter = ProductAdapter(requireContext(), it)
         }
-        binding.shopsRecyclerView.adapter = ShopAdapter(requireContext(), data)
-        binding.shopsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        viewModel.stores.observe(viewLifecycleOwner){
 
 
+            binding.shopsRecyclerView.adapter = ShopAdapter(requireContext(), it)
+            binding.shopsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
+
+        }
+/*
         val products = ArrayList<Product>()
           val  product =  Product(
                 "1",
@@ -81,11 +88,13 @@ class HomeFragment : Fragment() {
                 "gs://mercatero.appspot.com/product/product_test.png",
                 "Tienda C"
             )
-        products.add(product)
-        products.add(product2)
+
+ */
+        //products.add(product)
+        //products.add(product2)
 
 
-        binding.productsRecyclerView.adapter = ProductAdapter(requireContext(), products)
+       // binding.productsRecyclerView.adapter = ProductAdapter(requireContext(), products)
         binding.productsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
     }

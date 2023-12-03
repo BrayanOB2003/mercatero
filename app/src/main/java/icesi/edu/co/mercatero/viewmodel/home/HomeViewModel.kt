@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.mercatero.model.Product
+import icesi.edu.co.mercatero.model.Shop
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -19,27 +20,68 @@ class HomeViewModel:ViewModel() {
 
     val products2 = ArrayList<Product>()
 
+    private val _store = MutableLiveData(ArrayList<Shop>())
+    val stores: LiveData<ArrayList<Shop>> get() = _store
+
+    private val store2 = ArrayList<Shop>()
+
     fun getProductList(){
 
         viewModelScope.launch(Dispatchers.IO) {
 
+            Log.d("Test","LLega al viewmodelScope")
+
             val result= Firebase.firestore.collection("producto").get().await()
 
-            for(doc in result.documents){
+            Log.d("Test","Pasa del primer query")
 
+
+            for(doc in result.documents) {
+
+                Log.d("Test ","Esta en el for " + doc.toString())
                 val product = doc.toObject(Product::class.java)
 
-                product.let{
-                    Log.d("Test",it.toString())
-                   products2.add(it!!)
+                product.let {
+                    Log.d("Test", it.toString())
+                    products2.add(it!!)
 
                 }
 
             }
-            Log.d("Test",products2.toString())
+            Log.d("Test","Salio del for con esto " + products2.size)
             _products.postValue(products2)
 
         }
+    }
+
+    fun getStoreList(){
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            Log.d("Test","LLega al viewmodelScope")
+
+            val result= Firebase.firestore.collection("tienda").get().await()
+
+            Log.d("Test","Pasa del primer query")
+
+
+            for(doc in result.documents) {
+
+                Log.d("Test ","Esta en el for " + doc.toString())
+                val store = doc.toObject(Shop::class.java)
+
+                store.let {
+                    Log.d("Test", it.toString())
+                    store2.add(it!!)
+
+                }
+
+            }
+            Log.d("Test","Salio del for con esto " + products2.size)
+            _store.postValue(store2)
+
+        }
+
     }
 
 
