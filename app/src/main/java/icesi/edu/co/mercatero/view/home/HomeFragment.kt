@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import icesi.edu.co.mercatero.databinding.FragmentHomeBinding
+import icesi.edu.co.mercatero.model.Product
 import icesi.edu.co.mercatero.view.adapters.home.ButtonAdapter
+import icesi.edu.co.mercatero.view.adapters.home.ProductAdapter
 import icesi.edu.co.mercatero.view.adapters.home.ShopAdapter
 
 class HomeFragment : Fragment() {
@@ -49,6 +51,37 @@ class HomeFragment : Fragment() {
 
         binding.shopsRecyclerView.adapter = ShopAdapter(requireContext(), data)
         binding.shopsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+
+        val products = arrayOf(
+            Product(
+                "1",
+                "Producto 1",
+                "Descripción del Producto 1",
+                "$19.99",
+                "gs://mercatero.appspot.com/product/product_test.png",
+                "Tienda A"
+            ),
+            Product(
+                "2",
+                "Producto 2",
+                "Descripción del Producto 2",
+                "$29.99",
+                "gs://mercatero.appspot.com/product/product_test2.png",
+                "Tienda B"
+            ),
+            Product(
+                "3",
+                "Producto 3",
+                "Descripción del Producto 3",
+                "$39.99",
+                "gs://mercatero.appspot.com/product/product_test.png",
+                "Tienda C"
+            )
+        )
+
+        binding.productsRecyclerView.adapter = ProductAdapter(requireContext(), products)
+        binding.productsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
     }
 
     companion object {
