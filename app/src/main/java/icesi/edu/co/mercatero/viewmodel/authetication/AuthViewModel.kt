@@ -62,6 +62,7 @@ class AuthViewModel: ViewModel() {
                     withContext(Dispatchers.Main){
                         authStateLV.value = AuthState(result.user?.uid, true)
                         authShop.value?.shop_id = result.user?.uid
+
                         authShop.value?.shop_id?.let { authShop.value?.let { it1 ->
                             db.collection("tienda").document(it).set(
                                 it1

@@ -22,6 +22,7 @@ class HomeActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             handleNavigationItemSelected(menuItem)
         }
+
     }
 
     private fun handleNavigationItemSelected(item: MenuItem): Boolean {
