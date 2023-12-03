@@ -5,4 +5,6 @@ data class Product (
         var name: String?,
         var description: String?,
         var price: Double?
-)
+) {
+        constructor() : this(null, null, null, null)
+}

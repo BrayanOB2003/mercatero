@@ -6,11 +6,17 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.ActivityHomeBinding
-import icesi.edu.co.mercatero.view.products.AddProductFragment
+import icesi.edu.co.mercatero.view.shopProducts.AddProductFragment
+import icesi.edu.co.mercatero.view.shopProducts.ViewProductsFragment
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
+
+    val addProductFragment by lazy {
+        AddProductFragment.newInstance()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -40,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadFragment(fragment: Fragment) {
+    fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, fragment)
             .commit()

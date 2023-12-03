@@ -1,10 +1,12 @@
 package icesi.edu.co.mercatero.viewmodel.product
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.mercatero.model.shop.Product
@@ -20,6 +22,9 @@ class ProductViewModel: ViewModel() {
     private val db = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
 
+    private val _myProducts = MutableLiveData<Array<Product>>()
+    val myProducts: LiveData<Array<Product>> get() = _myProducts
+
     fun addProductPrimaryData(name: String, description: String, price: Double) {
         viewModelScope.launch(Dispatchers.Main) {
             currentProduct.value = Product(
@@ -29,7 +34,7 @@ class ProductViewModel: ViewModel() {
                 price = price
             )
         }
-        Log.e(">>>", "data")
+
     }
 
     fun addProduct() {
@@ -59,6 +64,20 @@ class ProductViewModel: ViewModel() {
                         currentProduct.value = null
                     }
                 }
+            }
+        }
+    }
+
+    suspend fun loadMyProducts() {
+        val shopId = auth.currentUser?.uid
+        if (shopId != null) {
+            try {
+                val result = db.collection("producto")
+                    .whereEqualTo("shop_id", shopId)
+                    .get()
+                    .await()
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
