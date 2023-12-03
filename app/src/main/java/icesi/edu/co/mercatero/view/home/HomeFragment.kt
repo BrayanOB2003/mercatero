@@ -58,19 +58,23 @@ class HomeFragment : Fragment() {
         viewModel.products.observe(viewLifecycleOwner){
 
            // binding.productsRecyclerView.adapter
-           // Log.d("Test", "Esto llega al observe " + it.toString())
-            binding.productsRecyclerView.adapter = ProductAdapter(requireContext(), it)
+            Log.d("Test", "Esto llega al observe " + it.toString())
+            if(it.isNotEmpty()) {
+                binding.productsRecyclerView.adapter = ProductAdapter(requireContext(), it)
+            }
         }
 
         viewModel.stores.observe(viewLifecycleOwner){
 
-            Log.d("Test", "Esto esta en el observe " + it.toString())
+            Log.d("Test", "Esto esta en el observe " + it.size.toString())
           //  Log.d("Test", "En el observe de store hay " + it.get(0).toString())
           //  Log.d("Test", "En el observe de store hay " + it.get(1).toString())
 
-            binding.shopsRecyclerView.adapter = ShopAdapter(requireContext(), it)
-            binding.shopsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
-
+            if (it.isNotEmpty()) {
+                binding.shopsRecyclerView.adapter = ShopAdapter(requireContext(), it)
+                binding.shopsRecyclerView.layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            }
         }
 /*
         val products = ArrayList<Product>()
