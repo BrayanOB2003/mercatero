@@ -14,4 +14,5 @@
     <color name="primary_light">#EBFFD7</color>
     <color name="link_text_blue">#407EC7</color>
     <color name="text_button_dark">#484848</color>
+    <color name="text_price_orange">#FEAD1D</color>
 </resources>

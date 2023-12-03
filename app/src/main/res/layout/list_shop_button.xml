@@ -6,7 +6,8 @@
     android:gravity="center_vertical"
     android:paddingTop="10dp"
     android:background="@drawable/selector_shop_home"
-    android:elevation="10dp">
+    android:elevation="10dp"
+    android:layout_marginEnd="10dp">
 
     <ImageView
         android:id="@+id/shopLogo"
