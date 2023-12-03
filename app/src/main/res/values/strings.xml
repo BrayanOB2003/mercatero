@@ -74,6 +74,11 @@
     <string name="navigation_favorites">Favoritos</string>
     <string name="navigation_profile">Perfil</string>
 
+    <!-- Strings used for client home -->
+    <string name="welcome_message">¡Hola,</string>
+    <string name="home_search_hint">¿Qué estás buscando?</string>
+
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
