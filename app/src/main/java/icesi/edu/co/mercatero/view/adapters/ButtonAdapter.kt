@@ -1,39 +1,31 @@
 package icesi.edu.co.mercatero.view.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.Button
+import androidx.recyclerview.widget.RecyclerView
 import icesi.edu.co.mercatero.R
 
-class ButtonAdapter(private val context: Context, private val buttons: Array<String>) : BaseAdapter() {
 
-    override fun getCount(): Int {
-        return buttons.size
+class ButtonAdapter(private val data: Array<String>): RecyclerView.Adapter<ButtonAdapter.ViewHolder>() {
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val button: Button = itemView.findViewById(R.id.categoryButton)
     }
 
-    override fun getItem(position: Int): Any {
-        return buttons[position]
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.list_item_button, parent, false)
+
+        return ViewHolder(view)
     }
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.button.text = data[position]
     }
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val button: Button
-        if (convertView == null) {
-            // Si la vista no existe, inflarla desde el layout
-            val inflater = LayoutInflater.from(context)
-            button = inflater.inflate(R.layout.list_item_button, parent, false) as Button
-        } else {
-            // Si la vista existe, reutilizarla
-            button = convertView as Button
-        }
-        button.text = buttons[position]
-
-        return button
+    override fun getItemCount(): Int {
+        return data.size
     }
 }

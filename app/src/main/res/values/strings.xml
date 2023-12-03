@@ -77,7 +77,9 @@
     <!-- Strings used for client home -->
     <string name="welcome_message">¡Hola,</string>
     <string name="home_search_hint">¿Qué estás buscando?</string>
-
+    <string name="home_popular_shops">Tiendas más populares</string>
+    <string name="home_popular_products">Lo más comprado</string>
+    <string name="show_more_statement">Ver más</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
