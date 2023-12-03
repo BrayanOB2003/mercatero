@@ -14,8 +14,10 @@ import kotlinx.coroutines.tasks.await
 
 class HomeViewModel:ViewModel() {
 
-    private val _products = MutableLiveData(Product())
-    val products: LiveData<Product> get() = _products
+    private val _products = MutableLiveData(ArrayList<Product>())
+    val products: LiveData<ArrayList<Product>> get() = _products
+
+    val products2 = ArrayList<Product>()
 
     fun getProductList(){
 
@@ -29,11 +31,13 @@ class HomeViewModel:ViewModel() {
 
                 product.let{
                     Log.d("Test",it.toString())
-                    _products.postValue(product)
+                   products2.add(it!!)
 
                 }
 
             }
+            Log.d("Test",products2.toString())
+            _products.postValue(products2)
 
         }
     }

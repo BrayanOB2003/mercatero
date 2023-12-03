@@ -12,12 +12,12 @@ import icesi.edu.co.mercatero.view.adapters.home.ButtonAdapter
 import icesi.edu.co.mercatero.view.adapters.home.ProductAdapter
 import icesi.edu.co.mercatero.view.adapters.home.ShopAdapter
 import icesi.edu.co.mercatero.viewmodel.home.HomeViewModel
+import java.util.ArrayList
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
-    private lateinit var productsAdapater: ProductAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -28,7 +28,6 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         viewModel = HomeViewModel()
-        productsAdapater = ProductAdapter()
         return binding.root
     }
 
@@ -45,7 +44,6 @@ class HomeFragment : Fragment() {
         binding.categoriesRecyclerView.adapter = ButtonAdapter(buttons)
         binding.categoriesRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        viewModel.getProductList()
         val data = arrayOf(
             Pair("gs://mercatero.appspot.com/shop/shop_test.png", "Tiendita la esquinita"),
             Pair("gs://mercatero.appspot.com/shop/shop_test2.png", "Tienda los semanales"),
@@ -57,43 +55,37 @@ class HomeFragment : Fragment() {
 
         viewModel.products.observe(viewLifecycleOwner){
 
-            productsAdapater.addProduct(it)
+           // binding.productsRecyclerView.adapter
 
-
+            binding.productsRecyclerView.adapter = ProductAdapter(requireContext(), it)
         }
         binding.shopsRecyclerView.adapter = ShopAdapter(requireContext(), data)
         binding.shopsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        /*
-        val products = arrayOf(
-            Product(
+
+        val products = ArrayList<Product>()
+          val  product =  Product(
                 "1",
                 "Producto 1",
                 "Descripción del Producto 1",
-                "$19.99",
+                19.99,
                 "gs://mercatero.appspot.com/product/product_test.png",
                 "Tienda A"
-            ),
-            Product(
-                "2",
-                "Producto 2",
-                "Descripción del Producto 2",
-                "$29.99",
-                "gs://mercatero.appspot.com/product/product_test2.png",
-                "Tienda B"
-            ),
-            Product(
+            )
+
+        val product2 =  Product(
                 "3",
                 "Producto 3",
                 "Descripción del Producto 3",
-                "$39.99",
+                39.99,
                 "gs://mercatero.appspot.com/product/product_test.png",
                 "Tienda C"
             )
-        )
-        */
+        products.add(product)
+        products.add(product2)
 
-       // binding.productsRecyclerView.adapter = ProductAdapter(requireContext(), products)
+
+        binding.productsRecyclerView.adapter = ProductAdapter(requireContext(), products)
         binding.productsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
     }
