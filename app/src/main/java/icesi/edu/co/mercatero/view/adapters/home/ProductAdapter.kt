@@ -14,10 +14,16 @@ import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.model.Product
 
 class ProductAdapter(
-    private val context: Context,
-    private val data: Array<Product>
-    ): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
+    ): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+    private lateinit var context: Context
+    private val data: ArrayList<Product> = ArrayList()
+
+
+    fun addProduct(product: Product) {
+        data.add(product)
+        notifyItemInserted(itemCount)
+    }
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var image: ImageView = itemView.findViewById(R.id.productLogo)
         var productName: TextView = itemView.findViewById(R.id.productName)
@@ -26,6 +32,7 @@ class ProductAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        context = parent.context
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_product_button, parent, false)
         return ViewHolder(view)
@@ -50,7 +57,9 @@ class ProductAdapter(
 
         holder.productName.text = product.name
         holder.shopName.text = product.shopName
-        holder.price.text = product.price
+        holder.price.text = product.price.toString()
     }
+
+
 
 }

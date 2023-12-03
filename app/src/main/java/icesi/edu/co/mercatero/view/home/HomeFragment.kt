@@ -11,10 +11,13 @@ import icesi.edu.co.mercatero.model.Product
 import icesi.edu.co.mercatero.view.adapters.home.ButtonAdapter
 import icesi.edu.co.mercatero.view.adapters.home.ProductAdapter
 import icesi.edu.co.mercatero.view.adapters.home.ShopAdapter
+import icesi.edu.co.mercatero.viewmodel.home.HomeViewModel
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var viewModel: HomeViewModel
+    private lateinit var productsAdapater: ProductAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -24,6 +27,8 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        viewModel = HomeViewModel()
+        productsAdapater = ProductAdapter()
         return binding.root
     }
 
@@ -40,6 +45,7 @@ class HomeFragment : Fragment() {
         binding.categoriesRecyclerView.adapter = ButtonAdapter(buttons)
         binding.categoriesRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
+        viewModel.getProductList()
         val data = arrayOf(
             Pair("gs://mercatero.appspot.com/shop/shop_test.png", "Tiendita la esquinita"),
             Pair("gs://mercatero.appspot.com/shop/shop_test2.png", "Tienda los semanales"),
@@ -49,10 +55,16 @@ class HomeFragment : Fragment() {
             Pair("gs://mercatero.appspot.com/shop/shop_test2.png", "Tienda los semanales")
         )
 
+        viewModel.products.observe(viewLifecycleOwner){
+
+            productsAdapater.addProduct(it)
+
+
+        }
         binding.shopsRecyclerView.adapter = ShopAdapter(requireContext(), data)
         binding.shopsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-
+        /*
         val products = arrayOf(
             Product(
                 "1",
@@ -79,9 +91,11 @@ class HomeFragment : Fragment() {
                 "Tienda C"
             )
         )
+        */
 
-        binding.productsRecyclerView.adapter = ProductAdapter(requireContext(), products)
+       // binding.productsRecyclerView.adapter = ProductAdapter(requireContext(), products)
         binding.productsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
     }
 
     companion object {
