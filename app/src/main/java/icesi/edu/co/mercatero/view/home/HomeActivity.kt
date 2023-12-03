@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import icesi.edu.co.mercatero.R
-import icesi.edu.co.mercatero.databinding.ActivityAuthBinding
 import icesi.edu.co.mercatero.databinding.ActivityHomeBinding
 import icesi.edu.co.mercatero.view.products.AddProductFragment
 
@@ -22,7 +21,6 @@ class HomeActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             handleNavigationItemSelected(menuItem)
         }
-
     }
 
     private fun handleNavigationItemSelected(item: MenuItem): Boolean {
