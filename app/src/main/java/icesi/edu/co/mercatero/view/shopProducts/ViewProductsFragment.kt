@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import icesi.edu.co.mercatero.view.adapters.ProductAdapter
 import icesi.edu.co.mercatero.databinding.FragmentManageViewProductsBinding
 import icesi.edu.co.mercatero.model.shop.Product
-import icesi.edu.co.mercatero.view.authentication.SignInFragment
-import icesi.edu.co.mercatero.view.home.HomeActivity
 import icesi.edu.co.mercatero.viewmodel.product.ProductViewModel
 
 class ViewProductsFragment : Fragment() {
@@ -38,13 +36,11 @@ class ViewProductsFragment : Fragment() {
         binding.buttonAddProduct.setOnClickListener {
             //val manageProductActivity = activity as ManageProductsActivity
             //manageProductActivity.loadFragment(manageProductActivity.addProductFragment)
-            val homeActivity = activity as HomeActivity
-            homeActivity.loadFragment(homeActivity.addProductFragment)
         }
     }
 
     companion object {
         @JvmStatic
-        fun newInstance() = SignInFragment()
+        fun newInstance() = ViewProductsFragment()
     }
 }
