@@ -33,7 +33,7 @@ class ShopAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val shop = data[position]
         Log.d("Test",shop.toString())
-        val storageReference: StorageReference = FirebaseStorage.getInstance().getReferenceFromUrl(shop.imageUrl!!)
+        val storageReference: StorageReference = FirebaseStorage.getInstance().getReferenceFromUrl(shop.imageURL!!)
 
         storageReference.downloadUrl.addOnSuccessListener { uri ->
             Glide.with(context)

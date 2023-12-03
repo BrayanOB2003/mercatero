@@ -10,7 +10,7 @@ class Shop:Serializable{
         var address: String = ""
         var email: String = ""
         var phone: String = ""
-        var imageUrl: String? = ""
+        var imageURL: String? = ""
 
 
         constructor(
@@ -26,7 +26,7 @@ class Shop:Serializable{
                 this.address = address
                 this.email = email
                 this.phone = phone
-                this.imageUrl = imageUrl
+                this.imageURL = imageUrl
         }
 
         constructor()
