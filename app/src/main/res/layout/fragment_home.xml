@@ -124,6 +124,35 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home_popular_products"
+                android:layout_weight="1"
+                android:gravity="start"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/show_more_statement"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:layout_marginEnd="15dp"/>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/productsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+
     </LinearLayout>
 >
 

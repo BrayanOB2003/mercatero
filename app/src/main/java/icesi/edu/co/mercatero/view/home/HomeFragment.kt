@@ -5,12 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.ListView
 import androidx.recyclerview.widget.LinearLayoutManager
-import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentHomeBinding
-import icesi.edu.co.mercatero.view.adapters.ButtonAdapter
+import icesi.edu.co.mercatero.view.adapters.home.ButtonAdapter
+import icesi.edu.co.mercatero.view.adapters.home.ShopAdapter
 
 class HomeFragment : Fragment() {
 
@@ -30,12 +28,27 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initRecycleView()
+    }
+
+    private fun initRecycleView(){
+
         val buttons = arrayOf("Botón 1", "Botón 2", "Botón 3", "Botón 4", "Botón 5","Botón 1", "Botón 2", "Botón 3", "Botón 4", "Botón 5")
 
-        var recycleView = binding.categoriesRecyclerView
-        val adapter = ButtonAdapter(buttons)
-        recycleView.adapter = adapter
-        recycleView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.categoriesRecyclerView.adapter = ButtonAdapter(buttons)
+        binding.categoriesRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        val data = arrayOf(
+            Pair("gs://mercatero.appspot.com/shop/shop_test.png", "Tiendita la esquinita"),
+            Pair("gs://mercatero.appspot.com/shop/shop_test2.png", "Tienda los semanales"),
+            Pair("gs://mercatero.appspot.com/shop/shop_test.png", "Tiendita la esquinita"),
+            Pair("gs://mercatero.appspot.com/shop/shop_test2.png", "Tienda los semanales"),
+            Pair("gs://mercatero.appspot.com/shop/shop_test.png", "Tiendita la esquinita"),
+            Pair("gs://mercatero.appspot.com/shop/shop_test2.png", "Tienda los semanales")
+        )
+
+        binding.shopsRecyclerView.adapter = ShopAdapter(requireContext(), data)
+        binding.shopsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
     companion object {
