@@ -64,6 +64,9 @@ class HomeFragment : Fragment() {
 
         viewModel.stores.observe(viewLifecycleOwner){
 
+            Log.d("Test", "Esto esta en el observe " + it.toString())
+          //  Log.d("Test", "En el observe de store hay " + it.get(0).toString())
+          //  Log.d("Test", "En el observe de store hay " + it.get(1).toString())
 
             binding.shopsRecyclerView.adapter = ShopAdapter(requireContext(), it)
             binding.shopsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)

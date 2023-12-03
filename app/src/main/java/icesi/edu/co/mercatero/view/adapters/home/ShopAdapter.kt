@@ -1,6 +1,7 @@
 package icesi.edu.co.mercatero.view.adapters.home
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +32,7 @@ class ShopAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val shop = data[position]
+        Log.d("Test",shop.toString())
         val storageReference: StorageReference = FirebaseStorage.getInstance().getReferenceFromUrl(shop.imageUrl!!)
 
         storageReference.downloadUrl.addOnSuccessListener { uri ->

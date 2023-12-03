@@ -29,26 +29,26 @@ class HomeViewModel:ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
 
-            Log.d("Test","LLega al viewmodelScope")
+//            Log.d("Test","LLega al viewmodelScope")
 
             val result= Firebase.firestore.collection("producto").get().await()
 
-            Log.d("Test","Pasa del primer query")
+       //     Log.d("Test","Pasa del primer query")
 
 
             for(doc in result.documents) {
 
-                Log.d("Test ","Esta en el for " + doc.toString())
+                //Log.d("Test ","Esta en el for " + doc.toString())
                 val product = doc.toObject(Product::class.java)
 
                 product.let {
-                    Log.d("Test", it.toString())
+              //      Log.d("Test", it.toString())
                     products2.add(it!!)
 
                 }
 
             }
-            Log.d("Test","Salio del for con esto " + products2.size)
+            //Log.d("Test","Salio del for con esto " + products2.size)
             _products.postValue(products2)
 
         }
@@ -58,7 +58,6 @@ class HomeViewModel:ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
 
-            Log.d("Test","LLega al viewmodelScope")
 
             val result= Firebase.firestore.collection("tienda").get().await()
 
@@ -71,15 +70,16 @@ class HomeViewModel:ViewModel() {
                 val store = doc.toObject(Shop::class.java)
 
                 store.let {
-                    Log.d("Test", it.toString())
+                    Log.d("Test", "anadio algo "  + it.toString())
                     store2.add(it!!)
 
                 }
 
             }
-            Log.d("Test","Salio del for con esto " + products2.size)
-            _store.postValue(store2)
-
+            Log.d("Test","Salio del for store con esto " + products2.size)
+           if(store2.isNotEmpty()) {
+               _store.postValue(store2)
+           }
         }
 
     }
