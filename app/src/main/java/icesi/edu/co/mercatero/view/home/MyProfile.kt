@@ -14,20 +14,21 @@ import icesi.edu.co.mercatero.viewmodel.authetication.ProfileViewModel
 
 class MyProfile: AppCompatActivity() {
 
-    val binding: MyProfileBinding by lazy {
-        MyProfileBinding.inflate(layoutInflater)
-    }
+    lateinit var  binding: MyProfileBinding
 
     private lateinit var mainImageUri: Uri
     private lateinit var myProfileViewModel: ProfileViewModel
     override fun onCreate(savedInstanceState: Bundle?){
 
+        binding = MyProfileBinding.inflate(layoutInflater)
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.my__profile)
+        setContentView(binding.root)
         val galLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult(), ::onGalleryResult
 
         )
+        //binding.nameTV.text = "Hola"
         myProfileViewModel = ProfileViewModel()
         myProfileViewModel.getProfileData("2Xu2YvWmxLGrInFK8wPf")
         myProfileViewModel.client.observe(this){
@@ -49,14 +50,14 @@ class MyProfile: AppCompatActivity() {
             galLauncher.launch(intent)
 
         }
-        binding.aboutMeCL.setOnClickListener {
+        binding.aboutMeButton.setOnClickListener {
             Log.d("Test","Hace Click en el CL")
 //            startActivity(Intent(binding.root.context, myProfile::class.java))
 
         }
-        binding.buttonBack.setOnClickListener {
+        /*binding.buttonBack.setOnClickListener {
             Log.d("Test","Hace Click en el Back")
-        }
+        }*/
 
 
     }
