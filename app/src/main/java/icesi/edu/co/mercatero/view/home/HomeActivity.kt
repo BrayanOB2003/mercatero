@@ -6,10 +6,12 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.ActivityHomeBinding
+import icesi.edu.co.mercatero.view.authentication.SignUpShopFragment
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
