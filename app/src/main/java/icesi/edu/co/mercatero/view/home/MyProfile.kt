@@ -8,9 +8,9 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import icesi.edu.co.mercatero.R
+import com.bumptech.glide.Glide
 import icesi.edu.co.mercatero.databinding.MyProfileBinding
-import icesi.edu.co.mercatero.viewmodel.authetication.ProfileViewModel
+import icesi.edu.co.mercatero.viewmodel.home.ProfileViewModel
 
 class MyProfile: AppCompatActivity() {
 
@@ -26,18 +26,19 @@ class MyProfile: AppCompatActivity() {
         setContentView(binding.root)
         val galLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult(), ::onGalleryResult
-
         )
         //binding.nameTV.text = "Hola"
         myProfileViewModel = ProfileViewModel()
-        myProfileViewModel.getProfileData("2Xu2YvWmxLGrInFK8wPf")
+        myProfileViewModel.getProfileData()
         myProfileViewModel.client.observe(this){
 
-            Log.d("Test",it.nombre)
-            Log.d("Test",it.email)
-
-            binding.nameTV.text = it.nombre
+            binding.nameTV.text = it.name
             binding.emailTV.text = it.email
+            if (!it.imageURL.isNullOrEmpty()) {
+                Glide.with(applicationContext)
+                    .load(it.imageURL)
+                    .into(binding.pfpIV)
+            }
 
         }
     //   val intent = Intent(Intent.ACTION_GET_CONTENT)
@@ -48,7 +49,6 @@ class MyProfile: AppCompatActivity() {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/*"
             galLauncher.launch(intent)
-
         }
         binding.aboutMeButton.setOnClickListener {
             Log.d("Test","Hace Click en el CL")
@@ -74,9 +74,8 @@ class MyProfile: AppCompatActivity() {
             uri?.let {
                 Log.e(">>>", it.toString())
                 binding.pfpIV.setImageURI(uri)
-                mainImageUri = uri
+                myProfileViewModel.updateProfileImage(uri)
                 Toast.makeText(applicationContext,uri.toString(),Toast.LENGTH_SHORT).show();
-
             }
 
 

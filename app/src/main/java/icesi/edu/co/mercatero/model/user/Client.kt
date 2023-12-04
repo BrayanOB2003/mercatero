@@ -4,35 +4,35 @@ import java.io.Serializable
 
 class Client:Serializable{
 
-
-        var client_id: String = ""
-        var nombre: String = ""
-        var apellido: String = ""
-        var cc: String = ""
-        var direccion: String = ""
-        var celular: String = ""
-        var email: String = ""
+        var client_id: String? = ""
+        var name: String? = ""
+        var lastName: String? = ""
+        var CC: String? = ""
+        var address: String? = ""
+        var phone: String? = ""
+        var email: String? = ""
+        var imageURL: String? = ""
 
 
      constructor(
-         client_id: String,
-         nombre: String,
-         apellido: String,
-         cc: String,
-         direccion: String,
-         celular: String,
-         email: String
+         client_id: String?,
+         name: String?,
+         lastName: String?,
+         CC: String?,
+         address: String?,
+         phone: String?,
+         email: String?,
+         imageURL: String?
      ) {
          this.client_id = client_id
-         this.nombre = nombre
-         this.apellido = apellido
-         this.cc = cc
-         this.direccion = direccion
-         this.celular = celular
+         this.name = name
+         this.lastName = lastName
+         this.CC = CC
+         this.address = address
+         this.phone = phone
          this.email = email
+         this.imageURL = imageURL
      }
 
      constructor()
-
-
  }
