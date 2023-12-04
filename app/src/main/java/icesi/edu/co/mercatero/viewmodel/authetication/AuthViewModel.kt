@@ -1,5 +1,6 @@
 package icesi.edu.co.mercatero.viewmodel.authetication
 
+import androidx.compose.runtime.currentCompositeKeyHash
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +9,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.mercatero.model.Shop
+import icesi.edu.co.mercatero.model.enumeration.UserType
 import icesi.edu.co.mercatero.model.user.Client
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,7 +29,7 @@ class AuthViewModel: ViewModel() {
                 name = names,
                 lastName = lastNames,
                 email = email,
-                number_phone = phoneNumber,
+                phone = phoneNumber,
                 CC = null,
                 address = null,
                 client_id = null,
@@ -83,6 +85,7 @@ class AuthViewModel: ViewModel() {
                 try {
                     val result = Firebase.auth.createUserWithEmailAndPassword(authClient.value?.email.toString(), password).await()
                     withContext(Dispatchers.Main){
+
                         authStateLV.value = AuthState(result.user?.uid, true)
                         authClient.value?.client_id = result.user?.uid
 
@@ -109,7 +112,9 @@ class AuthViewModel: ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = Firebase.auth.signInWithEmailAndPassword(email, pass).await()
-                withContext(Dispatchers.Main){authStateLV.value = AuthState(result.user?.uid, true)}
+                withContext(Dispatchers.Main){
+                    checkUserType(result.user?.uid.toString())
+                }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main){authStateLV.value = AuthState(null, false)}
             }
@@ -133,9 +138,34 @@ class AuthViewModel: ViewModel() {
         }
     }
 
+    private fun checkUserType(userId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val clientDoc = db.collection("cliente").document(userId).get().await()
+                val shopDoc = db.collection("tienda").document(userId).get().await()
+
+                withContext(Dispatchers.Main) {
+                    if (clientDoc.exists()) {
+                        authStateLV.value = AuthState(userId, true, UserType.CLIENT)
+                    } else if (shopDoc.exists()) {
+                        authStateLV.value = AuthState(userId, true, UserType.SHOP)
+                    } else {
+                        authStateLV.value = AuthState(null, false, null)
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    authStateLV.value = AuthState(null, false, null)
+                }
+            }
+        }
+    }
+
+
 }
 
 data class AuthState(
     var userID: String? = null,
-    var isAuth: Boolean?
+    var isAuth: Boolean?,
+    var userType: UserType? = null
 )
