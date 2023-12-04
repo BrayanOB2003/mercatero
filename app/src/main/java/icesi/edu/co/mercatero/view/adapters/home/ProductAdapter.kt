@@ -15,8 +15,15 @@ import icesi.edu.co.mercatero.model.Product
 
 class ProductAdapter(
     private val context: Context,
-    private val data: Array<Product>
+    private val data: ArrayList<Product>
     ): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+
+
+   /* fun addProduct(product: Product) {
+        data.add(product)
+        notifyItemInserted(itemCount)
+    }
+    */
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var image: ImageView = itemView.findViewById(R.id.productLogo)
@@ -50,7 +57,9 @@ class ProductAdapter(
 
         holder.productName.text = product.name
         holder.shopName.text = product.shopName
-        holder.price.text = product.price
+        holder.price.text = product.price.toString()
     }
+
+
 
 }
