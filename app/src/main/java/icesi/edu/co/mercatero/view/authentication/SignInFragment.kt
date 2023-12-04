@@ -1,47 +1,93 @@
 package icesi.edu.co.mercatero.view.authentication
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentSigninBinding
+import icesi.edu.co.mercatero.view.home.HomeActivity
+import icesi.edu.co.mercatero.viewmodel.authetication.AuthViewModel
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
 class SignInFragment : Fragment() {
 
-    private var _binding: FragmentSigninBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var navController:NavController
+    private lateinit var binding: FragmentSigninBinding
+    private val authViewModel: AuthViewModel by activityViewModels()
+    private lateinit var loadingDialog: AlertDialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        navController = findNavController()
-        _binding = FragmentSigninBinding.inflate(inflater, container, false)
+        binding = FragmentSigninBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding?.txtCreateAccount?.setOnClickListener {
-            navController.navigate(R.id.action_SignInFragment_to_signUpTypeFragment)
+
+        binding.txtCreateAccount?.setOnClickListener {
+            val authActivity = activity as AuthActivity
+            authActivity.loadFragment(authActivity.signUpTypeFragment)
+        }
+
+        signInObserve()
+        binding.signInButton?.setOnClickListener {
+            signInFieldsValidation()
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun signInFieldsValidation(){
+        var email = binding.textInputEmail.editText?.text
+        var password = binding.textInputPassword.editText?.text
+
+        if (email?.isEmpty() == true) {
+            binding.textInputEmail.editText?.error = getText(R.string.error_empty_field)
+        } else if(password?.isEmpty() == true){
+            binding.textInputPassword.editText?.error = getText(R.string.error_empty_field)
+        } else {
+            showLoadingScreen()
+            authViewModel.signInClient(email.toString(), password.toString())
+            authViewModel.reloadState()
+        }
+    }
+
+    private fun signInObserve(){
+        authViewModel.authStateLV.observe(viewLifecycleOwner) { state ->
+            if (state.isAuth == true) {
+                startActivity(Intent(requireContext(), HomeActivity::class.java))
+                requireActivity().finish()
+            } else if(state.isAuth == false){
+                binding.textInputPassword.editText?.error = getText(R.string.error_text_field)
+                loadingDialog.dismiss()
+            }
+        }
+    }
+
+    private fun showLoadingScreen() {
+        val loadingScreen = LayoutInflater.from(requireContext()).inflate(R.layout.loading_screen, null)
+        val progressBar = loadingScreen.findViewById<ProgressBar>(R.id.progressBar)
+        val loadingMessage = loadingScreen.findViewById<TextView>(R.id.loadingMessage)
+
+        // Configura el mensaje de carga según sea necesario
+        loadingMessage.text = getText(R.string.singin_message)
+
+        // Muestra la pantalla de carga
+        loadingDialog = AlertDialog.Builder(requireContext())
+            .setView(loadingScreen)
+            .setCancelable(false)
+            .create()
+
+        loadingDialog.show()
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = SignInFragment()
     }
 }

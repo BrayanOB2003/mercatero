@@ -19,7 +19,8 @@
             android:theme="@style/Theme.Mercatero" />
         <activity
             android:name=".view.home.HomeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".view.authentication.AuthActivity"
             android:exported="false"
@@ -36,7 +37,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 

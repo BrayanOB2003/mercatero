@@ -3,8 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.authentication.SignUpFragment"
-    android:background="@drawable/background">
+    tools:context=".view.authentication.SignUpFragment">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"
+        android:background="@color/white"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,11 +24,13 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/back_button"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/back_button"
-                android:layout_margin="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="50dp"
                 android:text=" "/>
 
         </LinearLayout>
@@ -40,28 +48,29 @@
 
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/singUpClientButton"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
-            android:background="@drawable/signin_button_rectangle"
+            android:background="@drawable/sign_up_type_button_background"
             android:drawableLeft="@drawable/person_icon"
-            android:drawableTint="@color/primary"
+            android:drawableTint="@color/text_button_dark"
             android:drawablePadding="5dp"
             android:fontFamily="@font/sans"
             android:gravity="center_vertical"
             android:text="@string/signIn_statement_client"
             android:textAllCaps="false"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/text_button_dark"/>
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/singUpDeliverButton"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/signin_button_rectangle"
+            android:background="@drawable/sign_up_type_button_background"
             android:drawableLeft="@drawable/deliver_icon"
-            android:drawableTint="@color/primary"
+            android:drawableTint="@color/text_button_dark"
             android:drawablePadding="5dp"
             android:fontFamily="@font/sans"
             android:text="@string/signIn_statement_deliver"
@@ -69,15 +78,16 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginBottom="30dp"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical"
+            android:textColor="@color/text_button_dark"/>
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/singUpShopButton"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/signin_button_rectangle"
+            android:background="@drawable/sign_up_type_button_background"
             android:drawableLeft="@drawable/shop_icon"
-            android:drawableTint="@color/primary"
+            android:drawableTint="@color/text_button_dark"
             android:drawablePadding="5dp"
             android:fontFamily="@font/sans"
             android:text="@string/signIn_statement_shop"
@@ -85,24 +95,13 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginBottom="30dp"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical"
+            android:textColor="@color/text_button_dark"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:text="@string/signIn_next_button"
-            android:background="@drawable/login_button"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:layout_marginBottom="40dp"
-            />
     </LinearLayout>
 
 </FrameLayout>

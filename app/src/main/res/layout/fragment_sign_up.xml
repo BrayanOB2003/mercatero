@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.authentication.SignUpFragment">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:background="@drawable/background">
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/logo"
-            android:layout_margin="50dp"/>
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="40dp"/>
 
         <TextView
             android:id="@+id/textView6"
@@ -24,31 +31,93 @@
             android:layout_height="wrap_content"
             android:text="@string/signUp_statement"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
-        <Button
-            android:id="@+id/button2"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nameTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/signIn_statement_client" />
+            android:layout_margin="5dp"
+            android:background="@drawable/border_edit_text_rectangle"
+            app:startIconDrawable="@drawable/people_icon"
+            app:startIconTint="@color/primary">
 
-        <Button
-            android:id="@+id/button5"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/signUp_name_input" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/lastNameTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/signIn_statement_deliver" />
+            android:layout_margin="5dp"
+            android:background="@drawable/border_edit_text_rectangle"
+            app:startIconDrawable="@drawable/people_icon"
+            app:startIconTint="@color/primary">
 
-        <Button
-            android:id="@+id/button6"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/signUp_last_name_input" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/signIn_statement_shop" />
+            android:layout_margin="5dp"
+            android:background="@drawable/border_edit_text_rectangle"
+            app:startIconDrawable="@drawable/email_icon"
+            app:startIconTint="@color/primary">
 
-        <Button
-            android:id="@+id/button7"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/login_email_statement" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phoneTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/signIn_next_button" />
+            android:layout_margin="5dp"
+            android:background="@drawable/border_edit_text_rectangle"
+            app:startIconDrawable="@drawable/phone_icon"
+            app:startIconTint="@color/primary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/signUp_number_phone" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/signUpNextButton"
+            android:layout_width="160dp"
+            android:layout_height="55dp"
+            android:text="@string/signIn_next_button"
+            android:background="@drawable/login_button"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="15dp"
+            android:textAllCaps="false"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txtCreateAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/signUp_account_statement"
+            android:textAlignment="center"
+            android:textColor="@color/link_blue"/>
+
     </LinearLayout>
 
 </FrameLayout>

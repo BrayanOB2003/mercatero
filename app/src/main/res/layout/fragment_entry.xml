@@ -8,10 +8,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        android:background="@drawable/background"
-        >
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/background"
+            android:scaleType="centerCrop"
+            android:background="@color/white"/>
 
         <LinearLayout
             android:layout_width="394dp"
@@ -25,8 +29,8 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
                 android:contentDescription="@string/logo_description"
                 android:src="@drawable/logo" />
 

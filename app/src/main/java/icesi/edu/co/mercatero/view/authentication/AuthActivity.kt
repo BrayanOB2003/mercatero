@@ -3,6 +3,7 @@ package icesi.edu.co.mercatero.view.authentication
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -15,27 +16,44 @@ class AuthActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityAuthBinding
 
+    private val entryFragment by lazy {
+        EntryFragment.newInstance()
+    }
+
+    val signInFragment by lazy {
+        SignInFragment.newInstance()
+    }
+
+    val signUpFragment by lazy {
+        SignUpFragment.newInstance()
+    }
+
+    val signUpTypeFragment by lazy {
+        SignUpTypeFragment.newInstance()
+    }
+
+    val signUpPasswordFragment by lazy {
+        SignUpPasswordFragment.newInstance()
+    }
+
+    val signUpShopPasswordFragment by lazy {
+        SignUpShopPasswordFragment.newInstance()
+    }
+
+    val signUpShopFragment by lazy {
+        SignUpShopFragment.newInstance()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
-
-        val navController = findNavController(R.id.nav_host_fragment_content_auth)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAnchorView(R.id.fab)
-                .setAction("Action", null).show()
-        }
+        loadFragment(signInFragment)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_auth)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
+    fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(binding.fragmentContainer.id, fragment).commit()
     }
 }

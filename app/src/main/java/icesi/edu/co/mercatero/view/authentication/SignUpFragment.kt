@@ -1,65 +1,80 @@
 package icesi.edu.co.mercatero.view.authentication
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import icesi.edu.co.mercatero.R
-import icesi.edu.co.mercatero.databinding.FragmentEntryBinding
 import icesi.edu.co.mercatero.databinding.FragmentSignUpBinding
+import icesi.edu.co.mercatero.databinding.FragmentSigninBinding
+import icesi.edu.co.mercatero.view.home.HomeActivity
+import icesi.edu.co.mercatero.viewmodel.authetication.AuthViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SignUpFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SignUpFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
     private lateinit var binding: FragmentSignUpBinding
+    private val authViewModel: AuthViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.signUpNextButton.setOnClickListener {
+            signUpFieldsValidation()
+        }
+
+        binding.txtCreateAccount.setOnClickListener{
+            val authActivity = activity as AuthActivity
+            authActivity.loadFragment(authActivity.signInFragment)
+        }
+    }
+
+    private fun signUpPrimaryData(names: String, lastNames: String, email: String, phoneNumber: String){
+        authViewModel.signUpPrimaryData(names, lastNames, email, phoneNumber)
+        val authActivity = activity as AuthActivity
+        authActivity.loadFragment(authActivity.signUpPasswordFragment)
+    }
+
+    private fun signUpFieldsValidation(){
+        var nameField = binding.nameTextInput.editText?.text
+        var lastNameField = binding.lastNameTextInput.editText?.text
+        var email = binding.emailTextInput.editText?.text
+        var numberPhone = binding.phoneTextInput.editText?.text
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(email?.toString()).matches()) {
+            binding.emailTextInput.editText?.error = getText(R.string.singUp_invalid_email)
+        }
+
+        if(nameField?.isEmpty() == true){
+            binding.nameTextInput.editText?.error = getText(R.string.error_empty_field)
+        } else if(lastNameField?.isEmpty() == true){
+            binding.lastNameTextInput.editText?.error = getText(R.string.error_empty_field)
+        } else if(email?.isEmpty() == true) {
+            binding.emailTextInput.editText?.error = getText(R.string.error_empty_field)
+        } else if(numberPhone?.isEmpty() == true){
+            binding.phoneTextInput.editText?.error = getText(R.string.error_empty_field)
+        } else {
+            signUpPrimaryData(nameField.toString(), lastNameField.toString(), email.toString(), numberPhone.toString())
+        }
+    }
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SignUpFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SignUpFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance() = SignUpFragment()
     }
 }
