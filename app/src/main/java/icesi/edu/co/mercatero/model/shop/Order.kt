@@ -4,9 +4,10 @@ data class Order(
     val client_id: String?,
     val shop_id: String?,
     val address: String?,
+    val price: String?,
     val products: List<OrderProduct>?
 ) {
-    constructor() : this("", "", "", emptyList())
+    constructor() : this("", "", "", "", emptyList())
 
     fun getIdProducts(): List<String>? {
         return products?.map { it.product_id }
