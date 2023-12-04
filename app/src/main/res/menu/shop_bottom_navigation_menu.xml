@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_requestedOrder"
+        android:title="@string/to_be_accepted"/>
+
+    <item
+        android:id="@+id/navigation_inPreparation"
+        android:title="@string/in_preparation"/>
+
+    <item
+        android:id="@+id/navigation_toDeliver"
+        android:title="@string/to_deliver"/>
+
+</menu>

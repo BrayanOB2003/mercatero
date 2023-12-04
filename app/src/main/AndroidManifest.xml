@@ -13,22 +13,18 @@
         android:theme="@style/Theme.Mercatero"
         tools:targetApi="31">
         <activity
-            android:name=".test"
-            android:exported="false"
-            android:label="@string/title_activity_test"
-            android:theme="@style/Theme.Mercatero" />
+            android:name=".view.shopHome.ShopHomeActivity"
+            android:exported="false" />
         <activity
             android:name=".view.home.HomeActivity"
             android:exported="false"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
         <activity
             android:name=".view.authentication.AuthActivity"
             android:exported="false"
             android:label="@string/title_activity_auth"
             android:theme="@style/Theme.Mercatero" />
-        <activity
-            android:name=".view.home.MyProfile"
-            />
+        <activity android:name=".view.home.MyProfile" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
