@@ -55,8 +55,7 @@ class ShopAdapter(
 
 
         holder.name.text = shop.name
-
-        holder.image.setOnClickListener{
+        holder.itemView.setOnClickListener{
             shop.shop_id?.let { it1 -> listener.onShopItemClick(it1) }
         }
     }

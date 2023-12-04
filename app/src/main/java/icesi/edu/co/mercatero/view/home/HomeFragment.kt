@@ -8,15 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import icesi.edu.co.mercatero.databinding.FragmentHomeBinding
-import icesi.edu.co.mercatero.model.Product
 import icesi.edu.co.mercatero.view.adapters.home.ButtonAdapter
 import icesi.edu.co.mercatero.view.adapters.home.OnShopItemClickListener
 import icesi.edu.co.mercatero.view.adapters.home.ProductAdapter
 import icesi.edu.co.mercatero.view.adapters.home.ShopAdapter
-import icesi.edu.co.mercatero.view.authentication.AuthActivity
-import icesi.edu.co.mercatero.view.authentication.SignInFragment
 import icesi.edu.co.mercatero.viewmodel.home.HomeViewModel
-import java.util.ArrayList
 
 class HomeFragment : Fragment(),OnShopItemClickListener {
 
@@ -119,6 +115,6 @@ class HomeFragment : Fragment(),OnShopItemClickListener {
 
     override fun onShopItemClick(shop_id: String) {
         val homeActivity = activity as HomeActivity
-        homeActivity.loadFragment(ProductDescriptionFragment.newInstance(shop_id))
+        homeActivity.loadFragment(ShopDescriptionFragment.newInstance(shop_id))
     }
 }

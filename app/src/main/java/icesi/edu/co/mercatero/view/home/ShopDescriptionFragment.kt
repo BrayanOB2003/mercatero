@@ -6,17 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import icesi.edu.co.mercatero.R
-import icesi.edu.co.mercatero.databinding.FragmentProductDescriptionBinding
+import icesi.edu.co.mercatero.databinding.FragmentShopDescriptionBinding
 import icesi.edu.co.mercatero.model.Product
 import icesi.edu.co.mercatero.view.adapters.home.ProductAdapter
-import icesi.edu.co.mercatero.view.adapters.home.ShopAdapter
 import icesi.edu.co.mercatero.viewmodel.home.ShopDescriptionViewModel
 import java.util.ArrayList
 
-class ProductDescriptionFragment(private val product_id: String) : Fragment() {
+class ShopDescriptionFragment(private val product_id: String) : Fragment() {
 
-    private lateinit var binding: FragmentProductDescriptionBinding
+    private lateinit var binding: FragmentShopDescriptionBinding
     private lateinit var shopViewModel: ShopDescriptionViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +24,7 @@ class ProductDescriptionFragment(private val product_id: String) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentProductDescriptionBinding.inflate(inflater,container,  false)
+        binding = FragmentShopDescriptionBinding.inflate(inflater,container,  false)
         shopViewModel = ShopDescriptionViewModel()
         return binding.root
     }
@@ -94,6 +92,6 @@ class ProductDescriptionFragment(private val product_id: String) : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(product_id: String) = ProductDescriptionFragment(product_id)
+        fun newInstance(product_id: String) = ShopDescriptionFragment(product_id)
     }
 }
