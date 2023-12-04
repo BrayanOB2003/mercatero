@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import icesi.edu.co.mercatero.databinding.FragmentConfirmOrderBinding
 import icesi.edu.co.mercatero.model.shop.Order
 
-class ConfirmOrder(order: Order) : Fragment() {
+class ConfirmOrderFragment(order: Order) : Fragment() {
 
     private lateinit var binding: FragmentConfirmOrderBinding
 
@@ -26,8 +26,8 @@ class ConfirmOrder(order: Order) : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(order: Order) : ConfirmOrder {
-            return ConfirmOrder(order)
+        fun newInstance(order: Order) : ConfirmOrderFragment {
+            return ConfirmOrderFragment(order)
         }
     }
 }
