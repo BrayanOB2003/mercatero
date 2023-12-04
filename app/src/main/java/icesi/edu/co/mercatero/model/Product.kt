@@ -4,8 +4,8 @@ import java.io.Serializable
 
 class Product:Serializable{
     var product_id: String = ""
-    var name: String = ""
-    var description: String = ""
+    var nombre: String = ""
+    var descripcion: String = ""
     var price: Double = 0.0
     var imageURL: String = ""
     var shopName: String = ""
@@ -20,8 +20,8 @@ class Product:Serializable{
         shopName: String
     ) {
         this.product_id = product_id
-        this.name = name
-        this.description = description
+        this.nombre = name
+        this.descripcion = description
         this.price = price
         this.imageURL = imageURL
         this.shopName = shopName

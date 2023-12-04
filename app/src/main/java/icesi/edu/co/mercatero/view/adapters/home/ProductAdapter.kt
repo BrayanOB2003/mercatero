@@ -63,9 +63,10 @@ class ProductAdapter(
         }
 
 
-        holder.productName.text = product.name
+        holder.productName.text = product.nombre
         holder.shopName.text = product.shopName
         holder.price.text = product.price.toString()
+        
     }
 
 

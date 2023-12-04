@@ -11,12 +11,13 @@ import icesi.edu.co.mercatero.databinding.FragmentProductDescriptionBinding
 import icesi.edu.co.mercatero.model.Product
 import icesi.edu.co.mercatero.view.adapters.home.ProductAdapter
 import icesi.edu.co.mercatero.view.adapters.home.ShopAdapter
+import icesi.edu.co.mercatero.viewmodel.home.ShopDescriptionViewModel
 import java.util.ArrayList
 
 class ProductDescriptionFragment(private val product_id: String) : Fragment() {
 
     private lateinit var binding: FragmentProductDescriptionBinding
-
+    private lateinit var shopViewModel: ShopDescriptionViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -26,6 +27,7 @@ class ProductDescriptionFragment(private val product_id: String) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProductDescriptionBinding.inflate(inflater,container,  false)
+        shopViewModel = ShopDescriptionViewModel()
         return binding.root
     }
 
@@ -36,8 +38,24 @@ class ProductDescriptionFragment(private val product_id: String) : Fragment() {
             val homeActivity = activity as HomeActivity
             homeActivity.loadFragment(homeActivity.homeFragment)
         }
+        shopViewModel.getStoreInfo(product_id)
+        shopViewModel.store.observe(viewLifecycleOwner){
 
-        initRecycleView()
+            binding.shopName.text = it.name
+             val text = "Tienda " + it.name  + ", Ubicado en " + it.address + " .\nContacto para Domicilios: " + it.phone + " ."
+             binding.shopDescription.text = text
+
+        }
+        shopViewModel.products.observe(viewLifecycleOwner){
+
+            binding.productsRecyclerView.adapter = ProductAdapter(requireContext(), it)
+            binding.productsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+
+        }
+
+
+       // initRecycleView()
     }
 
     private fun initRecycleView(){
