@@ -5,10 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import icesi.edu.co.mercatero.model.Order
 import icesi.edu.co.mercatero.model.Product
 import icesi.edu.co.mercatero.model.Shop
+import icesi.edu.co.mercatero.model.user.Client
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -24,6 +27,9 @@ class HomeViewModel:ViewModel() {
     val stores: LiveData<ArrayList<Shop>> get() = _store
 
     private val store2 = ArrayList<Shop>()
+
+    private val _orders = MutableLiveData(ArrayList<Order>())
+    val orders: LiveData<ArrayList<Order>> get() = _orders
 
     fun getProductList(){
 
@@ -91,5 +97,21 @@ class HomeViewModel:ViewModel() {
 
     }
 
+    fun getOrdersOfUser() {
+        viewModelScope.launch(Dispatchers.IO) {
+            var userId = Firebase.auth.currentUser?.uid
+            val result = Firebase.firestore.collection("pedido")
+                .whereEqualTo("client_id", userId)
+                .get()
+                .await()
 
+            val orders = result.documents.mapNotNull { document ->
+                document.toObject(Order::class.java)
+            }
+
+            val sortedOrders = orders.sortedBy { it.status != "OnFinished" }
+
+            _orders.postValue(sortedOrders as ArrayList<Order>?)
+        }
+    }
 }
