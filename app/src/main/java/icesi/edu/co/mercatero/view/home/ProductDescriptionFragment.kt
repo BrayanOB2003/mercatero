@@ -11,6 +11,7 @@ import icesi.edu.co.mercatero.databinding.FragmentProductDescriptionBinding
 import icesi.edu.co.mercatero.model.Product
 import icesi.edu.co.mercatero.view.adapters.home.ProductAdapter
 import icesi.edu.co.mercatero.view.adapters.home.ShopAdapter
+import java.util.ArrayList
 
 class ProductDescriptionFragment(private val product_id: String) : Fragment() {
 
@@ -36,32 +37,33 @@ class ProductDescriptionFragment(private val product_id: String) : Fragment() {
 
     private fun initRecycleView(){
 
-        val products = arrayOf(
-            Product(
+        val products = ArrayList<Product>()
+         var product =  Product(
                 "1",
                 "Producto 1",
                 "Descripción del Producto 1",
-                "$19.99",
+                19.99,
                 "gs://mercatero.appspot.com/product/product_test.png",
                 "Tienda A"
-            ),
-            Product(
+            )
+         var product2 =  Product(
                 "2",
                 "Producto 2",
                 "Descripción del Producto 2",
-                "$29.99",
+                29.99,
                 "gs://mercatero.appspot.com/product/product_test2.png",
                 "Tienda B"
-            ),
-            Product(
+            )
+         var product3 =  Product(
                 "3",
                 "Producto 3",
-                "Descripción del Producto 3",
-                "$39.99",
+                "Descripción del Producto 3", 39.99,
                 "gs://mercatero.appspot.com/product/product_test.png",
                 "Tienda C"
             )
-        )
+        products.add(product)
+        products.add(product2)
+        products.add(product3)
 
         binding.productsRecyclerView.adapter = ProductAdapter(requireContext(), products)
         binding.productsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

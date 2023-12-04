@@ -19,6 +19,7 @@ class ShopAdapter(
     private val context: Context,
     private val data: ArrayList<Shop>): RecyclerView.Adapter<ShopAdapter.ViewHolder>() {
 
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var image: ImageView = itemView.findViewById(R.id.shopLogo)
         var name: TextView = itemView.findViewById(R.id.shopName)
@@ -43,6 +44,12 @@ class ShopAdapter(
         }
 
         holder.name.text = shop.name
+        holder.image.setOnClickListener(){
+
+
+
+        }
+
     }
 
     override fun getItemCount(): Int {
