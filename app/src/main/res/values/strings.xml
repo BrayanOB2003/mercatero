@@ -89,6 +89,11 @@
     <string name="settings">Ajustes</string>
     <string name="sign_off">Cerrar sesión</string>
 
+    <!-- Strings used for shopHome screen -->
+    <string name="to_be_accepted">Por aceptar</string>
+    <string name="in_preparation">En preparación</string>
+    <string name="to_deliver">Por entregar</string>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

@@ -12,7 +12,9 @@ import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentSigninBinding
+import icesi.edu.co.mercatero.model.enumeration.UserType
 import icesi.edu.co.mercatero.view.home.HomeActivity
+import icesi.edu.co.mercatero.view.shopHome.ShopHomeActivity
 import icesi.edu.co.mercatero.viewmodel.authetication.AuthViewModel
 
 class SignInFragment : Fragment() {
@@ -60,8 +62,13 @@ class SignInFragment : Fragment() {
     private fun signInObserve(){
         authViewModel.authStateLV.observe(viewLifecycleOwner) { state ->
             if (state.isAuth == true) {
-                startActivity(Intent(requireContext(), HomeActivity::class.java))
-                requireActivity().finish()
+                if (state.userType == UserType.CLIENT) {
+                    startActivity(Intent(requireContext(), HomeActivity::class.java))
+                    requireActivity().finish()
+                } else if(state.userType == UserType.SHOP){
+                    startActivity(Intent(requireContext(), ShopHomeActivity::class.java))
+                    requireActivity().finish()
+                }
             } else if(state.isAuth == false){
                 binding.textInputPassword.editText?.error = getText(R.string.error_text_field)
                 loadingDialog.dismiss()
