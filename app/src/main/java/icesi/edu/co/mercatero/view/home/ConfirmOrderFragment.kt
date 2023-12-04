@@ -33,11 +33,11 @@ class ConfirmOrderFragment(private var orders: List<Order>) : Fragment() {
         lifecycleScope.launch {
             val subtotal = calculateProductsPrice(orders)
             binding.textViewAddress.text = orders[0].address
-            binding.textViewAmount.text = (subtotal + 3500.0).toString()
+            binding.textViewAmount.text = (subtotal + 3500).toString()
             binding.textViewSubtotal.text = subtotal.toString()
             binding.textViewShip.text = "3500"
             binding.textViewDiscount.text = "0"
-            binding.textViewTotal.text = (subtotal + 3500.0).toString()
+            binding.textViewTotal.text = (subtotal + 3500).toString()
             binding.buttonCreateOrder.setOnClickListener {
                 lifecycleScope.launch {
                     orderViewModel.addOrders(orders)
@@ -46,8 +46,8 @@ class ConfirmOrderFragment(private var orders: List<Order>) : Fragment() {
         }
     }
 
-    private suspend fun calculateProductsPrice(orders: List<Order>): Double {
-        var subtotal = 0.0
+    private suspend fun calculateProductsPrice(orders: List<Order>): Int {
+        var subtotal = 0
         withContext(Dispatchers.Default) {
             subtotal = orderViewModel.calculatePriceOrders(orders)
         }

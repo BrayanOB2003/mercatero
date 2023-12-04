@@ -1,12 +1,12 @@
 package icesi.edu.co.mercatero.model.shop
 
 data class Order(
-    val id_Client: String?,
-    val id_Shop: String?,
+    val client_id: String?,
+    val shop_id: String?,
     val address: String?,
     val products: Map<String, Int>?
 ) {
-    constructor() : this(null, null, null, null)
+    constructor() : this("", "", "", null)
 
     fun getIdProducts(): Set<String>? {
         return products?.keys

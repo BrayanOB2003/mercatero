@@ -36,13 +36,13 @@ class HomeActivity : AppCompatActivity() {
             R.id.navigation_orders -> selectedFragment = ConfirmOrderFragment(
                 listOf(
                     Order("p1lSI3Bs4nflEuW2Ip8Cgx0Kxhp1", "6sGET5VP1oU1S7fZNpdK", "calle 40 #59-05", mapOf(
-                        "Lyt6iNNVKaXoL49ngmxQ" to 2
+                        "d80b45be-d1ad-4768-86be-d078fc9fa3f3" to 2
                     )),
                     Order(
                         "p1lSI3Bs4nflEuW2Ip8Cgx0Kxhp1", "0x4bM1Y9HKh8psLZZPYe", "calle 40 #59-05", mapOf(
-                            "504eBDFHm6uI0I0lNJeQ" to 2,
+                            "Lyt6iNNVKaXoL49ngmxQ" to 2,
 
-                            "Lyt6iNNVKaXoL49ngmxQ" to 3
+                            "9SNY2v6Rwp4wx5rZA9Si" to 3
                         )
                     )
                 )

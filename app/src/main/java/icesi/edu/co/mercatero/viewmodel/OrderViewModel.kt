@@ -39,8 +39,8 @@ class OrderViewModel : ViewModel() {
         }
     }
 
-    suspend fun calculatePriceOrders(orders: List<Order>): Double {
-        var totalPrice = 0.0
+    suspend fun calculatePriceOrders(orders: List<Order>): Int {
+        var totalPrice = 0
         val deferredPrices = orders.map { order ->
             viewModelScope.async(Dispatchers.IO) {
                 calculatePrice(order)
@@ -52,32 +52,31 @@ class OrderViewModel : ViewModel() {
         return totalPrice
     }
 
-    suspend fun calculatePrice(order: Order): Double {
-        var totalPrice = 0.0
+    suspend fun calculatePrice(order: Order): Int {
+        var totalPrice = 0
         val productQuantities = order.products
         if (productQuantities != null) {
             totalPrice = productQuantities.map { (productId, quantity) ->
                     val productPrice = getProductPrice(productId)
-                    productPrice?.times(quantity) ?: 0.0
+                    productPrice?.times(quantity) ?: 0
             }.sum()
         }
         Log.e(">>> price pedido", totalPrice.toString())
         return totalPrice
     }
 
-    private suspend fun getProductPrice(productId: String): Double? {
+    private suspend fun getProductPrice(productId: String): Int? {
         return try {
-            val productCollection = db.collection("producto")
-            val document = productCollection.document(productId).get().await()
+            val document = db.collection("producto").document(productId).get().await()
             if (document.exists()) {
-                Log.e(">>>", ((document.data?.get("price") as? Int)?.times(1.0)).toString())
-                document.data?.get("price") as? Double
+                Log.e(">>>", document.data?.get("price").toString().toInt().toString())
+                document.data?.get("price").toString().toInt()
             } else {
-                0.0
+                0
             }
         } catch (e : Exception) {
             e.printStackTrace()
-            0.0
+            0
         }
     }
 }
