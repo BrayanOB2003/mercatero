@@ -69,7 +69,6 @@ class OrderViewModel : ViewModel() {
         return try {
             val document = db.collection("producto").document(productId).get().await()
             if (document.exists()) {
-                Log.e(">>>", document.data?.get("price").toString().toInt().toString())
                 document.data?.get("price").toString().toInt()
             } else {
                 0

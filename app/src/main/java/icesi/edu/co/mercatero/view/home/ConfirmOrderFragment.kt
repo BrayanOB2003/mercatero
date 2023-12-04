@@ -51,7 +51,6 @@ class ConfirmOrderFragment(private var orders: List<Order>) : Fragment() {
         withContext(Dispatchers.Default) {
             subtotal = orderViewModel.calculatePriceOrders(orders)
         }
-        Log.e(">>> subtotal", subtotal.toString())
         return subtotal
     }
 
