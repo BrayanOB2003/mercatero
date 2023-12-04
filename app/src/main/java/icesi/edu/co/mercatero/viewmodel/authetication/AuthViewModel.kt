@@ -27,7 +27,7 @@ class AuthViewModel: ViewModel() {
                 name = names,
                 lastName = lastNames,
                 email = email,
-                number_phone = phoneNumber,
+                phone = phoneNumber,
                 CC = null,
                 address = null,
                 client_id = null,

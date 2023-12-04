@@ -65,7 +65,7 @@ class ProductAdapter(
 
         holder.productName.text = product.name
         holder.shopName.text = product.shopName
-        holder.price.text = product.price.toString()
+        holder.price.text = product.price
     }
 
 
