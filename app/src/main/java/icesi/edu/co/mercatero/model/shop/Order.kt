@@ -4,15 +4,20 @@ data class Order(
     val client_id: String?,
     val shop_id: String?,
     val address: String?,
-    val products: Map<String, Int>?
+    val products: List<OrderProduct>?
 ) {
-    constructor() : this("", "", "", null)
+    constructor() : this("", "", "", emptyList())
 
-    fun getIdProducts(): Set<String>? {
-        return products?.keys
+    fun getIdProducts(): List<String>? {
+        return products?.map { it.product_id }
     }
 
     fun getAmountProduct(id: String) : Int? {
-        return products?.get(id)
+        return products?.size
     }
 }
+
+data class OrderProduct(
+    val product_id: String,
+    val quantity: Int
+)

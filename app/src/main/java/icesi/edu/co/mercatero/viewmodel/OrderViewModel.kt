@@ -16,7 +16,6 @@ import kotlinx.coroutines.withContext
 class OrderViewModel : ViewModel() {
 
     private val db = Firebase.firestore
-    private val auth = FirebaseAuth.getInstance()
 
     suspend fun addOrders(orders: List<Order>) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -26,12 +25,11 @@ class OrderViewModel : ViewModel() {
         }
     }
 
-    suspend fun addOrder(order: Order) {
+    private suspend fun addOrder(order: Order) {
         if (order.getIdProducts()?.isNotEmpty() == true) {
             viewModelScope.launch(Dispatchers.IO) {
                 try {
-                    val orderCollection = db.collection("pedido")
-                    orderCollection.add(order).await()
+                    db.collection("pedido").add(order).await()
                 } catch (e : Exception) {
                     e.printStackTrace()
                 }
@@ -52,7 +50,7 @@ class OrderViewModel : ViewModel() {
         return totalPrice
     }
 
-    suspend fun calculatePrice(order: Order): Int {
+    private suspend fun calculatePrice(order: Order): Int {
         var totalPrice = 0
         val productQuantities = order.products
         if (productQuantities != null) {
