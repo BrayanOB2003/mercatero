@@ -45,15 +45,23 @@ class ProductAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = data[position]
 
-        val storageReference: StorageReference = FirebaseStorage.getInstance()
-            .getReferenceFromUrl(product.imageURL)
+        if (!product.imageURL.isNullOrBlank()) {
+            val storageReference: StorageReference = FirebaseStorage.getInstance()
+                .getReferenceFromUrl(product.imageURL)
 
-        storageReference.downloadUrl.addOnSuccessListener { uri ->
+            storageReference.downloadUrl.addOnSuccessListener { uri ->
+                Glide.with(context)
+                    .load(uri)
+                    .error(R.drawable.ic_launcher_foreground)
+                    .into(holder.image)
+            }
+        } else {
             Glide.with(context)
-                .load(uri)
+                .load(R.drawable.ic_launcher_foreground)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(holder.image)
         }
+
 
         holder.productName.text = product.name
         holder.shopName.text = product.shopName
