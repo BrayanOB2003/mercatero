@@ -7,6 +7,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.mercatero.model.shop.Order
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
@@ -25,6 +26,37 @@ class OrderViewModel : ViewModel() {
                     e.printStackTrace()
                 }
             }
+        }
+    }
+
+    suspend fun calculatePrice(order: Order): Double {
+        var totalPrice = 0.0
+        val productQuantities = order.products
+        if (productQuantities != null) {
+            val deferredPrices = productQuantities.map { (productId, quantity) ->
+                viewModelScope.async(Dispatchers.IO) {
+                    val productPrice = getProductPrice(productId)
+                    productPrice?.times(quantity) ?: 0.0
+                }
+            }
+            totalPrice = deferredPrices.sumOf { it.await() }
+        }
+        return totalPrice
+    }
+
+
+    private suspend fun getProductPrice(productId: String): Double? {
+        return try {
+            val productCollection = db.collection("producto")
+            val document = productCollection.document(productId).get().await()
+            if (document.exists()) {
+                document.data?.get("price") as? Double
+            } else {
+                0.0
+            }
+        } catch (e : Exception) {
+            e.printStackTrace()
+            0.0
         }
     }
 }
