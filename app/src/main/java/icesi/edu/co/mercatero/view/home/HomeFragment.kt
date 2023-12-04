@@ -10,15 +10,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import icesi.edu.co.mercatero.databinding.FragmentHomeBinding
 import icesi.edu.co.mercatero.model.Product
 import icesi.edu.co.mercatero.view.adapters.home.ButtonAdapter
+import icesi.edu.co.mercatero.view.adapters.home.OnShopItemClickListener
 import icesi.edu.co.mercatero.view.adapters.home.ProductAdapter
 import icesi.edu.co.mercatero.view.adapters.home.ShopAdapter
+import icesi.edu.co.mercatero.view.authentication.AuthActivity
+import icesi.edu.co.mercatero.view.authentication.SignInFragment
 import icesi.edu.co.mercatero.viewmodel.home.HomeViewModel
 import java.util.ArrayList
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(),OnShopItemClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -71,7 +77,7 @@ class HomeFragment : Fragment() {
           //  Log.d("Test", "En el observe de store hay " + it.get(1).toString())
 
             if (it.isNotEmpty()) {
-                binding.shopsRecyclerView.adapter = ShopAdapter(requireContext(), it)
+                binding.shopsRecyclerView.adapter = ShopAdapter(requireContext(), it, this)
                 binding.shopsRecyclerView.layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             }
@@ -109,5 +115,10 @@ class HomeFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = HomeFragment()
+    }
+
+    override fun onShopItemClick(shop_id: String) {
+        val homeActivity = activity as HomeActivity
+        homeActivity.loadFragment(ProductDescriptionFragment.newInstance(shop_id))
     }
 }

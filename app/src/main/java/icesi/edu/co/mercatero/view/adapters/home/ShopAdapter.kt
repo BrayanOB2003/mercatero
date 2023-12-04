@@ -17,7 +17,8 @@ import icesi.edu.co.mercatero.model.Shop
 
 class ShopAdapter(
     private val context: Context,
-    private val data: ArrayList<Shop>): RecyclerView.Adapter<ShopAdapter.ViewHolder>() {
+    private val data: ArrayList<Shop>,
+    private val listener: OnShopItemClickListener): RecyclerView.Adapter<ShopAdapter.ViewHolder>() {
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -44,12 +45,10 @@ class ShopAdapter(
         }
 
         holder.name.text = shop.name
-        holder.image.setOnClickListener(){
 
-
-
+        holder.image.setOnClickListener{
+            shop.shop_id?.let { it1 -> listener.onShopItemClick(it1) }
         }
-
     }
 
     override fun getItemCount(): Int {

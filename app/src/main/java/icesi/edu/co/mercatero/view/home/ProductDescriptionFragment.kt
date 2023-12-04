@@ -32,6 +32,11 @@ class ProductDescriptionFragment(private val product_id: String) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.backButton.setOnClickListener{
+            val homeActivity = activity as HomeActivity
+            homeActivity.loadFragment(homeActivity.homeFragment)
+        }
+
         initRecycleView()
     }
 
