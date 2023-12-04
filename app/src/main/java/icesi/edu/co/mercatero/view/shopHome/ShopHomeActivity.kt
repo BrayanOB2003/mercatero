@@ -33,7 +33,7 @@ class ShopHomeActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.navigation_requestedOrder -> selectedFragment = OrderRequestedFragment()
             R.id.navigation_inPreparation -> selectedFragment = OrderInProgressFragment()
-            R.id.navigation_toDeliver -> selectedFragment = OrdeOnFinishedFragment()
+            R.id.navigation_toDeliver -> selectedFragment = OrderOnFinishedFragment()
         }
         return try {
             selectedFragment?.let { loadFragment(it) }
