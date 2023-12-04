@@ -33,17 +33,24 @@ class HomeViewModel:ViewModel() {
 
             val result= Firebase.firestore.collection("producto").get().await()
 
-       //     Log.d("Test","Pasa del primer query")
-
-
             for(doc in result.documents) {
 
                 //Log.d("Test ","Esta en el for " + doc.toString())
                 val product = doc.toObject(Product::class.java)
 
-                product.let {
-              //      Log.d("Test", it.toString())
-                    products2.add(it!!)
+                product?.let { product ->
+                //     Log.d("Test", it.toString())
+
+                    var shop = product.let { it ->
+                        Firebase.firestore.collection("tienda")
+                            .document(it.shop_id).get().await().toObject(Shop::class.java)
+                    }
+                    shop?.let { it ->
+                        product.shopName = it.name
+                    }
+
+                    products2.add(product)
+                //     Log.d("Test","Pasa del primer query")
 
                 }
 

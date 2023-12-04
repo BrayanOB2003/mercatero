@@ -4,10 +4,11 @@ import java.io.Serializable
 
 class Product:Serializable{
     var product_id: String = ""
-    var nombre: String = ""
-    var descripcion: String = ""
+    var name: String = ""
+    var description: String = ""
     var price: Double = 0.0
     var imageURL: String = ""
+    var shop_id: String = ""
     var shopName: String = ""
 
     constructor()
@@ -17,13 +18,14 @@ class Product:Serializable{
         description: String,
         price: Double,
         imageURL: String,
-        shopName: String
+        shop_id: String
     ) {
         this.product_id = product_id
-        this.nombre = name
-        this.descripcion = description
+        this.name = name
+        this.description = description
         this.price = price
         this.imageURL = imageURL
+        this.shop_id = shop_id
         this.shopName = shopName
     }
 

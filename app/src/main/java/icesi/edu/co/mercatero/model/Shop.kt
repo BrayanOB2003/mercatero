@@ -4,7 +4,6 @@ import java.io.Serializable
 
 class Shop:Serializable{
 
-
         var shop_id: String? = ""
         var name: String = ""
         var address: String = ""

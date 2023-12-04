@@ -17,7 +17,7 @@ class ShopDescriptionViewModel:ViewModel() {
     private val _products = MutableLiveData(ArrayList<Product>())
     val products: LiveData<ArrayList<Product>> get() = _products
 
-   private val products2 = ArrayList<Product>()
+    private val products2 = ArrayList<Product>()
 
     private val _store = MutableLiveData(Shop())
     val store: LiveData<Shop> get() = _store
