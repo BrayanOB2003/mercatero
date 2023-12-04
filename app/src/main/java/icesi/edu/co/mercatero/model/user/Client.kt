@@ -7,5 +7,6 @@ data class Client (
         var CC: Long?,
         var address: String?,
         var number_phone: String?,
-        var email: String?
+        var email: String?,
+        var imageURL: String?
         )

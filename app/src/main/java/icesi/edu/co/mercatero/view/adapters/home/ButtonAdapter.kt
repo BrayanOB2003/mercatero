@@ -1,4 +1,4 @@
-package icesi.edu.co.mercatero.view.adapters
+package icesi.edu.co.mercatero.view.adapters.home
 
 import android.view.LayoutInflater
 import android.view.View

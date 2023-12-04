@@ -11,6 +11,11 @@ import icesi.edu.co.mercatero.model.shop.Order
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
+
+    val homeFragment by lazy {
+        HomeFragment.newInstance()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -53,9 +58,9 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadFragment(fragment: Fragment) {
+    fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, fragment)
+            .replace(binding.container.id, fragment)
             .commit()
     }
 }
