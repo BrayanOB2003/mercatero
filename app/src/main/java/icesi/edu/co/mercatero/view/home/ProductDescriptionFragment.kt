@@ -6,15 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import icesi.edu.co.mercatero.databinding.FragmentHomeBinding
+import icesi.edu.co.mercatero.R
+import icesi.edu.co.mercatero.databinding.FragmentProductDescriptionBinding
 import icesi.edu.co.mercatero.model.Product
-import icesi.edu.co.mercatero.view.adapters.home.ButtonAdapter
 import icesi.edu.co.mercatero.view.adapters.home.ProductAdapter
 import icesi.edu.co.mercatero.view.adapters.home.ShopAdapter
 
-class HomeFragment : Fragment() {
+class ProductDescriptionFragment(private val product_id: String) : Fragment() {
 
-    private lateinit var binding: FragmentHomeBinding
+    private lateinit var binding: FragmentProductDescriptionBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -23,7 +24,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentProductDescriptionBinding.inflate(inflater,container,  false)
         return binding.root
     }
 
@@ -34,24 +35,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun initRecycleView(){
-
-        val buttons = arrayOf("Botón 1", "Botón 2", "Botón 3", "Botón 4", "Botón 5","Botón 1", "Botón 2", "Botón 3", "Botón 4", "Botón 5")
-
-        binding.categoriesRecyclerView.adapter = ButtonAdapter(buttons)
-        binding.categoriesRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
-        val data = arrayOf(
-            Pair("gs://mercatero.appspot.com/shop/shop_test.png", "Tiendita la esquinita"),
-            Pair("gs://mercatero.appspot.com/shop/shop_test2.png", "Tienda los semanales"),
-            Pair("gs://mercatero.appspot.com/shop/shop_test.png", "Tiendita la esquinita"),
-            Pair("gs://mercatero.appspot.com/shop/shop_test2.png", "Tienda los semanales"),
-            Pair("gs://mercatero.appspot.com/shop/shop_test.png", "Tiendita la esquinita"),
-            Pair("gs://mercatero.appspot.com/shop/shop_test2.png", "Tienda los semanales")
-        )
-
-        binding.shopsRecyclerView.adapter = ShopAdapter(requireContext(), data)
-        binding.shopsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
 
         val products = arrayOf(
             Product(
@@ -86,6 +69,6 @@ class HomeFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = HomeFragment()
+        fun newInstance(product_id: String) = ProductDescriptionFragment(product_id)
     }
 }

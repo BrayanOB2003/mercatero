@@ -1,21 +1,14 @@
 package icesi.edu.co.mercatero.viewmodel.authetication
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import icesi.edu.co.mercatero.model.enumeration.ErrorMessage
-import icesi.edu.co.mercatero.model.shop.Shop
+import icesi.edu.co.mercatero.model.Shop
 import icesi.edu.co.mercatero.model.user.Client
-import icesi.edu.co.mercatero.model.user.ShopKeeper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -37,7 +30,8 @@ class AuthViewModel: ViewModel() {
                 number_phone = phoneNumber,
                 CC = null,
                 address = null,
-                client_id = null
+                client_id = null,
+                imageURL = null
             )
         }
     }
@@ -49,7 +43,8 @@ class AuthViewModel: ViewModel() {
                 name = name,
                 address = address,
                 email = email,
-                phone = phone
+                phone = phone,
+                imageUrl = null
             )
         }
     }
