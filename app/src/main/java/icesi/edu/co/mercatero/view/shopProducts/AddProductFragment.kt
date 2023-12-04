@@ -64,8 +64,8 @@ class AddProductFragment : Fragment() {
             lifecycleScope.launch {
                 uri?.let {
                     productViewModel.addProduct(name, description, price, it)
-                    //val manageProductsActivity = activity as ManageProductsActivity
-                    //manageProductsActivity.loadFragment(manageProductsActivity.viewProductsFragment)
+                    val manageProductsActivity = activity as ManageProductsActivity
+                    manageProductsActivity.loadFragment(manageProductsActivity.viewProductsFragment)
                 }
             }
         }

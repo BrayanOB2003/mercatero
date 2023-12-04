@@ -22,6 +22,10 @@ class ManageProductsActivity : AppCompatActivity() {
         binding = ActivityManageProductsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         loadFragment(viewProductsFragment)
+
+        binding.buttonBack.setOnClickListener {
+            finish()
+        }
     }
 
     fun loadFragment(fragment: Fragment) {

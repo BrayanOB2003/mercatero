@@ -34,8 +34,8 @@ class ViewProductsFragment : Fragment() {
         //binding.productList.adapter = adapter
         //binding.productList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.buttonAddProduct.setOnClickListener {
-            //val manageProductActivity = activity as ManageProductsActivity
-            //manageProductActivity.loadFragment(manageProductActivity.addProductFragment)
+            val manageProductActivity = activity as ManageProductsActivity
+            manageProductActivity.loadFragment(manageProductActivity.addProductFragment)
         }
     }
 
