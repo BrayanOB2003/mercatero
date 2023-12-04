@@ -21,6 +21,10 @@ class ShopHomeActivity : AppCompatActivity() {
         binding = ActivityShopHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         loadFragment(OrderRequestedFragment())
+
+        binding.storeButton.setOnClickListener{
+
+        }
     }
 
     private fun handleNavigationItemSelected(item: MenuItem): Boolean {

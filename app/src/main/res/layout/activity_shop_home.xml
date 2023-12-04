@@ -45,7 +45,7 @@
                 android:fontFamily="@font/sans"/>
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/storeButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:padding="13.5dp"
