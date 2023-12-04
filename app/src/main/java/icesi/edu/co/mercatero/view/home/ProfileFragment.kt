@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentProfileBinding
-import icesi.edu.co.mercatero.databinding.MyProfileBinding
 import icesi.edu.co.mercatero.viewmodel.home.ProfileViewModel
 
 class ProfileFragment : Fragment() {
@@ -42,7 +41,7 @@ class ProfileFragment : Fragment() {
         //binding.nameTV.text = "Hola"
         myProfileViewModel = ProfileViewModel()
         myProfileViewModel.getProfileData()
-        myProfileViewModel.client.observe(this){
+        myProfileViewModel.client.observe(viewLifecycleOwner){
 
             binding.nameTV.text = it.name
             binding.emailTV.text = it.email
