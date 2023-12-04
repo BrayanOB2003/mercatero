@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import icesi.edu.co.mercatero.view.adapters.ProductAdapter
 import icesi.edu.co.mercatero.databinding.FragmentManageViewProductsBinding
-import icesi.edu.co.mercatero.model.shop.Product
+import icesi.edu.co.mercatero.model.Product
 import icesi.edu.co.mercatero.viewmodel.product.ProductViewModel
 
 class ViewProductsFragment : Fragment() {

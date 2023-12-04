@@ -15,8 +15,15 @@ import icesi.edu.co.mercatero.model.Product
 
 class ProductAdapter(
     private val context: Context,
-    private val data: Array<Product>
+    private val data: ArrayList<Product>
     ): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+
+
+   /* fun addProduct(product: Product) {
+        data.add(product)
+        notifyItemInserted(itemCount)
+    }
+    */
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var image: ImageView = itemView.findViewById(R.id.productLogo)
@@ -38,19 +45,29 @@ class ProductAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = data[position]
 
-        val storageReference: StorageReference = FirebaseStorage.getInstance()
-            .getReferenceFromUrl(product.imageURL)
+        if (!product.imageURL.isNullOrBlank()) {
+            val storageReference: StorageReference = FirebaseStorage.getInstance()
+                .getReferenceFromUrl(product.imageURL)
 
-        storageReference.downloadUrl.addOnSuccessListener { uri ->
+            storageReference.downloadUrl.addOnSuccessListener { uri ->
+                Glide.with(context)
+                    .load(uri)
+                    .error(R.drawable.ic_launcher_foreground)
+                    .into(holder.image)
+            }
+        } else {
             Glide.with(context)
-                .load(uri)
+                .load(R.drawable.ic_launcher_foreground)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(holder.image)
         }
 
+
         holder.productName.text = product.name
         holder.shopName.text = product.shopName
-        holder.price.text = product.price
+        holder.price.text = product.price.toString()
     }
+
+
 
 }
