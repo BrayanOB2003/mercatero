@@ -34,7 +34,7 @@ class ShopDescriptionViewModel:ViewModel() {
 
             _store.postValue(shop)
 
-            val result2 = Firebase.firestore.collection("producto").whereEqualTo("tienda_id",storeId).get().await()
+            val result2 = Firebase.firestore.collection("producto").whereEqualTo("shop_id",storeId).get().await()
 
             for(doc in result2.documents) {
 

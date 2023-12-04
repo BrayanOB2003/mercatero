@@ -18,7 +18,7 @@ class HomeViewModel:ViewModel() {
     private val _products = MutableLiveData(ArrayList<Product>())
     val products: LiveData<ArrayList<Product>> get() = _products
 
-    val products2 = ArrayList<Product>()
+    private val products2 = ArrayList<Product>()
 
     private val _store = MutableLiveData(ArrayList<Shop>())
     val stores: LiveData<ArrayList<Shop>> get() = _store
