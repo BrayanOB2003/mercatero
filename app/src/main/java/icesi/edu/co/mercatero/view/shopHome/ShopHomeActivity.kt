@@ -28,6 +28,9 @@ class ShopHomeActivity : AppCompatActivity() {
             val intent = Intent(this, ManageProductsActivity::class.java)
             startActivity(intent)
         }
+        binding.profileButton.setOnClickListener{
+
+        }
     }
 
     private fun handleNavigationItemSelected(item: MenuItem): Boolean {

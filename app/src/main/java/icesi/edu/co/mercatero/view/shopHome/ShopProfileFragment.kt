@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentShopProfileBinding
 import icesi.edu.co.mercatero.viewmodel.home.ShopProfileViewModel
 
@@ -27,9 +30,14 @@ class ShopProfileFragment : Fragment() {
             binding.textViewShopName.text = it.name
             binding.textViewShopEmail.text = it.email
             if (!it.imageURL.isNullOrEmpty()) {
-                Glide.with(requireContext())
-                    .load(it.imageURL)
-                    .into(binding.imageShopProfile)
+                val storageReference: StorageReference = FirebaseStorage.getInstance()
+                    .getReferenceFromUrl(it.imageURL!!)
+                storageReference.downloadUrl.addOnSuccessListener { uri ->
+                    Glide.with(requireContext())
+                        .load(uri)
+                        .error(R.drawable.ic_launcher_foreground)
+                        .into(binding.imageShopProfile)
+                }
             }
         }
         return binding.root
@@ -37,7 +45,9 @@ class ShopProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.buttonBackShopProfile.setOnClickListener {
 
+        }
     }
 
     companion object {
