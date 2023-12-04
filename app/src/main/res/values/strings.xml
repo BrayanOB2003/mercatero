@@ -89,6 +89,9 @@
     <string name="settings">Ajustes</string>
     <string name="sign_off">Cerrar sesión</string>
 
+    <!-- Strings user for my shop screen -->
+    <string name="my_shop_statement">Mi tienda</string>
+
     <!-- Strings used for shopHome screen -->
     <string name="to_be_accepted">Por aceptar</string>
     <string name="in_preparation">En preparación</string>

@@ -13,9 +13,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentProfileBinding
-import icesi.edu.co.mercatero.databinding.MyProfileBinding
 import icesi.edu.co.mercatero.viewmodel.home.ProfileViewModel
 
 class ProfileFragment : Fragment() {
