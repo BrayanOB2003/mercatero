@@ -57,13 +57,13 @@ class AddProductFragment : Fragment() {
         if (description.isEmpty()) {
             binding.editTextProductDescription.editText?.error = getText(R.string.error_empty_field)
         }
-        if (price.isEmpty() || price.toDouble().isNaN()) {
+        if (price.isEmpty() || price.toInt() <= 0) {
             binding.editTextProductPrice.editText?.error = getText(R.string.error_empty_field)
         }
-        if (name.isNotEmpty() && description.isNotEmpty() && !price.toDouble().isNaN() && uri.toString().isNotEmpty()) {
+        if (name.isNotEmpty() && description.isNotEmpty() && price.toInt() > 0 && uri.toString().isNotEmpty()) {
             lifecycleScope.launch {
                 uri?.let {
-                    productViewModel.addProduct(name, description, price.toDouble(), it)
+                    productViewModel.addProduct(name, description, price, it)
                     //val manageProductsActivity = activity as ManageProductsActivity
                     //manageProductsActivity.loadFragment(manageProductsActivity.viewProductsFragment)
                 }

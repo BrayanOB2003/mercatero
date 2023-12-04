@@ -57,29 +57,32 @@ class ShopDescriptionFragment(private val product_id: String) : Fragment() {
     }
 
     private fun initRecycleView(){
-
         val products = ArrayList<Product>()
          var product =  Product(
                 "1",
                 "Producto 1",
                 "Descripción del Producto 1",
-                19.99,
+                "19999",
                 "gs://mercatero.appspot.com/product/product_test.png",
+                "",
                 "Tienda A"
             )
          var product2 =  Product(
                 "2",
                 "Producto 2",
                 "Descripción del Producto 2",
-                29.99,
+                "29999",
                 "gs://mercatero.appspot.com/product/product_test2.png",
+                "",
                 "Tienda B"
             )
          var product3 =  Product(
                 "3",
                 "Producto 3",
-                "Descripción del Producto 3", 39.99,
+                "Descripción del Producto 3",
+                "39999",
                 "gs://mercatero.appspot.com/product/product_test.png",
+                "",
                 "Tienda C"
             )
         products.add(product)

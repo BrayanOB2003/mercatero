@@ -28,11 +28,11 @@ class ViewProductsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val products = arrayOf(Product("asdasdasd", "Prueba", "Prueba desc", 100000.0))
+        //val products = arrayOf(Product("asdasdasd", "Prueba", "Prueba desc", 100000.0))
 
-        val adapter = ProductAdapter(products)
-        binding.productList.adapter = adapter
-        binding.productList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        //val adapter = ProductAdapter(products)
+        //binding.productList.adapter = adapter
+        //binding.productList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.buttonAddProduct.setOnClickListener {
             //val manageProductActivity = activity as ManageProductsActivity
             //manageProductActivity.loadFragment(manageProductActivity.addProductFragment)

@@ -16,12 +16,14 @@ class ManageProductsActivity : AppCompatActivity() {
     val addProductFragment by lazy {
         AddProductFragment.newInstance()
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityManageProductsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         loadFragment(viewProductsFragment)
     }
+
     fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(binding.manageProductContainer.id, fragment)

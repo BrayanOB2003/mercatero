@@ -6,7 +6,7 @@ class Product:Serializable{
     var product_id: String = ""
     var name: String = ""
     var description: String = ""
-    var price: Double = 0.0
+    var price: String = ""
     var imageURL: String = ""
     var shop_id: String = ""
     var shopName: String = ""
@@ -16,9 +16,10 @@ class Product:Serializable{
         product_id: String,
         name: String,
         description: String,
-        price: Double,
+        price: String,
         imageURL: String,
-        shop_id: String
+        shop_id: String,
+        shopName: String
     ) {
         this.product_id = product_id
         this.name = name

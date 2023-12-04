@@ -1,15 +1,22 @@
 package icesi.edu.co.mercatero.view.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.ProductManageBinding
-import icesi.edu.co.mercatero.model.shop.Product
+import icesi.edu.co.mercatero.model.Product
 
-class ProductAdapter(private var products: Array<Product>) : Adapter<ProductAdapter.ViewHolder>() {
+class ProductAdapter(
+    private val context: Context,
+    private var products: Array<Product>
+) : Adapter<ProductAdapter.ViewHolder>() {
 
     class ViewHolder(root: View) : RecyclerView.ViewHolder(root) {
         private val binding = ProductManageBinding.bind(root)
@@ -25,8 +32,25 @@ class ProductAdapter(private var products: Array<Product>) : Adapter<ProductAdap
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.nameProduct.text = products[position].name
-        holder.priceProduct.text = products[position].price.toString()
+        val product = products[position]
+        if (!product.imageURL.isNullOrBlank()) {
+            val storageReference: StorageReference = FirebaseStorage.getInstance()
+                .getReferenceFromUrl(product.imageURL)
+
+            storageReference.downloadUrl.addOnSuccessListener { uri ->
+                Glide.with(context)
+                    .load(uri)
+                    .error(R.drawable.ic_launcher_foreground)
+                    .into(holder.imageProduct)
+            }
+        } else {
+            Glide.with(context)
+                .load(R.drawable.ic_launcher_foreground)
+                .error(R.drawable.ic_launcher_foreground)
+                .into(holder.imageProduct)
+        }
+        holder.nameProduct.text = product.name
+        holder.priceProduct.text = product.price
     }
 
     override fun getItemCount(): Int {

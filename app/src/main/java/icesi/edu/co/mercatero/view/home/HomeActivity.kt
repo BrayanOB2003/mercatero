@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.ActivityHomeBinding
+import icesi.edu.co.mercatero.view.shopProducts.AddProductFragment
 
 class HomeActivity : AppCompatActivity() {
 
@@ -32,7 +33,7 @@ class HomeActivity : AppCompatActivity() {
 
         when (item.itemId) {
             R.id.navigation_home -> selectedFragment = HomeFragment()
-            R.id.navigation_orders -> selectedFragment = OrdersFragment()
+            R.id.navigation_orders -> selectedFragment = AddProductFragment()
             R.id.navigation_favorites -> selectedFragment = FavoritesFragment()
             R.id.navigation_profile -> selectedFragment = ProfileFragment()
         }
