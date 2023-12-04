@@ -1,5 +1,6 @@
 package icesi.edu.co.mercatero.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
@@ -10,11 +11,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class OrderViewModel : ViewModel() {
 
     private val db = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
+
+    suspend fun addOrders(orders: List<Order>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            orders.forEach{
+                order -> addOrder(order)
+            }
+        }
+    }
 
     suspend fun addOrder(order: Order) {
         if (order.getIdProducts()?.isNotEmpty() == true) {
@@ -29,27 +39,38 @@ class OrderViewModel : ViewModel() {
         }
     }
 
-    suspend fun calculatePrice(order: Order): Double {
+    suspend fun calculatePriceOrders(orders: List<Order>): Double {
         var totalPrice = 0.0
-        val productQuantities = order.products
-        if (productQuantities != null) {
-            val deferredPrices = productQuantities.map { (productId, quantity) ->
-                viewModelScope.async(Dispatchers.IO) {
-                    val productPrice = getProductPrice(productId)
-                    productPrice?.times(quantity) ?: 0.0
-                }
+        val deferredPrices = orders.map { order ->
+            viewModelScope.async(Dispatchers.IO) {
+                calculatePrice(order)
             }
-            totalPrice = deferredPrices.sumOf { it.await() }
+        }
+        deferredPrices.forEach {
+            totalPrice += it.await()
         }
         return totalPrice
     }
 
+    suspend fun calculatePrice(order: Order): Double {
+        var totalPrice = 0.0
+        val productQuantities = order.products
+        if (productQuantities != null) {
+            totalPrice = productQuantities.map { (productId, quantity) ->
+                    val productPrice = getProductPrice(productId)
+                    productPrice?.times(quantity) ?: 0.0
+            }.sum()
+        }
+        Log.e(">>> price pedido", totalPrice.toString())
+        return totalPrice
+    }
 
     private suspend fun getProductPrice(productId: String): Double? {
         return try {
             val productCollection = db.collection("producto")
             val document = productCollection.document(productId).get().await()
             if (document.exists()) {
+                Log.e(">>>", ((document.data?.get("price") as? Int)?.times(1.0)).toString())
                 document.data?.get("price") as? Double
             } else {
                 0.0

@@ -6,6 +6,8 @@ data class Order(
     val address: String?,
     val products: Map<String, Int>?
 ) {
+    constructor() : this(null, null, null, null)
+
     fun getIdProducts(): Set<String>? {
         return products?.keys
     }
