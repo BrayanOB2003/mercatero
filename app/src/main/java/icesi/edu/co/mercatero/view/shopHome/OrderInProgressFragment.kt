@@ -28,15 +28,15 @@ class OrderInProgressFragment : Fragment(), OnClickOrderButton {
     ): View? {
         binding = FragmentOrderInProgressBinding.inflate(layoutInflater, container, false)
         shopViewModel = ShopHomeViewModel()
-        shopViewModel.getOrdersToAcept(Firebase.auth.currentUser!!.uid.toString())
+        shopViewModel.getOrdersInPreparation(Firebase.auth.currentUser!!.uid.toString())
         shopViewModel.orders.observe(viewLifecycleOwner){
 
-            
+
 
 
         }
 
-        return inflater.inflate(R.layout.fragment_order_in_progress, container, false)
+        return binding.root
     }
 
     companion object {

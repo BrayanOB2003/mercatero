@@ -24,6 +24,25 @@ class ShopHomeViewModel: ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
 
+            val result = Firebase.firestore.collection("pedido").document(order_id).get().await()
+
+            var order = result.toObject(Order::class.java)
+
+            if (order != null) {
+                when(order.status){
+
+                "TO_DO" -> order.status = "IN_PROGRESS"
+                "IN_PROGRESS" -> order.status = "TO_DELIVER"
+                "TO_DELIVER"   -> order.status =  "DELIVERED"
+
+                }
+            }
+            Firebase.firestore.collection("pedido").document(order_id).update("status",order!!.status).addOnSuccessListener {
+
+
+
+            }
+
         }
     }
 
@@ -51,5 +70,55 @@ class ShopHomeViewModel: ViewModel() {
 
         }
 
+    }
+    fun getOrdersInPreparation(store_id: String){
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val result = Firebase.firestore.collection("pedido").whereEqualTo("shop_id",store_id).get().await()
+
+            for(doc in result){
+
+                var order = doc.toObject(Order::class.java)
+
+
+                if(order.status == "IN_PROGRESS"){
+
+                    orders2.add(order)
+
+
+                }
+
+            }
+            _orders.postValue(orders2)
+
+        }
+
+
+
+    }
+
+    fun getOrdersInDelivery(store_id: String){
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val result = Firebase.firestore.collection("pedido").whereEqualTo("shop_id",store_id).get().await()
+
+            for(doc in result){
+
+                var order = doc.toObject(Order::class.java)
+
+
+                if(order.status == "TO_DELIVER"){
+
+                    orders2.add(order)
+
+
+                }
+
+            }
+            _orders.postValue(orders2)
+
+        }
     }
 }
