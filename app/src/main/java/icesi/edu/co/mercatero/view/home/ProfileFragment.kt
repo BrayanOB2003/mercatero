@@ -14,6 +14,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import icesi.edu.co.mercatero.databinding.FragmentProfileBinding
+import icesi.edu.co.mercatero.view.authentication.AuthActivity
+import icesi.edu.co.mercatero.view.authentication.SignInFragment
+import icesi.edu.co.mercatero.view.shopProducts.ManageProductsActivity
 import icesi.edu.co.mercatero.viewmodel.home.ProfileViewModel
 
 class ProfileFragment : Fragment() {
@@ -66,7 +69,9 @@ class ProfileFragment : Fragment() {
 
         }
         binding.signOffButton.setOnClickListener {
-
+            myProfileViewModel.signOut()
+            val intent = Intent(activity, AuthActivity::class.java)
+            startActivity(intent)
         }
     }
 

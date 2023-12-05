@@ -45,6 +45,10 @@ class OrderAdapter(
 
         holder.button.setOnClickListener {
             order.order_id?.let { it1 -> listener.onClickUpdateStatus(it1) }
+            if (position != RecyclerView.NO_POSITION) {
+                data.removeAt(position)
+                notifyItemRemoved(position)
+            }
         }
     }
 }

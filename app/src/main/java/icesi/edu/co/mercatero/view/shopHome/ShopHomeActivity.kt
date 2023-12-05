@@ -30,7 +30,7 @@ class ShopHomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.profileButton.setOnClickListener{
-
+            loadFragment(ShopProfileFragment())
         }
 
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->

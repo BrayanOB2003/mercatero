@@ -140,33 +140,37 @@ class AuthViewModel: ViewModel() {
     }
 
     fun signInValidation() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val userId = Firebase.auth.currentUser?.uid
-            userId?.let { checkUserType(it) }
-        }
+        val userId = Firebase.auth.currentUser?.uid
+        checkUserType(userId)
     }
 
-    private fun checkUserType(userId: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val clientDoc = db.collection("cliente").document(userId).get().await()
-                val shopDoc = db.collection("tienda").document(userId).get().await()
+    private fun checkUserType(userId: String?) {
 
-                withContext(Dispatchers.Main) {
-                    if (clientDoc.exists()) {
-                        _authStateLV.value = AuthState(userId, true, UserType.CLIENT)
-                    } else if (shopDoc.exists()) {
-                        _authStateLV.value = AuthState(userId, true, UserType.SHOP)
-                    } else {
+        if(!userId.isNullOrEmpty()){
+            viewModelScope.launch(Dispatchers.IO) {
+                try {
+                    val clientDoc = db.collection("cliente").document(userId).get().await()
+                    val shopDoc = db.collection("tienda").document(userId).get().await()
+
+                    withContext(Dispatchers.Main) {
+                        if (clientDoc.exists()) {
+                            _authStateLV.value = AuthState(userId, true, UserType.CLIENT)
+                        } else if (shopDoc.exists()) {
+                            _authStateLV.value = AuthState(userId, true, UserType.SHOP)
+                        } else {
+                            _authStateLV.value = AuthState(null, false, null)
+                        }
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
                         _authStateLV.value = AuthState(null, false, null)
                     }
                 }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    _authStateLV.value = AuthState(null, false, null)
-                }
             }
+        } else {
+            _authStateLV.value = AuthState(null, false, null)
         }
+
     }
     class AuthState : Serializable {
         var userID: String? = null

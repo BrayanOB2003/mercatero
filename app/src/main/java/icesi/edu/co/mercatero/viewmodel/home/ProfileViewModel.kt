@@ -11,6 +11,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import icesi.edu.co.mercatero.model.user.Client
+import icesi.edu.co.mercatero.viewmodel.authetication.AuthViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -22,6 +23,7 @@ class ProfileViewModel: ViewModel() {
     private val _client = MutableLiveData(Client())
     val client: LiveData<Client> get() = _client
 
+    private val _authStateLV = MutableLiveData(Boolean)
 
 
     fun getProfileData(){
@@ -56,6 +58,12 @@ class ProfileViewModel: ViewModel() {
             }
         }
 
+    }
+
+    fun signOut(){
+        viewModelScope.launch (Dispatchers.IO) {
+            Firebase.auth.signOut()
+        }
     }
 }
 

@@ -33,7 +33,6 @@ class ShopHomeViewModel: ViewModel() {
     val shopAuth: LiveData<Shop> get() = _shopAuth
 
     fun updateOrderStatus(order_id: String){
-        //Logica de actualización de status en la base de datos
 
         viewModelScope.launch(Dispatchers.IO) {
 

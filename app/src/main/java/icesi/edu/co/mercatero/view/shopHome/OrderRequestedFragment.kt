@@ -54,5 +54,6 @@ class OrderRequestedFragment : Fragment(), OnClickOrderButton{
 
     override fun onClickUpdateStatus(order_id: String) {
         shopViewModel.updateOrderStatus(order_id)
+        binding.orderRecyclerView.adapter?.notifyDataSetChanged()
     }
 }
