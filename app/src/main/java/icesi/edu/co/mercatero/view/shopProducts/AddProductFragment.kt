@@ -36,6 +36,11 @@ class AddProductFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.buttonBack.setOnClickListener{
+            activity?.finish()
+        }
+
         binding.button.setOnClickListener {
             addProductFieldsValidation()
         }

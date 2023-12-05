@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,10 +34,31 @@ class ViewProductsFragment : Fragment() {
         //val adapter = ProductAdapter(products)
         //binding.productList.adapter = adapter
         //binding.productList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        binding.buttonBack.setOnClickListener{
+            activity?.finish()
+        }
+
         binding.buttonAddProduct.setOnClickListener {
             val manageProductActivity = activity as ManageProductsActivity
             manageProductActivity.loadFragment(manageProductActivity.addProductFragment)
         }
+
+        binding.addFloatingButton.setOnClickListener{
+            val manageProductActivity = activity as ManageProductsActivity
+            manageProductActivity.loadFragment(manageProductActivity.addProductFragment)
+        }
+
+        var products = ArrayList<Product>()
+
+        if(products.size == 0){
+            binding.productList.isVisible = false
+        } else {
+            binding.buttonAddProduct.isVisible = false
+            binding.addFloatingButton.isVisible = true
+        }
+
+
     }
 
     companion object {
