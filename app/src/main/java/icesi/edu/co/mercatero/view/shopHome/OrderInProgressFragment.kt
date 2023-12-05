@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentOrderInProgressBinding
 import icesi.edu.co.mercatero.databinding.FragmentOrdersBinding
@@ -26,6 +28,14 @@ class OrderInProgressFragment : Fragment(), OnClickOrderButton {
     ): View? {
         binding = FragmentOrderInProgressBinding.inflate(layoutInflater, container, false)
         shopViewModel = ShopHomeViewModel()
+        shopViewModel.getOrdersToAcept(Firebase.auth.currentUser!!.uid.toString())
+        shopViewModel.orders.observe(viewLifecycleOwner){
+
+            
+
+
+        }
+
         return inflater.inflate(R.layout.fragment_order_in_progress, container, false)
     }
 
