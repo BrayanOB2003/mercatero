@@ -42,13 +42,13 @@ class OrderAdapter(private val data: ArrayList<Order>): RecyclerView.Adapter<Ord
 
     private fun defineStatus(status: String): String {
         if (status == OrderStatus.TO_DO.toString()) {
-            return "Pedido iniciado"
+            return "Iniciado"
         }else if (status == OrderStatus.IN_PROGRESS.toString()) {
-            return "Pedido en proceso"
+            return "En proceso"
         }else if (status == OrderStatus.TO_DELIVER.toString()) {
-            return "Envio enviado"
+            return "Enviado"
         }else if (status == OrderStatus.DELIVERED.toString()) {
-            return "Pedido entregado"
+            return "Entregado"
         }
         return ""
     }
