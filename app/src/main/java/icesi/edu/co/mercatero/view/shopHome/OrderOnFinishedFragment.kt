@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.mercatero.R
@@ -29,10 +30,11 @@ class OrderOnFinishedFragment : Fragment(), OnClickOrderButton {
     ): View? {
         binding = FragmentOrderOnFinishedBinding.inflate(layoutInflater, container, false)
         shopViewModel = ShopHomeViewModel()
-        shopViewModel.getOrdersInDelivery(Firebase.auth.currentUser!!.uid.toString())
+        shopViewModel.getOrdersInDelivery("0x4bM1Y9HKh8psLZZPYe")
         shopViewModel.orders.observe(viewLifecycleOwner){
 
             binding.orderRecyclerView.adapter = OrderAdapter(it.orderInfo,it.listName,this)
+            binding.orderRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
 
 
