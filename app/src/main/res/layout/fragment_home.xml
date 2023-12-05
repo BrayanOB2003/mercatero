@@ -65,7 +65,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="300dp"
@@ -74,7 +75,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint="hint" />
+                    android:hint="Buscar orden"
+                    android:drawableLeft="@drawable/ic_search"
+                    android:background="@drawable/border_edit_text_rectangle"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageButton

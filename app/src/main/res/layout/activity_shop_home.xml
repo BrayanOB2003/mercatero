@@ -75,7 +75,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="300dp"
@@ -84,7 +85,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint="hint" />
+                    android:hint="Buscar orden"
+                    android:drawableLeft="@drawable/ic_search"
+                    android:background="@drawable/border_edit_text_rectangle"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageButton
@@ -107,7 +110,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bottom_navigation" />
+        app:layout_constraintTop_toBottomOf="@id/bottom_navigation"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="10dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
