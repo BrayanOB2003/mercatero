@@ -36,8 +36,8 @@ class OrderAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var order = data[position]
-        var name = clientNames[position]
+        val order = data[position]
+        val name = clientNames[position]
 
         holder.name.text = holder.name.text.toString() + name
         holder.count.text = holder.count.text.toString() + order.quantities.size

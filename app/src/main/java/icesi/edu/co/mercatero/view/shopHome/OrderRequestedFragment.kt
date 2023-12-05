@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.mercatero.R
@@ -28,16 +29,22 @@ class OrderRequestedFragment : Fragment(), OnClickOrderButton{
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentOrderRequestedBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         shopViewModel = ShopHomeViewModel()
         shopViewModel.getOrdersToAcept("0x4bM1Y9HKh8psLZZPYe")
-       // shopViewModel.getOrdersToAcept(Firebase.auth.currentUser!!.uid.toString())
+        // shopViewModel.getOrdersToAcept(Firebase.auth.currentUser!!.uid.toString())
         shopViewModel.orders.observe(viewLifecycleOwner){
 
 
             binding.orderRecyclerView.adapter = OrderAdapter(it.orderInfo,it.listName,this)
-
+            binding.orderRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
-        return binding.root
+
     }
 
     companion object {

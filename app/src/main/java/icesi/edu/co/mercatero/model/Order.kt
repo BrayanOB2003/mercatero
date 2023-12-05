@@ -7,9 +7,9 @@ class Order:Serializable{
     var client_id: String = ""
     var shop_id: String = ""
     var address: String = ""
-    var price: Double = 0.0
+    var price: String = ""
     var idProducts: ArrayList<String> = arrayListOf()
-    var quantities: ArrayList<Int> = arrayListOf()
+    var quantities: ArrayList<String> = arrayListOf()
     var status: String = ""
 
 
@@ -21,9 +21,9 @@ class Order:Serializable{
         client_id: String,
         shop_id: String,
         address: String,
-        price: Double,
+        price: String,
         idProducts: ArrayList<String>,
-        quantities: ArrayList<Int>,
+        quantities: ArrayList<String>,
         status: String
     ) {
         this.order_id = order_id
