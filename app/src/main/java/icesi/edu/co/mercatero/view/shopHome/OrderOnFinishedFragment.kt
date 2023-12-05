@@ -30,7 +30,7 @@ class OrderOnFinishedFragment : Fragment(), OnClickOrderButton {
     ): View? {
         binding = FragmentOrderOnFinishedBinding.inflate(layoutInflater, container, false)
         shopViewModel = ShopHomeViewModel()
-        shopViewModel.getOrdersInDelivery("0x4bM1Y9HKh8psLZZPYe")
+        shopViewModel.getOrdersInDelivery()
         shopViewModel.orders.observe(viewLifecycleOwner){
 
             binding.orderRecyclerView.adapter = OrderAdapter(it.orderInfo,it.listName,this)
