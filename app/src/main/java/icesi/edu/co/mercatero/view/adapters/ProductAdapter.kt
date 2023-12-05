@@ -15,7 +15,7 @@ import icesi.edu.co.mercatero.model.Product
 
 class ProductAdapter(
     private val context: Context,
-    private var products: Array<Product>
+    private var products: ArrayList<Product>
 ) : Adapter<ProductAdapter.ViewHolder>() {
 
     class ViewHolder(root: View) : RecyclerView.ViewHolder(root) {
@@ -57,7 +57,7 @@ class ProductAdapter(
         return products.size
     }
 
-    fun setProducts(newProducts: Array<Product>) {
+    fun setProducts(newProducts: ArrayList<Product>) {
         products = newProducts
     }
 }
