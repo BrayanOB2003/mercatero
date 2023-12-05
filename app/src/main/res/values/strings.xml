@@ -81,6 +81,22 @@
     <string name="home_popular_products">Lo más comprado</string>
     <string name="show_more_statement">Ver más</string>
 
+    <!-- Strings used for myprofile screen -->
+    <string name="my_profile_statement">Mi perfil</string>
+    <string name="about_me">Sobre mí</string>
+    <string name="addresses">Mis direcciones</string>
+    <string name="pay_methods">Mis métodos de pago</string>
+    <string name="settings">Ajustes</string>
+    <string name="sign_off">Cerrar sesión</string>
+
+    <!-- Strings used for shopHome screen -->
+    <string name="to_be_accepted">Por aceptar</string>
+    <string name="in_preparation">En preparación</string>
+    <string name="to_deliver">Por entregar</string>
+    <string name="order_card_title">Pedido | </string>
+    <string name="order_card_items">Productos: </string>
+    <string name="order_total_price">Total: $</string>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
@@ -119,5 +135,6 @@
     </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_test">test</string>
 
 </resources>
