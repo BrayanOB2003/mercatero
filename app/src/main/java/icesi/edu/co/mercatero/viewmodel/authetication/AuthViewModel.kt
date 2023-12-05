@@ -57,7 +57,7 @@ class AuthViewModel: ViewModel() {
                 try {
                     val result = Firebase.auth.createUserWithEmailAndPassword(authShop.value?.email.toString(), password).await()
                     withContext(Dispatchers.Main){
-                        authStateLV.value = AuthState(result.user?.uid, true)
+                        authStateLV.value = AuthState(result.user?.uid, true, UserType.SHOP)
                         authShop.value?.shop_id = result.user?.uid
 
                         authShop.value?.shop_id?.let { authShop.value?.let { it1 ->
@@ -86,7 +86,7 @@ class AuthViewModel: ViewModel() {
                     val result = Firebase.auth.createUserWithEmailAndPassword(authClient.value?.email.toString(), password).await()
                     withContext(Dispatchers.Main){
 
-                        authStateLV.value = AuthState(result.user?.uid, true)
+                        authStateLV.value = AuthState(result.user?.uid, true, UserType.CLIENT)
                         authClient.value?.client_id = result.user?.uid
 
                         client.client_id?.let { authClient.value?.let { it1 ->
