@@ -1,6 +1,6 @@
 package icesi.edu.co.mercatero.viewmodel.authetication
 
-import androidx.compose.runtime.currentCompositeKeyHash
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,10 +15,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import java.io.Serializable
 
 class AuthViewModel: ViewModel() {
     private val authClient = MutableLiveData<Client>()
-    val authStateLV = MutableLiveData<AuthState>()
+    private val _authStateLV = MutableLiveData(AuthState())
+    val authStateLV: LiveData<AuthState> get() = _authStateLV
     val emailValidState = MutableLiveData<Boolean>()
     private val authShop = MutableLiveData<Shop>()
     private val db = Firebase.firestore
@@ -38,7 +40,7 @@ class AuthViewModel: ViewModel() {
         }
     }
 
-    fun signUpPrimaryDataShop(name: String, address: String, email: String,phone: String){
+    fun signUpPrimaryDataShop(name: String, address: String, email: String, phone: String) {
         viewModelScope.launch(Dispatchers.Main) {
             authShop.value = Shop(
                 shop_id = null,
@@ -50,59 +52,71 @@ class AuthViewModel: ViewModel() {
             )
         }
     }
+
     fun signupShop(password: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val shop = authShop.value
-            if(shop != null){
+            if (shop != null) {
                 try {
-                    val result = Firebase.auth.createUserWithEmailAndPassword(authShop.value?.email.toString(), password).await()
-                    withContext(Dispatchers.Main){
-                        authStateLV.value = AuthState(result.user?.uid, true, UserType.SHOP)
+                    val result = Firebase.auth.createUserWithEmailAndPassword(
+                        authShop.value?.email.toString(),
+                        password
+                    ).await()
+                    withContext(Dispatchers.Main) {
+                        _authStateLV.value = AuthState(result.user?.uid, true, UserType.SHOP)
                         authShop.value?.shop_id = result.user?.uid
 
-                        authShop.value?.shop_id?.let { authShop.value?.let { it1 ->
-                            db.collection("tienda").document(it).set(
-                                it1
-                            )
-                        } }
+                        authShop.value?.shop_id?.let {
+                            authShop.value?.let { it1 ->
+                                db.collection("tienda").document(it).set(
+                                    it1
+                                )
+                            }
+                        }
                     }
-                } catch (e: Exception){
+                } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
-                        authStateLV.value = AuthState(null, false)
+                        _authStateLV.value = AuthState(null, false)
                     }
                 }
             } else {
-                withContext(Dispatchers.Main){
-                    authStateLV.value = AuthState(null, null)
+                withContext(Dispatchers.Main) {
+                    _authStateLV.value = AuthState(null, null)
                 }
             }
         }
     }
+
     fun signupClient(password: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val client = authClient.value
-            if(client != null){
+            if (client != null) {
                 try {
-                    val result = Firebase.auth.createUserWithEmailAndPassword(authClient.value?.email.toString(), password).await()
-                    withContext(Dispatchers.Main){
+                    val result = Firebase.auth.createUserWithEmailAndPassword(
+                        authClient.value?.email.toString(),
+                        password
+                    ).await()
+                    withContext(Dispatchers.Main) {
 
-                        authStateLV.value = AuthState(result.user?.uid, true, UserType.CLIENT)
+                        _authStateLV.value = AuthState(result.user?.uid, true, UserType.CLIENT)
                         authClient.value?.client_id = result.user?.uid
 
-                        client.client_id?.let { authClient.value?.let { it1 ->
-                            db.collection("cliente").document(it).set(
-                                it1
-                            )
-                        } }
+                        client.client_id?.let {
+                            authClient.value?.let { it1 ->
+                                db.collection("cliente").document(it).set(
+                                    it1
+                                )
+                            }
+                        }
                     }
-                } catch (e: Exception){
+                } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
-                        authStateLV.value = AuthState(null, false)
+                        _authStateLV.value = AuthState(null, false)
                     }
                 }
             } else {
-                withContext(Dispatchers.Main){
-                    authStateLV.value = AuthState(null, null)
+                withContext(Dispatchers.Main) {
+                    _authStateLV.value = AuthState(null, null)
                 }
             }
         }
@@ -116,25 +130,19 @@ class AuthViewModel: ViewModel() {
                     checkUserType(result.user?.uid.toString())
                 }
             } catch (e: Exception) {
-                withContext(Dispatchers.Main){authStateLV.value = AuthState(null, false)}
+                withContext(Dispatchers.Main){_authStateLV.value = AuthState(null, false)}
             }
         }
     }
 
-    fun reloadState(){
+    fun reloadState() {
         authStateLV.value?.isAuth = null
     }
 
-    fun signInValidation(){
+    fun signInValidation() {
         viewModelScope.launch(Dispatchers.IO) {
-            val result  = FirebaseAuth.getInstance().currentUser
-            withContext(Dispatchers.Main){
-                if(result != null) {
-                    authStateLV.value = AuthState(result.uid, true)
-                } else {
-                    authStateLV.value = AuthState(null, false)
-                }
-            }
+            val userId = Firebase.auth.currentUser?.uid
+            userId?.let { checkUserType(it) }
         }
     }
 
@@ -146,26 +154,41 @@ class AuthViewModel: ViewModel() {
 
                 withContext(Dispatchers.Main) {
                     if (clientDoc.exists()) {
-                        authStateLV.value = AuthState(userId, true, UserType.CLIENT)
+                        _authStateLV.value = AuthState(userId, true, UserType.CLIENT)
                     } else if (shopDoc.exists()) {
-                        authStateLV.value = AuthState(userId, true, UserType.SHOP)
+                        _authStateLV.value = AuthState(userId, true, UserType.SHOP)
                     } else {
-                        authStateLV.value = AuthState(null, false, null)
+                        _authStateLV.value = AuthState(null, false, null)
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    authStateLV.value = AuthState(null, false, null)
+                    _authStateLV.value = AuthState(null, false, null)
                 }
             }
         }
     }
-
+    class AuthState : Serializable {
+        var userID: String? = null
+        var isAuth: Boolean? = null
+        var userType: UserType? = null
+        constructor()
+        constructor(
+            userID: String?,
+            isAuth: Boolean?,
+            userType: UserType?
+        ) {
+            this.userID = userID
+            this.isAuth = isAuth
+            this.userType = userType
+        }
+        constructor(
+            userID: String?,
+            isAuth: Boolean?,
+        ) {
+            this.userID = userID
+            this.isAuth = isAuth
+        }
+    }
 
 }
-
-data class AuthState(
-    var userID: String? = null,
-    var isAuth: Boolean?,
-    var userType: UserType? = null
-)

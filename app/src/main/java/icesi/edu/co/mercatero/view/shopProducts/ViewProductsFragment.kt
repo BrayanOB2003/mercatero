@@ -9,11 +9,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentManageViewProductsBinding
+import icesi.edu.co.mercatero.model.Shop
 import icesi.edu.co.mercatero.view.adapters.home.ProductAdapter
 import icesi.edu.co.mercatero.viewmodel.product.ProductViewModel
 
-class ViewProductsFragment : Fragment() {
+class ViewProductsFragment() : Fragment() {
 
     private lateinit var binding: FragmentManageViewProductsBinding
     private val productViewModel: ProductViewModel by activityViewModels()
@@ -30,11 +32,11 @@ class ViewProductsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //val products = arrayOf(Product("asdasdasd", "Prueba", "Prueba desc", 100000.0))
-
-        //val adapter = ProductAdapter(products)
-        //binding.productList.adapter = adapter
-        //binding.productList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        productViewModel.getAuthUser()
+        productViewModel.shopAuth.observe(viewLifecycleOwner){
+            val authShop = productViewModel.shopAuth.value
+            binding.welcomeText.text = binding.welcomeText.text.toString() + authShop?.name
+        }
 
         binding.buttonBack.setOnClickListener{
             activity?.finish()
@@ -43,10 +45,11 @@ class ViewProductsFragment : Fragment() {
         productViewModel.myProducts.observe(viewLifecycleOwner){
 
             if(it.isEmpty()){
-
+                binding.warningEmpty.text = getText(R.string.add_product_empty)
                 binding.buttonAddProduct.isVisible = true
                 binding.addFloatingButton.isVisible = false
             }else{
+                binding.warningEmpty.text = getText(R.string.add_product_fill)
                 binding.buttonAddProduct.isVisible = false
                 binding.addFloatingButton.isVisible = true
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import icesi.edu.co.mercatero.databinding.ActivityManageProductsBinding
+import icesi.edu.co.mercatero.model.Shop
 
 class ManageProductsActivity : AppCompatActivity() {
 
@@ -27,6 +28,7 @@ class ManageProductsActivity : AppCompatActivity() {
     fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(binding.manageProductContainer.id, fragment)
+            .addToBackStack(null)
             .commit()
     }
 }

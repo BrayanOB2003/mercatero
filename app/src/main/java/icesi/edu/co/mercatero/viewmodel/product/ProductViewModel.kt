@@ -12,6 +12,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import icesi.edu.co.mercatero.model.Product
+import icesi.edu.co.mercatero.model.Shop
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -28,6 +29,8 @@ class ProductViewModel: ViewModel() {
 
     private val products = ArrayList<Product>()
 
+    private val _shopAuth = MutableLiveData(Shop())
+    val shopAuth: LiveData<Shop> get() = _shopAuth
 
     suspend fun addProduct(name: String, description: String, price: String, uri: Uri) {
         val shopId = Firebase.auth.currentUser!!.uid
@@ -76,9 +79,19 @@ class ProductViewModel: ViewModel() {
          //   Log.d("Test",products.joinToString("Esto contiene "))
              _myProducts.postValue(products)
 
-             }
          }
+     }
+
+    fun getAuthUser(){
+        viewModelScope.launch (Dispatchers.IO){
+            val userId = Firebase.auth.currentUser?.uid
+            val result = userId?.let { Firebase.firestore.collection("tienda").document(it).get().await() }
+
+            var shop = result?.toObject(Shop::class.java)
+            _shopAuth.postValue(shop)
+        }
     }
+}
 
   /*  private fun getUserShop(): String? {
         return auth.currentUser?.uid

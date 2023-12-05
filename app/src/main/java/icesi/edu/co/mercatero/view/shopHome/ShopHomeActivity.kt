@@ -27,7 +27,6 @@ class ShopHomeActivity : AppCompatActivity() {
 
         binding.storeButton.setOnClickListener{
             val intent = Intent(this, ManageProductsActivity::class.java)
-            intent.putExtra("authClient", authShop)
             startActivity(intent)
         }
         binding.profileButton.setOnClickListener{

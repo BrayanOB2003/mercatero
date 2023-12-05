@@ -32,6 +32,8 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        authViewModel.signInValidation()
+        showLoadingScreen()
 
         binding.txtCreateAccount?.setOnClickListener {
             val authActivity = activity as AuthActivity

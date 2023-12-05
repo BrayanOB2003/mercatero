@@ -99,6 +99,8 @@
     <string name="order_card_title">Pedido | </string>
     <string name="order_card_items">Productos: </string>
     <string name="order_total_price">Total: $</string>
+    <string name="add_product_empty">No tienes ningún menú creado hasta el momento</string>
+    <string name="add_product_fill">¡Estos son todos tus productos!</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
