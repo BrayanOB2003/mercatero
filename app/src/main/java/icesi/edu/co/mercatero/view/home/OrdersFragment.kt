@@ -5,7 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import icesi.edu.co.mercatero.R
+import icesi.edu.co.mercatero.databinding.FragmentOrdersBinding
+import icesi.edu.co.mercatero.view.adapters.home.OrderAdapter
+import icesi.edu.co.mercatero.viewmodel.home.HomeViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +26,9 @@ class OrdersFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    lateinit var binding: FragmentOrdersBinding
+    private lateinit var homeViewModel: HomeViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,8 +41,25 @@ class OrdersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_orders, container, false)
+        binding = FragmentOrdersBinding.inflate(inflater, container, false)
+        homeViewModel = HomeViewModel()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initRecycleView()
+    }
+
+    private fun initRecycleView() {
+        homeViewModel.getOrdersOfUser()
+        homeViewModel.orders.observe(viewLifecycleOwner) {
+            if(it.isNotEmpty()) {
+                binding.recyclerUserOrders.adapter = OrderAdapter(it)
+            }
+        }
+        binding.recyclerUserOrders.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
     }
 
     companion object {
