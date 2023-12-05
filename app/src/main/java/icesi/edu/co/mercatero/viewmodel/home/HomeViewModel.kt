@@ -99,9 +99,9 @@ class HomeViewModel:ViewModel() {
 
     fun getOrdersOfUser() {
         viewModelScope.launch(Dispatchers.IO) {
-            //var userId = Firebase.auth.currentUser?.uid
+            var userId = Firebase.auth.currentUser?.uid
             val result = Firebase.firestore.collection("pedido")
-                .whereEqualTo("client_id", "p1lSI3Bs4nflEuW2Ip8Cgx0Kxhp1")
+                .whereEqualTo("client_id", userId)
                 .get()
                 .await()
 
@@ -111,7 +111,7 @@ class HomeViewModel:ViewModel() {
 
             val sortedOrders = orders.sortedBy { it.status != "OnFinished" }
 
-            _orders.postValue(sortedOrders as ArrayList<Order>?)
+            _orders.postValue(ArrayList(sortedOrders))
         }
     }
 }

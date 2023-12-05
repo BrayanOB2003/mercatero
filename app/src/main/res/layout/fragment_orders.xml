@@ -6,9 +6,10 @@
     tools:context=".view.home.OrdersFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerUserOrders"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="orders" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>
