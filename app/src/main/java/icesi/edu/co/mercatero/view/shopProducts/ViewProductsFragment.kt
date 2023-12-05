@@ -1,6 +1,7 @@
 package icesi.edu.co.mercatero.view.shopProducts
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ class ViewProductsFragment : Fragment() {
 
     private lateinit var binding: FragmentManageViewProductsBinding
     private val productViewModel: ProductViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +39,23 @@ class ViewProductsFragment : Fragment() {
 
         binding.buttonBack.setOnClickListener{
             activity?.finish()
+        }
+        productViewModel.loadMyProducts()
+        productViewModel.myProducts.observe(viewLifecycleOwner){
+
+            if(it.isEmpty()){
+
+                binding.productList.isVisible = false
+
+            }else{
+
+                Log.d("Test"," Esta en el else con una candidad de productos " + it.size)
+                binding.productList.adapter = ProductAdapter(requireContext(), it!!)
+
+
+            }
+
+
         }
 
         binding.buttonAddProduct.setOnClickListener {

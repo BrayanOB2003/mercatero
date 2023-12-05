@@ -1,11 +1,13 @@
 package icesi.edu.co.mercatero.viewmodel.product
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -14,17 +16,21 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.util.UUID
+import kotlin.collections.ArrayList
 
 class ProductViewModel: ViewModel() {
 
     private val db = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
 
-    private val _myProducts = MutableLiveData<Array<Product>>()
-    val myProducts: LiveData<Array<Product>> get() = _myProducts
+    private val _myProducts = MutableLiveData<ArrayList<Product>>()
+    val myProducts: LiveData<ArrayList<Product>> get() = _myProducts
+
+    private val products = ArrayList<Product>()
+
 
     suspend fun addProduct(name: String, description: String, price: String, uri: Uri) {
-        val shopId = getUserShop()
+        val shopId = Firebase.auth.currentUser!!.uid
         if (shopId != null) {
             val filename = UUID.randomUUID().toString()
             val productId = UUID.randomUUID().toString()
@@ -54,21 +60,30 @@ class ProductViewModel: ViewModel() {
         }
     }
 
-    suspend fun loadMyProducts() {
-        val shopId = auth.currentUser?.uid
-        if (shopId != null) {
-            try {
-                val result = db.collection("producto")
-                    .whereEqualTo("shop_id", shopId)
-                    .get()
-                    .await()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
+     fun loadMyProducts() {
+
+
+         viewModelScope.launch(Dispatchers.IO) {
+
+            val result = Firebase.firestore.collection("producto").whereEqualTo("shop_id",Firebase.auth.currentUser!!.uid).get().await()
+
+             for(doc in result.documents){
+
+                 var product = doc.toObject(Product::class.java)
+
+                 Log.d("Test",product!!.product_id)
+                 products.add(product!!)
+
+             }
+         //   Log.d("Test",products.joinToString("Esto contiene "))
+             _myProducts.postValue(products)
+
+             }
+         }
     }
 
-    private fun getUserShop(): String? {
+  /*  private fun getUserShop(): String? {
         return auth.currentUser?.uid
     }
-}
+
+   */
