@@ -31,6 +31,10 @@ class ShopHomeActivity : AppCompatActivity() {
         binding.profileButton.setOnClickListener{
 
         }
+
+        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
+            handleNavigationItemSelected(menuItem)
+        }
     }
 
     private fun handleNavigationItemSelected(item: MenuItem): Boolean {
