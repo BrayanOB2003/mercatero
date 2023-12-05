@@ -84,6 +84,9 @@ class ShopHomeViewModel: ViewModel() {
 
             }
             val orderInfo = OrderListInfo(orderTmp, listNames)
+            Log.d("Test",orderInfo.orderInfo.joinToString("Order "))
+            Log.d("Test",orderInfo.listName.joinToString("Nombres "))
+
             _orders.postValue(orderInfo)
 
         }
