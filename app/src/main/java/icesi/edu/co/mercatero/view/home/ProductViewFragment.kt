@@ -14,7 +14,7 @@ class ProductViewFragment(private var product: Product) : Fragment() {
     private lateinit var binding: FragmentProductViewBinding
     private lateinit var orderViewModel: OrderViewModel
 
-    private var amount = 1
+    private var amount:Int = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +55,7 @@ class ProductViewFragment(private var product: Product) : Fragment() {
     }
 
     private fun addToCart() {
-
+        orderViewModel.addProductToOrder(product, amount)
     }
 
     companion object {
