@@ -29,6 +29,4 @@ class Product:Serializable{
         this.shop_id = shop_id
         this.shopName = shopName
     }
-
-
 }

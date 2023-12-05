@@ -13,9 +13,8 @@ import icesi.edu.co.mercatero.model.Order
 import icesi.edu.co.mercatero.view.adapters.home.ProductAdapter
 
 class OrderAdapter(
-    private val context: Context,
-    private val data: Array<Order>,
-    private val clientNames: Array<String>,
+    private val data: ArrayList<Order>,
+    private val clientNames: ArrayList<String>,
     private val listener: OnClickOrderButton
 ): RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
 
@@ -37,11 +36,11 @@ class OrderAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var order = data[position]
-        var name = clientNames[position]
+        val order = data[position]
+        val name = clientNames[position]
 
         holder.name.text = holder.name.text.toString() + name
-        holder.count.text = holder.count.text.toString() + order.products?.size
+        holder.count.text = holder.count.text.toString() + order.quantities.size
         holder.total.text = holder.total.text.toString() + order.price
 
         holder.button.setOnClickListener {

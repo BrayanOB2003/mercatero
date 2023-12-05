@@ -5,15 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentOrderOnFinishedBinding
 import icesi.edu.co.mercatero.view.adapters.shopHome.OnClickOrderButton
+import icesi.edu.co.mercatero.view.adapters.shopHome.OrderAdapter
 import icesi.edu.co.mercatero.viewmodel.shopHome.ShopHomeViewModel
 
 class OrderOnFinishedFragment : Fragment(), OnClickOrderButton {
 
     private lateinit var binding: FragmentOrderOnFinishedBinding
     private lateinit var shopViewModel: ShopHomeViewModel
+  //  private lateinit var onClickOrderButton: OnClickOrderButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +29,15 @@ class OrderOnFinishedFragment : Fragment(), OnClickOrderButton {
     ): View? {
         binding = FragmentOrderOnFinishedBinding.inflate(layoutInflater, container, false)
         shopViewModel = ShopHomeViewModel()
-        return inflater.inflate(R.layout.fragment_order_on_finished, container, false)
+        shopViewModel.getOrdersInDelivery(Firebase.auth.currentUser!!.uid.toString())
+        shopViewModel.orders.observe(viewLifecycleOwner){
+
+            binding.orderRecyclerView.adapter = OrderAdapter(it.orderInfo,it.listName,this)
+
+
+
+        }
+        return binding.root
     }
 
     companion object {
