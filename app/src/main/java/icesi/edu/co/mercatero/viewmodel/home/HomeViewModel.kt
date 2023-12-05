@@ -114,4 +114,38 @@ class HomeViewModel:ViewModel() {
             _orders.postValue(ArrayList(sortedOrders))
         }
     }
+    /*
+    fun getProductsBought(){
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+
+            val result = Firebase.firestore.collection("pedido").whereEqualTo("client_id",Firebase.auth.currentUser!!.uid).get().await()
+
+            for (doc in result.documents){
+
+                var order = doc.toObject(Order::class.java)
+
+
+                for(id in order!!.idProducts){
+
+                    Log.d("Test", "Id del producto " + id)
+
+                    var result2 = Firebase.firestore.collection("producto").document(id).get().await()
+
+                    var product = result2.toObject(Product::class.java)
+                    if(products2.contains(product)){
+
+                    }else{
+                        products2.add(product!!)
+                    }
+                }
+
+            }
+            _products.postValue(products2)
+
+
+        }
+
+    }*/
 }

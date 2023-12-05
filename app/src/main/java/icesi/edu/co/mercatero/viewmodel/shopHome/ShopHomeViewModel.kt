@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
@@ -54,12 +55,12 @@ class ShopHomeViewModel: ViewModel() {
         }
     }
 
-    fun getOrdersToAcept(store_id: String){
+    fun getOrdersToAcept(){
 
 
         viewModelScope.launch(Dispatchers.IO) {
 
-            val result = Firebase.firestore.collection("pedido").whereEqualTo("shop_id",store_id).get().await()
+            val result = Firebase.firestore.collection("pedido").whereEqualTo("shop_id",Firebase.auth.currentUser!!.uid).get().await()
 
             for(doc in result){
                     var order = doc.toObject(Order::class.java)
@@ -92,11 +93,11 @@ class ShopHomeViewModel: ViewModel() {
         }
 
     }
-    fun getOrdersInPreparation(store_id: String){
+    fun getOrdersInPreparation(){
 
         viewModelScope.launch(Dispatchers.IO) {
 
-            val result = Firebase.firestore.collection("pedido").whereEqualTo("shop_id",store_id).get().await()
+            val result = Firebase.firestore.collection("pedido").whereEqualTo("shop_id",Firebase.auth.currentUser!!.uid).get().await()
 
             for(doc in result){
 
@@ -130,11 +131,11 @@ class ShopHomeViewModel: ViewModel() {
 
 
 
-    fun getOrdersInDelivery(store_id: String){
+    fun getOrdersInDelivery(){
 
         viewModelScope.launch(Dispatchers.IO) {
 
-            val result = Firebase.firestore.collection("pedido").whereEqualTo("shop_id",store_id).get().await()
+            val result = Firebase.firestore.collection("pedido").whereEqualTo("shop_id",Firebase.auth.currentUser!!.uid).get().await()
 
             for(doc in result){
 

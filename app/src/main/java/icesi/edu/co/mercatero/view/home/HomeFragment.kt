@@ -56,6 +56,7 @@ class HomeFragment : Fragment(),OnShopItemClickListener {
             Pair("gs://mercatero.appspot.com/shop/shop_test2.png", "Tienda los semanales")
         )
         viewModel.getProductList()
+        //viewModel.getProductsBought()
         viewModel.getStoreList()
         viewModel.products.observe(viewLifecycleOwner){
 

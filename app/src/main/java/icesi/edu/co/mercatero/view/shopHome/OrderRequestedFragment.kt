@@ -36,7 +36,7 @@ class OrderRequestedFragment : Fragment(), OnClickOrderButton{
         super.onViewCreated(view, savedInstanceState)
 
         shopViewModel = ShopHomeViewModel()
-        shopViewModel.getOrdersToAcept("0x4bM1Y9HKh8psLZZPYe")
+        shopViewModel.getOrdersToAcept()
         // shopViewModel.getOrdersToAcept(Firebase.auth.currentUser!!.uid.toString())
         shopViewModel.orders.observe(viewLifecycleOwner){
 

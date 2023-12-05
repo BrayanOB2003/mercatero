@@ -31,7 +31,7 @@ class OrderInProgressFragment : Fragment(), OnClickOrderButton {
     ): View? {
         binding = FragmentOrderInProgressBinding.inflate(layoutInflater, container, false)
         shopViewModel = ShopHomeViewModel()
-        shopViewModel.getOrdersInPreparation("0x4bM1Y9HKh8psLZZPYe")
+        shopViewModel.getOrdersInPreparation()
         shopViewModel.orders.observe(viewLifecycleOwner){
 
 
