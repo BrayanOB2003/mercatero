@@ -5,6 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentProductViewBinding
 import icesi.edu.co.mercatero.model.Product
 import icesi.edu.co.mercatero.viewmodel.OrderViewModel
@@ -23,14 +27,24 @@ class ProductViewFragment(private var product: Product) : Fragment() {
     ): View? {
         binding = FragmentProductViewBinding.inflate(inflater, container, false)
         orderViewModel = OrderViewModel()
+        if (product.imageURL.isNotEmpty()) {
+            val storageReference: StorageReference = FirebaseStorage.getInstance()
+                .getReferenceFromUrl(product.imageURL)
+            storageReference.downloadUrl.addOnSuccessListener { uri ->
+                Glide.with(requireContext())
+                    .load(uri)
+                    .error(R.drawable.ic_launcher_foreground)
+                    .into(binding.imageViewProduct)
+            }
+        }
+        binding.textViewProductName.text = product.name
+        binding.textViewProductDescription.text = product.description
+        binding.textViewProductPrice.text = product.price
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.textViewProductName.text = product.name
-        binding.textViewProductDescription.text = product.description
-        binding.textViewProductPrice.text = product.price
         binding.buttonDecrease.setOnClickListener {
             decreaseAmount()
         }
