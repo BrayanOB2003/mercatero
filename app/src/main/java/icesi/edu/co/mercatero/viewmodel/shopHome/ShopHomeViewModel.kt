@@ -5,11 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.mercatero.model.Order
 import icesi.edu.co.mercatero.model.OrderListInfo
+import icesi.edu.co.mercatero.model.Shop
 import icesi.edu.co.mercatero.model.user.Client
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,6 +28,9 @@ class ShopHomeViewModel: ViewModel() {
     private var orderTmp = ArrayList<Order>()
 
     private var listNames = ArrayList<String>()
+
+    private val _shopAuth = MutableLiveData(Shop())
+    val shopAuth: LiveData<Shop> get() = _shopAuth
 
     fun updateOrderStatus(order_id: String){
         //Logica de actualización de status en la base de datos
@@ -76,7 +81,7 @@ class ShopHomeViewModel: ViewModel() {
                     val client = result2.toObject(Client::class.java)
 
                     if (client != null) {
-                            listNames.add(client!!.name + " " + client!!.lastName)
+                            listNames.add(client!!.name)
                     }
 
 
@@ -112,7 +117,7 @@ class ShopHomeViewModel: ViewModel() {
                     val client = result2.toObject(Client::class.java)
 
                     if (client != null) {
-                        listNames.add(client!!.name + " " + client!!.lastName)
+                        listNames.add(client!!.name)
                     }
 
 
@@ -150,7 +155,7 @@ class ShopHomeViewModel: ViewModel() {
                     val client = result2.toObject(Client::class.java)
 
                     if (client != null) {
-                        listNames.add(client!!.name + " " + client!!.lastName)
+                        listNames.add(client!!.name)
                     }
 
 
@@ -162,5 +167,15 @@ class ShopHomeViewModel: ViewModel() {
 
         }
 
+    }
+
+    fun getAuthUser(){
+        viewModelScope.launch (Dispatchers.IO){
+            val userId = Firebase.auth.currentUser?.uid
+            val result = userId?.let { Firebase.firestore.collection("tienda").document(it).get().await() }
+
+            var shop = result?.toObject(Shop::class.java)
+            _shopAuth.postValue(shop)
         }
     }
+}

@@ -20,9 +20,9 @@ import kotlin.collections.ArrayList
 
 class ProductViewModel: ViewModel() {
 
+
     private val db = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
-
     private val _myProducts = MutableLiveData<ArrayList<Product>>()
     val myProducts: LiveData<ArrayList<Product>> get() = _myProducts
 
@@ -61,8 +61,6 @@ class ProductViewModel: ViewModel() {
     }
 
      fun loadMyProducts() {
-
-
          viewModelScope.launch(Dispatchers.IO) {
 
             val result = Firebase.firestore.collection("producto").whereEqualTo("shop_id",Firebase.auth.currentUser!!.uid).get().await()

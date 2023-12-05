@@ -6,26 +6,28 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import icesi.edu.co.mercatero.R
-import icesi.edu.co.mercatero.databinding.ActivityHomeBinding
 import icesi.edu.co.mercatero.databinding.ActivityShopHomeBinding
-import icesi.edu.co.mercatero.view.home.FavoritesFragment
-import icesi.edu.co.mercatero.view.home.HomeFragment
-import icesi.edu.co.mercatero.view.home.OrdersFragment
-import icesi.edu.co.mercatero.view.home.ProfileFragment
+import icesi.edu.co.mercatero.model.Shop
 import icesi.edu.co.mercatero.view.shopProducts.ManageProductsActivity
+import icesi.edu.co.mercatero.viewmodel.shopHome.ShopHomeViewModel
 
 class ShopHomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityShopHomeBinding
-
+    private lateinit var viewModel:ShopHomeViewModel
+    private lateinit var authShop: Shop
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShopHomeBinding.inflate(layoutInflater)
+        viewModel = ShopHomeViewModel()
         setContentView(binding.root)
+        getAuthShop()
+
         loadFragment(OrderRequestedFragment())
 
         binding.storeButton.setOnClickListener{
             val intent = Intent(this, ManageProductsActivity::class.java)
+            intent.putExtra("authClient", authShop)
             startActivity(intent)
         }
         binding.profileButton.setOnClickListener{
@@ -34,6 +36,13 @@ class ShopHomeActivity : AppCompatActivity() {
 
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             handleNavigationItemSelected(menuItem)
+        }
+    }
+
+    private fun getAuthShop(){
+        viewModel.getAuthUser()
+        viewModel.shopAuth.observe(this){
+            binding.welcomeText.text = binding.welcomeText.text.toString() + viewModel.shopAuth.value?.name
         }
     }
 

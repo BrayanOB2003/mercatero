@@ -18,6 +18,7 @@ import kotlinx.coroutines.tasks.await
 
 class HomeViewModel:ViewModel() {
 
+
     private val _products = MutableLiveData(ArrayList<Product>())
     val products: LiveData<ArrayList<Product>> get() = _products
 
@@ -30,6 +31,8 @@ class HomeViewModel:ViewModel() {
 
     private val _orders = MutableLiveData(ArrayList<Order>())
     val orders: LiveData<ArrayList<Order>> get() = _orders
+
+    private val clientAuth = MutableLiveData<Client?>()
 
     fun getProductList(){
 
@@ -112,6 +115,16 @@ class HomeViewModel:ViewModel() {
             val sortedOrders = orders.sortedBy { it.status != "TO_DO" }
 
             _orders.postValue(ArrayList(sortedOrders))
+        }
+    }
+
+    fun getAuthUser(){
+        viewModelScope.launch (Dispatchers.Main){
+            val userId = Firebase.auth.currentUser?.uid
+            val result = userId?.let { Firebase.firestore.collection("cliente").document(it).get().await() }
+
+            var client = result?.toObject(Client::class.java)
+            clientAuth.value = client
         }
     }
 }

@@ -9,9 +9,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import icesi.edu.co.mercatero.view.adapters.ProductAdapter
 import icesi.edu.co.mercatero.databinding.FragmentManageViewProductsBinding
-import icesi.edu.co.mercatero.model.Product
+import icesi.edu.co.mercatero.view.adapters.home.ProductAdapter
 import icesi.edu.co.mercatero.viewmodel.product.ProductViewModel
 
 class ViewProductsFragment : Fragment() {
@@ -45,13 +44,15 @@ class ViewProductsFragment : Fragment() {
 
             if(it.isEmpty()){
 
-                binding.productList.isVisible = false
-
+                binding.buttonAddProduct.isVisible = true
+                binding.addFloatingButton.isVisible = false
             }else{
+                binding.buttonAddProduct.isVisible = false
+                binding.addFloatingButton.isVisible = true
 
                 Log.d("Test"," Esta en el else con una candidad de productos " + it.size)
                 binding.productList.adapter = ProductAdapter(requireContext(), it!!)
-
+                binding.productList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
             }
 
@@ -67,16 +68,6 @@ class ViewProductsFragment : Fragment() {
             val manageProductActivity = activity as ManageProductsActivity
             manageProductActivity.loadFragment(manageProductActivity.addProductFragment)
         }
-
-        var products = ArrayList<Product>()
-
-        if(products.size == 0){
-            binding.productList.isVisible = false
-        } else {
-            binding.buttonAddProduct.isVisible = false
-            binding.addFloatingButton.isVisible = true
-        }
-
 
     }
 
