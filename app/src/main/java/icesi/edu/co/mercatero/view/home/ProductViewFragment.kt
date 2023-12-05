@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import icesi.edu.co.mercatero.databinding.FragmentProductViewBinding
 import icesi.edu.co.mercatero.model.Product
+import icesi.edu.co.mercatero.viewmodel.OrderViewModel
 
 class ProductViewFragment(private var product: Product) : Fragment() {
 
     private lateinit var binding: FragmentProductViewBinding
+    private lateinit var orderViewModel: OrderViewModel
+
     private var amount = 1
 
     override fun onCreateView(
@@ -19,6 +22,7 @@ class ProductViewFragment(private var product: Product) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProductViewBinding.inflate(inflater, container, false)
+        orderViewModel = OrderViewModel()
         return binding.root
     }
 
@@ -33,7 +37,7 @@ class ProductViewFragment(private var product: Product) : Fragment() {
         binding.buttonIncrease.setOnClickListener {
             increaseAmount()
         }
-        binding.buttonAddToCart.setOnClickListener {
+        binding.buttonAddProductToCart.setOnClickListener {
             addToCart()
         }
     }
