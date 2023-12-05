@@ -6,7 +6,7 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.ActivityHomeBinding
-import icesi.edu.co.mercatero.view.authentication.SignUpShopFragment
+import icesi.edu.co.mercatero.view.shopProducts.AddProductFragment
 
 class HomeActivity : AppCompatActivity() {
 

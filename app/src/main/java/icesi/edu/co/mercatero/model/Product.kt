@@ -18,7 +18,8 @@ class Product:Serializable{
         description: String,
         price: String,
         imageURL: String,
-        shop_id: String
+        shop_id: String,
+        shopName: String
     ) {
         this.product_id = product_id
         this.name = name
@@ -28,6 +29,4 @@ class Product:Serializable{
         this.shop_id = shop_id
         this.shopName = shopName
     }
-
-
 }

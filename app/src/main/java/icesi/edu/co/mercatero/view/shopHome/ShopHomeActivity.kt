@@ -1,5 +1,6 @@
 package icesi.edu.co.mercatero.view.shopHome
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -11,6 +12,7 @@ import icesi.edu.co.mercatero.view.home.FavoritesFragment
 import icesi.edu.co.mercatero.view.home.HomeFragment
 import icesi.edu.co.mercatero.view.home.OrdersFragment
 import icesi.edu.co.mercatero.view.home.ProfileFragment
+import icesi.edu.co.mercatero.view.shopProducts.ManageProductsActivity
 
 class ShopHomeActivity : AppCompatActivity() {
 
@@ -23,7 +25,15 @@ class ShopHomeActivity : AppCompatActivity() {
         loadFragment(OrderRequestedFragment())
 
         binding.storeButton.setOnClickListener{
+            val intent = Intent(this, ManageProductsActivity::class.java)
+            startActivity(intent)
+        }
+        binding.profileButton.setOnClickListener{
 
+        }
+
+        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
+            handleNavigationItemSelected(menuItem)
         }
     }
 

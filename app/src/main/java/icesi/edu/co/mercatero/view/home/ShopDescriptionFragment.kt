@@ -55,7 +55,7 @@ class ShopDescriptionFragment(private val product_id: String) : Fragment() {
 
        // initRecycleView()
     }
-
+    
     companion object {
         @JvmStatic
         fun newInstance(product_id: String) = ShopDescriptionFragment(product_id)
