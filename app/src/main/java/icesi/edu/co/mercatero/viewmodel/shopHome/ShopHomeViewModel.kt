@@ -62,7 +62,7 @@ class ShopHomeViewModel: ViewModel() {
             val result = Firebase.firestore.collection("pedido").whereEqualTo("shop_id",store_id).get().await()
 
             for(doc in result){
-                var order = doc.toObject(Order::class.java)
+                    var order = doc.toObject(Order::class.java)
 
                     Log.d("Test","Orders Antes del If " + order.order_id)
 
