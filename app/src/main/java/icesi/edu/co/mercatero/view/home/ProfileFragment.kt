@@ -40,7 +40,7 @@ class ProfileFragment : Fragment() {
         //binding.nameTV.text = "Hola"
         myProfileViewModel = ProfileViewModel()
         myProfileViewModel.getProfileData()
-        myProfileViewModel.client.observe(this){
+        myProfileViewModel.client.observe(viewLifecycleOwner){
 
             binding.nameTV.text = it.name
             binding.emailTV.text = it.email

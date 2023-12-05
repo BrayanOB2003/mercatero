@@ -6,14 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import icesi.edu.co.mercatero.R
-import icesi.edu.co.mercatero.databinding.FragmentOrderInProgressBinding
-import icesi.edu.co.mercatero.databinding.FragmentOrdersBinding
+import icesi.edu.co.mercatero.databinding.FragmentOrderOnFinishedBinding
 import icesi.edu.co.mercatero.view.adapters.shopHome.OnClickOrderButton
 import icesi.edu.co.mercatero.viewmodel.shopHome.ShopHomeViewModel
 
-class OrderInProgressFragment : Fragment(), OnClickOrderButton {
+class OrderOnFinishedFragment : Fragment(), OnClickOrderButton {
 
-    private lateinit var binding: FragmentOrderInProgressBinding
+    private lateinit var binding: FragmentOrderOnFinishedBinding
     private lateinit var shopViewModel: ShopHomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,14 +23,14 @@ class OrderInProgressFragment : Fragment(), OnClickOrderButton {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentOrderInProgressBinding.inflate(layoutInflater, container, false)
+        binding = FragmentOrderOnFinishedBinding.inflate(layoutInflater, container, false)
         shopViewModel = ShopHomeViewModel()
-        return inflater.inflate(R.layout.fragment_order_in_progress, container, false)
+        return inflater.inflate(R.layout.fragment_order_on_finished, container, false)
     }
 
     companion object {
         @JvmStatic
-        fun newInstance() = OrderInProgressFragment()
+        fun newInstance() = OrderOnFinishedFragment()
     }
 
     override fun onClickUpdateStatus(order_id: String) {

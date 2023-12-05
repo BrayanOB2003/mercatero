@@ -99,9 +99,9 @@ class HomeViewModel:ViewModel() {
 
     fun getOrdersOfUser() {
         viewModelScope.launch(Dispatchers.IO) {
-            var userId = Firebase.auth.currentUser?.uid
+            //var userId = Firebase.auth.currentUser?.uid
             val result = Firebase.firestore.collection("pedido")
-                .whereEqualTo("client_id", userId)
+                .whereEqualTo("client_id", "p1lSI3Bs4nflEuW2Ip8Cgx0Kxhp1")
                 .get()
                 .await()
 
