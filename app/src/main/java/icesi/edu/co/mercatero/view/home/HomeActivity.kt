@@ -47,6 +47,7 @@ class HomeActivity : AppCompatActivity() {
 
     fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
+            .disallowAddToBackStack()
             .replace(binding.container.id, fragment)
             .commit()
     }

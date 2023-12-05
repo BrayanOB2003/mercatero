@@ -28,7 +28,7 @@ class ManageProductsActivity : AppCompatActivity() {
     fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(binding.manageProductContainer.id, fragment)
-            .addToBackStack(null)
+            .disallowAddToBackStack()
             .commit()
     }
 }

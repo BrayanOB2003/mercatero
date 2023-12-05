@@ -54,6 +54,7 @@ class AuthActivity : AppCompatActivity() {
 
     fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
+            .disallowAddToBackStack()
             .replace(binding.fragmentContainer.id, fragment).commit()
     }
 }

@@ -30,7 +30,8 @@ class ShopHomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.profileButton.setOnClickListener{
-            loadFragment(ShopProfileFragment())
+            val intent = Intent(this, ShopProfilerFragmentActivity::class.java)
+            startActivity(intent)
         }
 
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
@@ -63,6 +64,7 @@ class ShopHomeActivity : AppCompatActivity() {
 
     fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
+            .disallowAddToBackStack()
             .replace(binding.container.id, fragment)
             .commit()
     }

@@ -19,7 +19,6 @@ class OrderInProgressFragment : Fragment(), OnClickOrderButton {
 
     private lateinit var binding: FragmentOrderInProgressBinding
     private lateinit var shopViewModel: ShopHomeViewModel
-   // private lateinit var onClickOrderButton: OnClickOrderButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

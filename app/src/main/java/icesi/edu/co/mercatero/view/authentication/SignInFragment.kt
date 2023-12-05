@@ -82,16 +82,11 @@ class SignInFragment : Fragment() {
         val loadingScreen = LayoutInflater.from(requireContext()).inflate(R.layout.loading_screen, null)
         val progressBar = loadingScreen.findViewById<ProgressBar>(R.id.progressBar)
         val loadingMessage = loadingScreen.findViewById<TextView>(R.id.loadingMessage)
-
-        // Configura el mensaje de carga según sea necesario
         loadingMessage.text = getText(R.string.singin_message)
-
-        // Muestra la pantalla de carga
         loadingDialog = AlertDialog.Builder(requireContext())
             .setView(loadingScreen)
             .setCancelable(false)
             .create()
-
         loadingDialog.show()
     }
 
