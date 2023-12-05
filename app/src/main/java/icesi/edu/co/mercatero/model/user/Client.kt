@@ -5,8 +5,8 @@ import java.io.Serializable
 class Client:Serializable{
 
         var client_id: String? = ""
-        var name: String? = ""
-        var lastName: String? = ""
+        var name: String = ""
+        var lastName: String = ""
         var CC: String? = ""
         var address: String? = ""
         var phone: String? = ""
@@ -16,8 +16,8 @@ class Client:Serializable{
 
      constructor(
          client_id: String?,
-         name: String?,
-         lastName: String?,
+         name: String,
+         lastName: String,
          CC: String?,
          address: String?,
          phone: String?,

@@ -11,12 +11,14 @@ import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentOrderInProgressBinding
 import icesi.edu.co.mercatero.databinding.FragmentOrdersBinding
 import icesi.edu.co.mercatero.view.adapters.shopHome.OnClickOrderButton
+import icesi.edu.co.mercatero.view.adapters.shopHome.OrderAdapter
 import icesi.edu.co.mercatero.viewmodel.shopHome.ShopHomeViewModel
 
 class OrderInProgressFragment : Fragment(), OnClickOrderButton {
 
     private lateinit var binding: FragmentOrderInProgressBinding
     private lateinit var shopViewModel: ShopHomeViewModel
+   // private lateinit var onClickOrderButton: OnClickOrderButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,7 @@ class OrderInProgressFragment : Fragment(), OnClickOrderButton {
         shopViewModel.orders.observe(viewLifecycleOwner){
 
 
+            binding.orderRecyclerView.adapter = OrderAdapter(it.orderInfo,it.listName,this)
 
 
         }

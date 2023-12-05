@@ -8,16 +8,22 @@ class Order:Serializable{
     var shop_id: String = ""
     var address: String = ""
     var price: Double = 0.0
-    var products: ArrayList<String> = arrayListOf()
+    var idProducts: ArrayList<String> = arrayListOf()
+    var quantities: ArrayList<Int> = arrayListOf()
     var status: String = ""
 
 
+
+
+    constructor()
     constructor(
         order_id: String,
         client_id: String,
         shop_id: String,
         address: String,
         price: Double,
+        idProducts: ArrayList<String>,
+        quantities: ArrayList<Int>,
         status: String
     ) {
         this.order_id = order_id
@@ -25,10 +31,10 @@ class Order:Serializable{
         this.shop_id = shop_id
         this.address = address
         this.price = price
+        this.idProducts = idProducts
+        this.quantities = quantities
         this.status = status
     }
-
-    constructor()
 
 
 }

@@ -11,13 +11,14 @@ import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentOrderRequestedBinding
 import icesi.edu.co.mercatero.databinding.FragmentOrdersBinding
 import icesi.edu.co.mercatero.view.adapters.shopHome.OnClickOrderButton
+import icesi.edu.co.mercatero.view.adapters.shopHome.OrderAdapter
 import icesi.edu.co.mercatero.viewmodel.shopHome.ShopHomeViewModel
 
 class OrderRequestedFragment : Fragment(), OnClickOrderButton{
 
     private lateinit var binding: FragmentOrderRequestedBinding
     private lateinit var shopViewModel: ShopHomeViewModel
-
+ //   private lateinit var onClickOrderButton: OnClickOrderButton
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -28,11 +29,12 @@ class OrderRequestedFragment : Fragment(), OnClickOrderButton{
     ): View? {
         binding = FragmentOrderRequestedBinding.inflate(layoutInflater, container, false)
         shopViewModel = ShopHomeViewModel()
-        shopViewModel.getOrdersToAcept(Firebase.auth.currentUser!!.uid.toString())
+        shopViewModel.getOrdersToAcept("0x4bM1Y9HKh8psLZZPYe")
+       // shopViewModel.getOrdersToAcept(Firebase.auth.currentUser!!.uid.toString())
         shopViewModel.orders.observe(viewLifecycleOwner){
 
 
-
+            binding.orderRecyclerView.adapter = OrderAdapter(it.orderInfo,it.listName,this)
 
         }
         return binding.root

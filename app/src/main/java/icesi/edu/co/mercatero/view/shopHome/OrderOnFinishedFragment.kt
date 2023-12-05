@@ -10,12 +10,14 @@ import com.google.firebase.ktx.Firebase
 import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentOrderOnFinishedBinding
 import icesi.edu.co.mercatero.view.adapters.shopHome.OnClickOrderButton
+import icesi.edu.co.mercatero.view.adapters.shopHome.OrderAdapter
 import icesi.edu.co.mercatero.viewmodel.shopHome.ShopHomeViewModel
 
 class OrderOnFinishedFragment : Fragment(), OnClickOrderButton {
 
     private lateinit var binding: FragmentOrderOnFinishedBinding
     private lateinit var shopViewModel: ShopHomeViewModel
+  //  private lateinit var onClickOrderButton: OnClickOrderButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,7 @@ class OrderOnFinishedFragment : Fragment(), OnClickOrderButton {
         shopViewModel.getOrdersInDelivery(Firebase.auth.currentUser!!.uid.toString())
         shopViewModel.orders.observe(viewLifecycleOwner){
 
+            binding.orderRecyclerView.adapter = OrderAdapter(it.orderInfo,it.listName,this)
 
 
 
