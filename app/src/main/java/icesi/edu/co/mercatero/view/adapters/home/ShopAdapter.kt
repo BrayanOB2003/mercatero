@@ -56,7 +56,7 @@ class ShopAdapter(
 
         holder.name.text = shop.name
         holder.itemView.setOnClickListener{
-            shop.shop_id?.let { it1 -> listener.onShopItemClick(it1) }
+            listener.onShopItemClick(shop)
         }
     }
 

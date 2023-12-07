@@ -6,7 +6,10 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.ActivityHomeBinding
-import icesi.edu.co.mercatero.view.shopProducts.AddProductFragment
+import icesi.edu.co.mercatero.view.home.fragments.FavoritesFragment
+import icesi.edu.co.mercatero.view.home.fragments.HomeFragment
+import icesi.edu.co.mercatero.view.home.fragments.OrdersFragment
+import icesi.edu.co.mercatero.view.home.fragments.ProfileFragment
 
 class HomeActivity : AppCompatActivity() {
 
@@ -50,5 +53,14 @@ class HomeActivity : AppCompatActivity() {
             .disallowAddToBackStack()
             .replace(binding.container.id, fragment)
             .commit()
+    }
+    fun loadFragment(fragment: Fragment, backStackId: String) {
+        supportFragmentManager.beginTransaction()
+            .addToBackStack(backStackId)
+            .replace(binding.container.id, fragment)
+            .commit()
+    }
+    fun loadFragment(backStackId: String) {
+        supportFragmentManager.popBackStack(backStackId, 0)
     }
 }

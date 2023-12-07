@@ -2,7 +2,7 @@ package icesi.edu.co.mercatero.model
 
 import java.io.Serializable
 
-class Order:Serializable{
+class Order: Serializable{
     var order_id: String = ""
     var client_id: String = ""
     var shop_id: String = ""

@@ -15,7 +15,8 @@ import icesi.edu.co.mercatero.model.Product
 
 class ProductAdapter(
     private val context: Context,
-    private val data: ArrayList<Product>
+    private val data: ArrayList<Product>,
+    private val listener: OnProductItemClickListener
     ): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
 
@@ -66,6 +67,10 @@ class ProductAdapter(
         holder.productName.text = product.name
         holder.shopName.text = product.shopName
         holder.price.text = product.price
+
+        holder.itemView.setOnClickListener{
+            listener.onProductItemClick(product)
+        }
     }
 
 

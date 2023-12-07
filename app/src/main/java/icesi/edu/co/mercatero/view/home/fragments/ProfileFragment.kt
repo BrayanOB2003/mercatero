@@ -1,4 +1,4 @@
-package icesi.edu.co.mercatero.view.home
+package icesi.edu.co.mercatero.view.home.fragments
 
 import android.content.Intent
 import android.net.Uri
@@ -15,8 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import icesi.edu.co.mercatero.databinding.FragmentProfileBinding
 import icesi.edu.co.mercatero.view.authentication.AuthActivity
-import icesi.edu.co.mercatero.view.authentication.SignInFragment
-import icesi.edu.co.mercatero.view.shopProducts.ManageProductsActivity
 import icesi.edu.co.mercatero.viewmodel.home.ProfileViewModel
 
 class ProfileFragment : Fragment() {

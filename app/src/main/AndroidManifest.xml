@@ -16,7 +16,7 @@
             android:name=".view.shopHome.ShopProfilerFragmentActivity"
             android:exported="false" />
         <activity
-            android:name=".view.home.shoppingCart.PurchasingManagementActivity"
+            android:name=".view.home.PurchasingManagementActivity"
             android:exported="false" />
         <activity
             android:name=".view.shopProducts.ManageProductsActivity"

@@ -1,4 +1,4 @@
-package icesi.edu.co.mercatero.view.home.shoppingCart
+package icesi.edu.co.mercatero.view.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

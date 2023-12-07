@@ -1,5 +1,7 @@
 package icesi.edu.co.mercatero.view.adapters.home
 
+import icesi.edu.co.mercatero.model.Shop
+
 interface OnShopItemClickListener {
-    fun onShopItemClick(shop_id: String)
+    fun onShopItemClick(shop: Shop)
 }

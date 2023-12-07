@@ -1,4 +1,4 @@
-package icesi.edu.co.mercatero.view.home
+package icesi.edu.co.mercatero.view.home.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,7 +1,6 @@
 package icesi.edu.co.mercatero.view.shopProducts
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +10,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentManageViewProductsBinding
-import icesi.edu.co.mercatero.model.Shop
+import icesi.edu.co.mercatero.model.Product
+import icesi.edu.co.mercatero.view.adapters.home.OnProductItemClickListener
 import icesi.edu.co.mercatero.view.adapters.home.ProductAdapter
 import icesi.edu.co.mercatero.viewmodel.product.ProductViewModel
 
-class ViewProductsFragment() : Fragment() {
+class ViewProductsFragment() : Fragment(), OnProductItemClickListener {
 
     private lateinit var binding: FragmentManageViewProductsBinding
     private val productViewModel: ProductViewModel by activityViewModels()
@@ -38,6 +38,7 @@ class ViewProductsFragment() : Fragment() {
             binding.welcomeText.text = binding.welcomeText.text.toString() + authShop?.name
         }
 
+
         binding.buttonBack.setOnClickListener{
             activity?.finish()
         }
@@ -53,8 +54,7 @@ class ViewProductsFragment() : Fragment() {
                 binding.buttonAddProduct.isVisible = false
                 binding.addFloatingButton.isVisible = true
 
-                Log.d("Test"," Esta en el else con una candidad de productos " + it.size)
-                binding.productList.adapter = ProductAdapter(requireContext(), it!!)
+                binding.productList.adapter = ProductAdapter(requireContext(), it!!, this)
                 binding.productList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
             }
@@ -77,5 +77,9 @@ class ViewProductsFragment() : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = ViewProductsFragment()
+    }
+
+    override fun onProductItemClick(product: Product) {
+        TODO("Not yet implemented")
     }
 }

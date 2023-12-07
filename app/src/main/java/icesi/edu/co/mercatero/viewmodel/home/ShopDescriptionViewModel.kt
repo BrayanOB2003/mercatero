@@ -17,22 +17,11 @@ class ShopDescriptionViewModel:ViewModel() {
     private val _products = MutableLiveData(ArrayList<Product>())
     val products: LiveData<ArrayList<Product>> get() = _products
 
-    private val products2 = ArrayList<Product>()
-
-    private val _store = MutableLiveData(Shop())
-    val store: LiveData<Shop> get() = _store
-
     fun getStoreInfo(storeId: String){
 
+        var products2 = ArrayList<Product>()
 
         viewModelScope.launch(Dispatchers.IO){
-
-            val result = Firebase.firestore.collection("tienda").document(storeId).get().await()
-
-            val shop = result.toObject(Shop::class.java)
-
-
-            _store.postValue(shop)
 
             val result2 = Firebase.firestore.collection("producto").whereEqualTo("shop_id",storeId).get().await()
 
@@ -48,7 +37,6 @@ class ShopDescriptionViewModel:ViewModel() {
                 }
 
             }
-            //Log.d("Test","Salio del for con esto " + products2.size)
             _products.postValue(products2)
 
         }

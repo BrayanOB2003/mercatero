@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.mercatero.model.Order
@@ -20,12 +21,11 @@ class HomeViewModel:ViewModel() {
 
     private val _products = MutableLiveData(ArrayList<Product>())
     val products: LiveData<ArrayList<Product>> get() = _products
-
-    private val products2 = ArrayList<Product>()
+    var productsLoaded = false
 
     private val _store = MutableLiveData(ArrayList<Shop>())
     val stores: LiveData<ArrayList<Shop>> get() = _store
-
+    var storesLoaded = false
     private val store2 = ArrayList<Shop>()
 
     private val _orders = MutableLiveData(ArrayList<Order>())
@@ -35,68 +35,73 @@ class HomeViewModel:ViewModel() {
 
     fun getProductList(){
 
+        val products2 = ArrayList<Product>()
+
         viewModelScope.launch(Dispatchers.IO) {
+            observerShopDocuments()
 
-//            Log.d("Test","LLega al viewmodelScope")
+            if(!productsLoaded){
+                val result= Firebase.firestore.collection("producto").get().await()
 
-            val result= Firebase.firestore.collection("producto").get().await()
+                for(doc in result.documents) {
 
-            for(doc in result.documents) {
+                    val product = doc.toObject(Product::class.java)
 
-                //Log.d("Test ","Esta en el for " + doc.toString())
-                val product = doc.toObject(Product::class.java)
+                    product?.let { product ->
 
-                product?.let { product ->
-                //     Log.d("Test", it.toString())
+                        var shop = product.let { it ->
+                            Firebase.firestore.collection("tienda")
+                                .document(it.shop_id).get().await().toObject(Shop::class.java)
+                        }
+                        shop?.let { it ->
+                            product.shopName = it.name
+                        }
 
-                    var shop = product.let { it ->
-                        Firebase.firestore.collection("tienda")
-                            .document(it.shop_id).get().await().toObject(Shop::class.java)
+                        products2.add(product)
                     }
-                    shop?.let { it ->
-                        product.shopName = it.name
-                    }
-
-                    products2.add(product)
-                //     Log.d("Test","Pasa del primer query")
-
                 }
-
+                _products.postValue(products2)
+                productsLoaded = true
             }
-            //Log.d("Test","Salio del for con esto " + products2.size)
-            _products.postValue(products2)
-
         }
     }
 
     fun getStoreList(){
-
         viewModelScope.launch(Dispatchers.IO) {
 
+            if(!storesLoaded){
+                val result= Firebase.firestore.collection("tienda").get().await()
 
-            val result= Firebase.firestore.collection("tienda").get().await()
+                for(doc in result.documents) {
 
-            Log.d("Test","Pasa del primer query")
+                    val store = doc.toObject(Shop::class.java)
 
+                    store?.let {
+                        store2.add(it)
 
-            for(doc in result.documents) {
-
-                Log.d("Test ","Esta en el for " + doc.toString())
-                val store = doc.toObject(Shop::class.java)
-
-                store.let {
-                    Log.d("Test", "anadio algo "  + it.toString())
-                    store2.add(it!!)
-
+                    }
                 }
-
+                if(store2.isNotEmpty()) {
+                    _store.postValue(store2)
+                    storesLoaded = true
+                }
             }
-            Log.d("Test","Salio del for store con esto " + products2.size)
-           if(store2.isNotEmpty()) {
-               _store.postValue(store2)
-           }
         }
 
+    }
+
+    private fun observerShopDocuments(){
+        val collectionRef = FirebaseFirestore.getInstance().collection("producto")
+
+        collectionRef.addSnapshotListener { snapshot, exception ->
+            if (exception != null) {
+                return@addSnapshotListener
+            }
+            for (documentChange in snapshot?.documentChanges!!) {
+                val newData = documentChange.document.toObject(Product::class.java)
+                _products.value?.add(newData)
+            }
+        }
     }
 
     fun getOrdersOfUser() {
@@ -126,39 +131,4 @@ class HomeViewModel:ViewModel() {
             clientAuth.value = client
         }
     }
-
-    /*
-    fun getProductsBought(){
-
-        viewModelScope.launch(Dispatchers.IO) {
-
-
-            val result = Firebase.firestore.collection("pedido").whereEqualTo("client_id",Firebase.auth.currentUser!!.uid).get().await()
-
-            for (doc in result.documents){
-
-                var order = doc.toObject(Order::class.java)
-
-
-                for(id in order!!.idProducts){
-
-                    Log.d("Test", "Id del producto " + id)
-
-                    var result2 = Firebase.firestore.collection("producto").document(id).get().await()
-
-                    var product = result2.toObject(Product::class.java)
-                    if(products2.contains(product)){
-
-                    }else{
-                        products2.add(product!!)
-                    }
-                }
-
-            }
-            _products.postValue(products2)
-
-
-        }
-
-    }*/
 }
