@@ -87,8 +87,6 @@ class ProfileFragment : Fragment() {
                 myProfileViewModel.updateProfileImage(uri)
                 Toast.makeText(requireContext(),uri.toString(), Toast.LENGTH_SHORT).show();
             }
-
-
         }
     }
 

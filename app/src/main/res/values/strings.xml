@@ -75,7 +75,7 @@
     <string name="navigation_profile">Perfil</string>
 
     <!-- Strings used for client home -->
-    <string name="welcome_message">¡Hola,</string>
+    <string name="welcome_message">¡Hola, </string>
     <string name="home_search_hint">¿Qué estás buscando?</string>
     <string name="home_popular_shops">Tiendas más populares</string>
     <string name="home_popular_products">Lo más comprado</string>

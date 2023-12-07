@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentHomeBinding
 import icesi.edu.co.mercatero.model.Product
 import icesi.edu.co.mercatero.model.Shop
@@ -37,7 +38,22 @@ class HomeFragment : Fragment(),OnShopItemClickListener, OnProductItemClickListe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadUserInfo()
         initRecycleView()
+    }
+
+    private fun loadUserInfo(){
+        if(!viewModel.clientLoaded){
+            viewModel.clientAuth.observe(viewLifecycleOwner) { client ->
+                client?.let {
+                    binding.welcomeText.text = "${getText(R.string.welcome_message)} ${client?.name}!"
+                }
+            }
+
+            viewModel.getAuthUser()
+        } else {
+            binding.welcomeText.text = "${binding.welcomeText.text} ${viewModel.clientAuth.value?.name}!"
+        }
     }
 
     private fun initRecycleView(){

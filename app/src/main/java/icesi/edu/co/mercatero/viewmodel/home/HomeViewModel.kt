@@ -16,6 +16,7 @@ import icesi.edu.co.mercatero.model.user.Client
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class HomeViewModel:ViewModel() {
 
@@ -31,7 +32,9 @@ class HomeViewModel:ViewModel() {
     private val _orders = MutableLiveData(ArrayList<Order>())
     val orders: LiveData<ArrayList<Order>> get() = _orders
 
-    private val clientAuth = MutableLiveData<Client?>()
+    private val _clientAuth = MutableLiveData(Client())
+    val clientAuth: LiveData<Client> get() = _clientAuth
+    var clientLoaded = false
 
     fun getProductList(){
 
@@ -68,7 +71,6 @@ class HomeViewModel:ViewModel() {
 
     fun getStoreList(){
         viewModelScope.launch(Dispatchers.IO) {
-
             if(!storesLoaded){
                 val result= Firebase.firestore.collection("tienda").get().await()
 
@@ -123,12 +125,16 @@ class HomeViewModel:ViewModel() {
     }
 
     fun getAuthUser(){
-        viewModelScope.launch (Dispatchers.Main){
+        viewModelScope.launch (Dispatchers.IO){
             val userId = Firebase.auth.currentUser?.uid
             val result = userId?.let { Firebase.firestore.collection("cliente").document(it).get().await() }
 
             var client = result?.toObject(Client::class.java)
-            clientAuth.value = client
+
+            withContext(Dispatchers.Main) {
+                _clientAuth.value = client
+                clientLoaded = true
+            }
         }
     }
 }

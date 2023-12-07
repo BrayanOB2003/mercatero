@@ -32,9 +32,7 @@ class ProfileViewModel: ViewModel() {
             var id = Firebase.auth.currentUser?.uid
             id?.let {
                 val result = Firebase.firestore.collection("cliente").document(id).get().await()
-                Log.d("Test",result.toString())
                 val currentClient = result.toObject(Client::class.java)
-                Log.d("Test",currentClient.toString())
                 _client.postValue(currentClient)
             }
         }
