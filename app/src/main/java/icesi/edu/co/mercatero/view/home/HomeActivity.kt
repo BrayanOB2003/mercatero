@@ -36,20 +36,17 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun handleNavigationItemSelected(item: MenuItem): Boolean {
-        var selectedFragment: Fragment? = null
 
         when (item.itemId) {
-            R.id.navigation_home -> selectedFragment = loadFragment(BackStack.HOME.name) ?: HomeFragment()
-            R.id.navigation_orders -> selectedFragment = loadFragment(BackStack.ORDERS.name) ?: OrdersFragment()
-            R.id.navigation_favorites -> selectedFragment = loadFragment(BackStack.FAVORITES.name) ?: FavoritesFragment()
-            R.id.navigation_profile -> selectedFragment = loadFragment(BackStack.PROFILE.name) ?: viewModel.clientAuth.value?.let { ProfileFragment(it) }
+            R.id.navigation_home -> loadFragment(BackStack.HOME.name) ?: loadFragment(HomeFragment(), BackStack.HOME.name)
+            R.id.navigation_orders -> loadFragment(BackStack.ORDERS.name) ?: loadFragment(OrdersFragment(), BackStack.ORDERS.name)
+            R.id.navigation_favorites -> loadFragment(BackStack.FAVORITES.name) ?: loadFragment(FavoritesFragment(), BackStack.FAVORITES.name)
+            R.id.navigation_profile -> loadFragment(BackStack.PROFILE.name) ?: viewModel.clientAuth.value?.let { ProfileFragment(it) }
+                ?.let { loadFragment(it, BackStack.PROFILE.name) }
+            else -> return false
         }
-        return try {
-            selectedFragment?.let { loadFragment(it) }
-            true
-        } catch (e: Exception) {
-            false
-        }
+
+        return true
     }
 
     fun loadFragment(fragment: Fragment) {

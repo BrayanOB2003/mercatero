@@ -76,9 +76,7 @@ class ProductViewModel: ViewModel() {
                  products.add(product!!)
 
              }
-         //   Log.d("Test",products.joinToString("Esto contiene "))
              _myProducts.postValue(products)
-
          }
      }
 
