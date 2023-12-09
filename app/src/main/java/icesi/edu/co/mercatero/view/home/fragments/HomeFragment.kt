@@ -49,7 +49,6 @@ class HomeFragment : Fragment(),OnShopItemClickListener, OnProductItemClickListe
                     binding.welcomeText.text = "${getText(R.string.welcome_message)} ${client?.name}!"
                 }
             }
-
             viewModel.getAuthUser()
         } else {
             binding.welcomeText.text = "${binding.welcomeText.text} ${viewModel.clientAuth.value?.name}!"

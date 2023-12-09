@@ -1,5 +1,6 @@
 package icesi.edu.co.mercatero.viewmodel.home
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +10,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import icesi.edu.co.mercatero.model.Order
 import icesi.edu.co.mercatero.model.Product
 import icesi.edu.co.mercatero.model.Shop
@@ -17,6 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import java.util.UUID
 
 class HomeViewModel:ViewModel() {
 
@@ -135,6 +138,32 @@ class HomeViewModel:ViewModel() {
                 _clientAuth.value = client
                 clientLoaded = true
             }
+        }
+    }
+
+    fun updateProfileImage(newURI: Uri){
+
+        viewModelScope.launch (Dispatchers.IO){
+            var id = Firebase.auth.currentUser?.uid
+
+            val storageReference = Firebase.storage.reference
+                .child("cliente")
+                .child(UUID.randomUUID().toString())
+            storageReference.putFile(newURI).await()
+            val imageURL = storageReference.downloadUrl.await().toString()
+            val updates = hashMapOf<String, Any>(
+                "imageURL" to imageURL
+            )
+            id?.let {
+                Firebase.firestore.collection("cliente").document(id).update(updates)
+            }
+        }
+
+    }
+
+    fun signOut(){
+        viewModelScope.launch (Dispatchers.IO) {
+            Firebase.auth.signOut()
         }
     }
 }
