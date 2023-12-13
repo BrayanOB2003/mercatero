@@ -1,7 +1,6 @@
 package icesi.edu.co.mercatero.viewmodel.home
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import icesi.edu.co.mercatero.model.Order
@@ -60,17 +58,17 @@ class HomeViewModel:ViewModel() {
 
                     val product = doc.toObject(Product::class.java)
 
-                    product?.let { product ->
+                    product?.let { productP ->
 
-                        var shop = product.let { it ->
+                        val shop = productP.let {
                             Firebase.firestore.collection("tienda")
                                 .document(it.shop_id).get().await().toObject(Shop::class.java)
                         }
-                        shop?.let { it ->
-                            product.shopName = it.name
+                        shop?.let {
+                            productP.shopName = it.name
                         }
 
-                        products2.add(product)
+                        products2.add(productP)
                     }
                 }
                 _products.postValue(products2)
@@ -118,7 +116,7 @@ class HomeViewModel:ViewModel() {
 
     fun getOrdersOfUser() {
         viewModelScope.launch(Dispatchers.IO) {
-            var userId = Firebase.auth.currentUser?.uid
+            val userId = Firebase.auth.currentUser?.uid
             val result = Firebase.firestore.collection("pedido")
                 .whereEqualTo("client_id", userId)
                 .get()
@@ -139,7 +137,7 @@ class HomeViewModel:ViewModel() {
             val userId = Firebase.auth.currentUser?.uid
             val result = userId?.let { Firebase.firestore.collection("cliente").document(it).get().await() }
 
-            var client = result?.toObject(Client::class.java)
+            val client = result?.toObject(Client::class.java)
 
             withContext(Dispatchers.Main) {
                 _clientAuth.value = client
@@ -151,7 +149,7 @@ class HomeViewModel:ViewModel() {
     fun updateProfileImage(newURI: Uri){
 
         viewModelScope.launch (Dispatchers.IO){
-            var id = Firebase.auth.currentUser?.uid
+            val id = Firebase.auth.currentUser?.uid
 
             val storageReference = Firebase.storage.reference
                 .child("cliente")
@@ -177,50 +175,49 @@ class HomeViewModel:ViewModel() {
     fun addProductToOrder(product: Product, quantity: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-
                     val result = Firebase.firestore.collection("pedido")
                         .whereEqualTo("shop_id", product.shop_id)
                         .whereEqualTo("client_id", clientAuth.value?.client_id)
                         .whereEqualTo("status", OrderStatus.TO_ORDER.name)
                         .get().await()
 
-                    var currentOrders = result.documents.mapNotNull { document ->
+                    val currentOrders = result.documents.mapNotNull { document ->
                         document.toObject(Order::class.java)
                     }.toMutableList()
 
                     if(currentOrders.size == 1) {
-                        var shopOrder = currentOrders[0]
+                        val shopOrder = currentOrders[0]
 
-                        if (shopOrder != null) {
-                            val existingProduct = shopOrder.idProducts.indexOf(product.product_id)
-                            if (existingProduct != -1) {
-                                val currentQuantity = shopOrder.quantities[existingProduct].toInt()
-                                shopOrder.quantities[existingProduct] =
-                                    (currentQuantity + quantity).toString()
-                            } else {
-                                shopOrder.idProducts.add(product.product_id)
-                                shopOrder.quantities.add(quantity.toString())
-                            }
-                            val oldPrice = shopOrder.price.toInt()
-                            shopOrder.price = (oldPrice + product.price.toInt().times(quantity)).toString()
-
-                            currentOrders[0] = shopOrder
-                            db.collection("pedidos").document(shopOrder.order_id).set(shopOrder).await()
+                        val existingProduct = shopOrder.idProducts.indexOf(product.product_id)
+                        if (existingProduct != -1) {
+                            val currentQuantity = shopOrder.quantities[existingProduct].toInt()
+                            shopOrder.quantities[existingProduct] =
+                                (currentQuantity + quantity).toString()
                         } else {
-                            val newOrder = clientAuth.value?.client_id?.let {
+                            shopOrder.idProducts.add(product.product_id)
+                            shopOrder.quantities.add(quantity.toString())
+                        }
+                        val oldPrice = shopOrder.price.toInt()
+                        shopOrder.price = (oldPrice + product.price.toInt().times(quantity)).toString()
+
+                        currentOrders[0] = shopOrder
+                        db.collection("pedido").document(shopOrder.order_id).set(shopOrder).await()
+                    } else {
+                        val newOrder = clientAuth.value?.client_id?.let { client_id ->
+                            clientAuth.value?.address?.let { address ->
                                 Order(
                                     order_id = UUID.randomUUID().toString(),
-                                    client_id = it,
+                                    client_id = client_id,
                                     shop_id = product.shop_id,
-                                    address = "",
+                                    address = address,
                                     price = product.price.toInt().times(quantity).toString(),
                                     idProducts = arrayListOf(product.product_id),
-                                    quantities = arrayListOf("" + quantity),
-                                    status = OrderStatus.TO_DO.toString()
+                                    quantities = arrayListOf(quantity.toString()),
+                                    status = OrderStatus.TO_ORDER.name
                                 )
                             }
-                            newOrder?.let { db.collection("pedidos").document(it.order_id).set(newOrder).await() }
                         }
+                        newOrder?.let { db.collection("pedido").document(it.order_id).set(newOrder).await() }
                     }
                 }catch (e: Exception){
                     e.printStackTrace()

@@ -102,6 +102,12 @@
     <string name="add_product_empty">No tienes ningún menú creado hasta el momento</string>
     <string name="add_product_fill">¡Estos son todos tus productos!</string>
 
+    <!-- Strings used for ProductView screen -->
+    <string name="add_to_cart">Agregar al carrito</string>
+    <string name="name_of_product">Nombre: </string>
+    <string name="description_of_product">Descripción: </string>
+    <string name="price_of_product">Precio: </string>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

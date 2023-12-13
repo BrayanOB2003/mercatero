@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -12,11 +13,12 @@ import icesi.edu.co.mercatero.R
 import icesi.edu.co.mercatero.databinding.FragmentProductViewBinding
 import icesi.edu.co.mercatero.model.Product
 import icesi.edu.co.mercatero.viewmodel.OrderViewModel
+import icesi.edu.co.mercatero.viewmodel.home.HomeViewModel
 
 class ProductViewFragment(private var product: Product) : Fragment() {
 
     private lateinit var binding: FragmentProductViewBinding
-    private lateinit var orderViewModel: OrderViewModel
+    private val orderViewModel: HomeViewModel by activityViewModels()
 
     private var amount:Int = 1
 
@@ -26,7 +28,6 @@ class ProductViewFragment(private var product: Product) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProductViewBinding.inflate(inflater, container, false)
-        orderViewModel = OrderViewModel()
         if (product.imageURL.isNotEmpty()) {
             val storageReference: StorageReference = FirebaseStorage.getInstance()
                 .getReferenceFromUrl(product.imageURL)
@@ -37,9 +38,9 @@ class ProductViewFragment(private var product: Product) : Fragment() {
                     .into(binding.imageViewProduct)
             }
         }
-        binding.textViewProductName.text = product.name
-        binding.textViewProductDescription.text = product.description
-        binding.textViewProductPrice.text = product.price
+        binding.textViewProductNameValue.text = product.name
+        binding.textViewProductDescriptionValue.text = product.description
+        binding.textViewProductPriceValue.text = product.price
         return binding.root
     }
 
