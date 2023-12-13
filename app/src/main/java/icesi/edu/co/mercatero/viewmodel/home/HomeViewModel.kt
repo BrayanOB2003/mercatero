@@ -9,11 +9,13 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import icesi.edu.co.mercatero.model.Order
 import icesi.edu.co.mercatero.model.Product
 import icesi.edu.co.mercatero.model.Shop
+import icesi.edu.co.mercatero.model.enumeration.OrderStatus
 import icesi.edu.co.mercatero.model.user.Client
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,6 +40,11 @@ class HomeViewModel:ViewModel() {
     private val _clientAuth = MutableLiveData(Client())
     val clientAuth: LiveData<Client> get() = _clientAuth
     var clientLoaded = false
+
+    private val db = Firebase.firestore
+
+    private val _myOrders = MutableLiveData<ArrayList<Order>>()
+    val myOrders: LiveData<ArrayList<Order>> get() = _myOrders
 
     fun getProductList(){
 
@@ -164,6 +171,82 @@ class HomeViewModel:ViewModel() {
     fun signOut(){
         viewModelScope.launch (Dispatchers.IO) {
             Firebase.auth.signOut()
+        }
+    }
+
+    fun addProductToOrder(product: Product, quantity: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+
+                    val result = Firebase.firestore.collection("pedido")
+                        .whereEqualTo("shop_id", product.shop_id)
+                        .whereEqualTo("client_id", clientAuth.value?.client_id)
+                        .whereEqualTo("status", OrderStatus.TO_ORDER.name)
+                        .get().await()
+
+                    var currentOrders = result.documents.mapNotNull { document ->
+                        document.toObject(Order::class.java)
+                    }.toMutableList()
+
+                    if(currentOrders.size == 1) {
+                        var shopOrder = currentOrders[0]
+
+                        if (shopOrder != null) {
+                            val existingProduct = shopOrder.idProducts.indexOf(product.product_id)
+                            if (existingProduct != -1) {
+                                val currentQuantity = shopOrder.quantities[existingProduct].toInt()
+                                shopOrder.quantities[existingProduct] =
+                                    (currentQuantity + quantity).toString()
+                            } else {
+                                shopOrder.idProducts.add(product.product_id)
+                                shopOrder.quantities.add(quantity.toString())
+                            }
+                            val oldPrice = shopOrder.price.toInt()
+                            shopOrder.price = (oldPrice + product.price.toInt().times(quantity)).toString()
+
+                            currentOrders[0] = shopOrder
+                            db.collection("pedidos").document(shopOrder.order_id).set(shopOrder).await()
+                        } else {
+                            val newOrder = clientAuth.value?.client_id?.let {
+                                Order(
+                                    order_id = UUID.randomUUID().toString(),
+                                    client_id = it,
+                                    shop_id = product.shop_id,
+                                    address = "",
+                                    price = product.price.toInt().times(quantity).toString(),
+                                    idProducts = arrayListOf(product.product_id),
+                                    quantities = arrayListOf("" + quantity),
+                                    status = OrderStatus.TO_DO.toString()
+                                )
+                            }
+                            newOrder?.let { db.collection("pedidos").document(it.order_id).set(newOrder).await() }
+                        }
+                    }
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+            }
+
+    }
+
+    suspend fun addOrders() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _myOrders.value?.forEach{
+                    order -> addOrder(order)
+            }
+            _myOrders.postValue(arrayListOf())
+        }
+    }
+
+    private suspend fun addOrder(order: Order) {
+        if (order.idProducts.isNotEmpty()) {
+            viewModelScope.launch(Dispatchers.IO) {
+                try {
+                    db.collection("pedido").add(order).await()
+                } catch (e : Exception) {
+                    e.printStackTrace()
+                }
+            }
         }
     }
 }

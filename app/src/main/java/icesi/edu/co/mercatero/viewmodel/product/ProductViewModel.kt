@@ -49,13 +49,6 @@ class ProductViewModel: ViewModel() {
                         .document(shopId).get().await()
                     newProduct.shopName = shopDocument.getString("name") ?: ""
                     db.collection("producto").document(productId).set(newProduct).await()
-                    /*
-                    db.runTransaction { transaction ->
-                        val shopSnapshot = transaction.get(shopDocument)
-                        val currentProductsList = shopSnapshot.get("productos") as ArrayList<String>?: ArrayList()
-                        currentProductsList.add(result.id)
-                        transaction.update(shopDocument, "productos", currentProductsList)
-                    }.await()*/
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -65,16 +58,11 @@ class ProductViewModel: ViewModel() {
 
      fun loadMyProducts() {
          viewModelScope.launch(Dispatchers.IO) {
-
             val result = Firebase.firestore.collection("producto").whereEqualTo("shop_id",Firebase.auth.currentUser!!.uid).get().await()
-
              for(doc in result.documents){
-
                  var product = doc.toObject(Product::class.java)
-
                  Log.d("Test",product!!.product_id)
                  products.add(product!!)
-
              }
              _myProducts.postValue(products)
          }
@@ -84,15 +72,8 @@ class ProductViewModel: ViewModel() {
         viewModelScope.launch (Dispatchers.IO){
             val userId = Firebase.auth.currentUser?.uid
             val result = userId?.let { Firebase.firestore.collection("tienda").document(it).get().await() }
-
             var shop = result?.toObject(Shop::class.java)
             _shopAuth.postValue(shop)
         }
     }
 }
-
-  /*  private fun getUserShop(): String? {
-        return auth.currentUser?.uid
-    }
-
-   */

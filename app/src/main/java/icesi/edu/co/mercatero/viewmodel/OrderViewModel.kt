@@ -32,7 +32,7 @@ class OrderViewModel: ViewModel() {
                 shopOrder.quantities[existingProduct] = (currentQuantity + quantity).toString()
             } else {
                 shopOrder.idProducts.add(product.product_id)
-                shopOrder.quantities.add(""+quantity)
+                shopOrder.quantities.add(quantity.toString())
             }
             val oldPrice = shopOrder.price.toInt()
             shopOrder.price = (oldPrice+product.price.toInt().times(quantity)).toString()
